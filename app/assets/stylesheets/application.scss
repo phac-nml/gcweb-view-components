@@ -89,6 +89,17 @@ a:focus-visible {
   width: 1px;
 }
 
+.wb-inv {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
 .workbench {
   margin-top: 1rem;
 }
@@ -109,4 +120,92 @@ a:focus-visible {
   border: 1px solid #d9d9d9;
   padding: 0.5rem;
   text-align: left;
+}
+
+.alert {
+  background-clip: content-box;
+  border-left: 6px solid #000;
+  margin: 0.625rem 0 1.4375rem 0.625rem;
+  padding: 0 0 0 0.9375rem;
+  position: relative;
+}
+
+.alert > * {
+  margin-left: 0.9375rem;
+}
+
+.alert > :first-child:not(details) {
+  margin-top: 0;
+  padding-top: 0.9375rem;
+}
+
+.alert > :last-child {
+  padding-bottom: 1.5625rem;
+}
+
+.alert > p,
+.alert > ul,
+.alert > ol {
+  margin-bottom: 0;
+}
+
+.alert details {
+  margin-left: 0.5rem;
+  padding-top: 0.9375rem;
+}
+
+.alert > details:only-child {
+  padding-bottom: 0.625rem;
+  padding-top: 0;
+}
+
+.alert-info {
+  border-color: #269abc;
+  background: #d7faff;
+}
+
+.alert-success {
+  border-color: #278400;
+  background: #d8eeca;
+}
+
+.alert-warning {
+  border-color: #ee7100;
+  background: #f9f4d4;
+}
+
+.alert-danger {
+  border-color: #d3080c;
+  background: #f3e9e8;
+}
+
+.alert-link {
+  font-weight: 700;
+}
+
+.gc-featured-link {
+  background-color: #26374a;
+  color: #fff;
+  font-family: Lato, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  opacity: 0.9;
+  padding: 1rem 0;
+  position: relative;
+}
+
+.gc-featured-link a {
+  color: inherit;
+  font-weight: 700;
+}
+
+.gc-featured-link .stretched-link {
+  text-decoration-thickness: 1.5px;
+}
+
+.gc-featured-link .stretched-link:hover {
+  text-decoration-thickness: 2.5px;
+  text-underline-offset: 1px;
+}
+
+.gc-featured-link p {
+  margin-bottom: 0;
 }
