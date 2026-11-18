@@ -11,5 +11,6 @@ Rails.application.routes.draw do
 
   scope "(:locale)", locale: /en|fr/ do
     root "pages#home"
+    get "content" => "pages#content", as: :content_page
   end
 end

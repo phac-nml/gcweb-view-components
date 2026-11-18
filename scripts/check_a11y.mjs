@@ -4,7 +4,9 @@ import AxeBuilder from "@axe-core/playwright";
 const baseUrl = process.env.PREVIEW_BASE_URL || "http://127.0.0.1:3000";
 const routes = [
   { name: "home-en", path: "/" },
-  { name: "home-fr", path: "/fr" }
+  { name: "home-fr", path: "/fr" },
+  { name: "content-en", path: "/content" },
+  { name: "content-fr", path: "/fr/content" }
 ];
 
 const browser = await chromium.launch();

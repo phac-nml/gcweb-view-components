@@ -17,7 +17,9 @@ const diffDir = path.join(root, "tmp", "visual-diffs");
 
 const routes = [
   { name: "home-en", path: "/" },
-  { name: "home-fr", path: "/fr" }
+  { name: "home-fr", path: "/fr" },
+  { name: "content-en", path: "/content" },
+  { name: "content-fr", path: "/fr/content" }
 ];
 
 const maxDiffRatio = 0.005;
