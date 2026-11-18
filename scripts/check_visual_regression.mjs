@@ -9,19 +9,20 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const root = path.resolve(__dirname, "..");
 
-const baseUrl = process.env.PREVIEW_BASE_URL || "http://127.0.0.1:3000";
+const baseUrl = process.env.PREVIEW_BASE_URL || "http://127.0.0.1:3100";
 const updateBaseline = process.argv.includes("--update-baseline");
 const baselineDir = path.join(root, "test", "visual_baselines");
 const currentDir = path.join(root, "tmp", "visual-current");
 const diffDir = path.join(root, "tmp", "visual-diffs");
 
 const routes = [
-  { name: "home-en", path: "/" },
-  { name: "home-fr", path: "/fr" },
-  { name: "content-en", path: "/content" },
-  { name: "content-fr", path: "/fr/content" },
-  { name: "search-en", path: "/search" },
-  { name: "search-fr", path: "/fr/search" }
+  { name: "workbench-en", path: "/" },
+  { name: "workbench-fr", path: "/fr" },
+  { name: "header-preview-en", path: "/rails/view_components/app_shell/header_component/en" },
+  { name: "skip-links-preview-en", path: "/rails/view_components/app_shell/skip_links_component/en" },
+  { name: "footer-preview-en", path: "/rails/view_components/app_shell/footer_component/en" },
+  { name: "alert-preview-en", path: "/rails/view_components/gcweb/alert_component/en" },
+  { name: "alert-preview-fr", path: "/rails/view_components/gcweb/alert_component/fr" }
 ];
 
 const maxDiffRatio = 0.02;

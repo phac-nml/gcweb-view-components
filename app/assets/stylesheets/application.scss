@@ -89,234 +89,24 @@ a:focus-visible {
   width: 1px;
 }
 
-.home-hero {
-  background: #f5f5f5;
-}
-
-.home-hero__inner h1 {
-  margin-bottom: 0.25rem;
-}
-
-.home-featured-link {
-  background: #26374a;
-  color: #fff;
-  padding: 0.75rem 0;
-}
-
-.home-featured-link a {
-  color: #fff;
-}
-
-.home-most-requested {
-  border-bottom: 1px solid #d9d9d9;
-}
-
-.home-most-requested__list {
-  display: grid;
-  gap: 0.25rem 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-  list-style: none;
-  padding: 0;
-}
-
-.home-services {
+.workbench {
   margin-top: 1rem;
 }
 
-.home-services__grid {
-  display: grid;
-  gap: 1rem 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
-}
-
-.home-services__grid article h3 {
-  margin: 0 0 0.25rem;
-}
-
-.home-services__grid article p {
-  margin: 0;
-}
-
-.home-services__all {
-  background: #26374a;
-  border-radius: 0.125rem;
-  color: #fff;
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 0.5rem 0.75rem;
-  text-decoration: none;
-}
-
-.content-page {
-  margin-top: 1rem;
-}
-
-.content-page__breadcrumbs ol {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.content-page__breadcrumbs li + li::before {
-  content: "›";
-  margin-right: 0.5rem;
-}
-
-.content-page h1 {
-  margin-top: 1rem;
-}
-
-.content-page__alert {
-  background: #f9f0f0;
-  border-left: 4px solid #d3080c;
+.workbench__links {
   margin: 1rem 0;
-  padding: 0.75rem;
+  padding-left: 1.25rem;
 }
 
-.content-featured-link {
-  background: #26374a;
-  color: #fff;
-  margin: 1rem 0;
-  padding: 0.75rem;
+.workbench__table {
+  border-collapse: collapse;
+  margin-top: 0.75rem;
+  width: 100%;
 }
 
-.content-featured-link a {
-  color: #fff;
-}
-
-.content-page__most-requested ul {
-  margin-top: 0.5rem;
-}
-
-.content-page__services-grid {
-  display: grid;
-  gap: 1rem 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
-}
-
-.content-page__services-grid article h3 {
-  margin: 0 0 0.25rem;
-}
-
-.content-page__services-grid article p {
-  margin: 0;
-}
-
-.content-page__details {
-  border-top: 1px solid #d9d9d9;
-  margin-top: 2rem;
-  padding-top: 0.75rem;
-}
-
-.content-page__details dt {
-  font-weight: 700;
-}
-
-.search-page {
-  margin-top: 1rem;
-}
-
-.search-page__input-group {
-  display: flex;
-  gap: 0.5rem;
-  margin: 1rem 0 0.5rem;
-}
-
-.search-page__input {
-  border: 1px solid #9f9f9f;
-  flex: 1;
-  font: inherit;
-  min-height: 2.5rem;
-  padding: 0.5rem 0.75rem;
-}
-
-.search-page__submit {
-  background: #26374a;
-  border: 1px solid #26374a;
-  color: #fff;
-  cursor: pointer;
-  font: inherit;
-  min-height: 2.5rem;
-  padding: 0.5rem 1rem;
-}
-
-.search-page__privacy-note {
-  margin-top: 0;
-}
-
-.search-page__results {
-  margin-top: 1rem;
-}
-
-.search-result {
-  border-bottom: 1px solid #d9d9d9;
-  padding: 0.75rem 0;
-}
-
-.search-result h3 {
-  margin: 0 0 0.25rem;
-}
-
-.search-result__location {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  list-style: none;
-  margin: 0 0 0.25rem;
-  padding: 0;
-}
-
-.search-result__location li + li::before {
-  content: "›";
-  margin-right: 0.4rem;
-}
-
-.search-result__date {
-  color: #6f6f6f;
-}
-
-.search-page__pagination-wrap {
-  margin-top: 1rem;
-}
-
-.search-page__pagination {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.search-page__pagination li a {
-  border: 1px solid #c6c6c6;
-  display: inline-block;
-  min-width: 2rem;
-  padding: 0.25rem 0.5rem;
-  text-align: center;
-  text-decoration: none;
-}
-
-.search-page__pagination .active a {
-  background: #26374a;
-  border-color: #26374a;
-  color: #fff;
-}
-
-.search-page__advanced {
-  margin-top: 1rem;
-  text-align: center;
-}
-
-.search-page__details {
-  border-top: 1px solid #d9d9d9;
-  margin-top: 2rem;
-  padding-top: 0.75rem;
-}
-
-.search-page__details dt {
-  font-weight: 700;
+.workbench__table td,
+.workbench__table th {
+  border: 1px solid #d9d9d9;
+  padding: 0.5rem;
+  text-align: left;
 }

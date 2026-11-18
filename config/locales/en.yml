@@ -1,32 +1,3 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
   app:
     title: "GCWeb View Components"
@@ -39,180 +10,18 @@ en:
       skip_links_aria_label: "Skip links"
       skip_to_main: "Skip to main content"
       skip_to_footer: "Skip to footer"
-      footer_notice: "Government of Canada footer placeholder"
-    home:
-      banner:
-        title: "Canada.ca"
-        description: "The official website of the Government of Canada"
-      featured:
-        heading: "Spotlight on"
-        title: "[Promotion title]"
-        description: "Long description [Optional]"
-        url: "#"
-      most_requested:
-        heading: "Most requested"
-        links:
-          - label: "Login to an account"
-            url: "https://www.canada.ca/en/government/sign-in-online-account.html"
-          - label: "Employment Insurance and leave"
-            url: "https://www.canada.ca/en/services/benefits/ei.html"
-          - label: "Public pensions (CPP and OAS)"
-            url: "https://www.canada.ca/en/services/benefits/publicpensions.html"
-          - label: "Get a passport"
-            url: "https://www.canada.ca/en/immigration-refugees-citizenship/services/canadian-passports.html"
-          - label: "Weather"
-            url: "https://weather.gc.ca/canada_e.html"
-          - label: "Grants and funding"
-            url: "https://www.canada.ca/en/government/grants-funding.html"
-          - label: "Change your address"
-            url: "https://www.canada.ca/en/government/change-address.html"
-          - label: "Product recalls and alerts"
-            url: "http://www.healthycanadians.gc.ca/recall-alert-rappel-avis/index-eng.php"
-      services:
-        heading: "Services and information"
-        all_services_label: "All services"
-        all_services_url: "https://www.canada.ca/en/services.html"
-        items:
-          - title: "Jobs"
-            url: "https://www.canada.ca/en/services/jobs.html"
-            description: "Find a job, training, hiring programs, work permits, Social Insurance Number (SIN)"
-          - title: "Immigration and citizenship"
-            url: "https://www.canada.ca/en/services/immigration-citizenship.html"
-            description: "Visit, work, study, immigrate, refugees, permanent residents, apply, check status"
-          - title: "Travel and tourism"
-            url: "https://travel.gc.ca"
-            description: "In Canada or abroad, advice, advisories, passports, visit Canada, events, attractions"
-          - title: "Business and industry"
-            url: "https://www.canada.ca/en/services/business.html"
-            description: "Starting a business, permits, copyright, business support, selling to government"
-          - title: "Benefits"
-            url: "https://www.canada.ca/en/services/benefits.html"
-            description: "EI, family and sickness leave, pensions, housing, student aid, disabilities"
-          - title: "Taxes"
-            url: "https://www.canada.ca/en/services/taxes.html"
-            description: "Income tax, payroll, GST/HST, contribution limits, tax credits, charities"
-          - title: "Health"
-            url: "https://www.canada.ca/en/services/health.html"
-            description: "Food, nutrition, diseases, vaccines, drugs, product safety and recalls"
-          - title: "Environment and natural resources"
-            url: "https://www.canada.ca/en/services/environment.html"
-            description: "Weather, climate, agriculture, wildlife, pollution, conservation, fisheries"
-          - title: "Money and finances"
-            url: "https://www.canada.ca/en/services/finance.html"
-            description: "Personal finance, credit reports, fraud protection, paying for education"
-    content:
-      breadcrumb_aria_label: "Breadcrumb"
-      breadcrumbs:
-        - label: "Canada.ca"
-          url: "https://www.canada.ca/en.html"
-        - label: "Jobs"
-      heading: "Jobs"
-      alert:
-        heading: "Danger alert"
-        description: "Scam warning: be aware of fraudulent job postings and payment requests."
-      featured:
-        heading: "Spotlight on"
-        title: "[Promotion title]"
-        description: "Long description [Optional]"
-        url: "#"
-      most_requested:
-        heading: "Most requested"
-        links:
-          - label: "View your records of employment"
-            url: "https://www.canada.ca/en/employment-social-development/services/my-account.html"
-          - label: "Apply for a Social Insurance Number (SIN)"
-            url: "https://www.canada.ca/en/employment-social-development/services/sin.html"
-          - label: "Hire a temporary foreign worker"
-            url: "https://www.canada.ca/en/immigration-refugees-citizenship/services/work-canada/hire-temporary-foreign.html"
-          - label: "Immigrate as a skilled worker"
-            url: "https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry.html"
-      services:
-        heading: "Services and information"
-        items:
-          - title: "Find a job"
-            url: "https://www.canada.ca/en/services/jobs/opportunities.html"
-            description: "Search opportunities, apply, and prepare your resume."
-          - title: "Funding for jobs and training"
-            url: "https://www.canada.ca/en/employment-social-development/services/funding/programs.html"
-            description: "Funding programs to support workforce development."
-          - title: "Training"
-            url: "https://www.canada.ca/en/services/jobs/training.html"
-            description: "Skills training and career development resources."
-          - title: "Hiring and managing employees"
-            url: "https://www.canada.ca/en/services/business/hire/index.html"
-            description: "Hiring guidance and workplace requirements."
-          - title: "Starting a business"
-            url: "https://www.canada.ca/en/services/business/start/index.html"
-            description: "Steps to start and register a business."
-          - title: "Workplace standards"
-            url: "https://www.canada.ca/en/services/jobs/workplace.html"
-            description: "Federal labour standards and rights at work."
-          - title: "Employment Insurance benefits and leave"
-            url: "https://www.canada.ca/en/services/benefits/ei.html"
-            description: "Employment Insurance support and leave benefits."
-          - title: "Pensions and retirement"
-            url: "https://www.canada.ca/en/services/finance/pensions.html"
-            description: "Public pensions and retirement planning information."
-      page_details:
-        heading: "Page details"
-        date_label: "Date modified:"
-        date_value: "2026-11-17"
-    search:
-      heading: "Search results"
-      default_query: "jobs"
-      summary: "%{count} search results for \"%{term}\""
-      form:
-        label: "Search Government of Canada websites"
-        button: "Search"
-        privacy_note: "Don't include personal information (telephone, email, SIN, financial, medical, or work details)."
-      results:
-        - title: "Find a job - Canada.ca"
-          url: "https://www.canada.ca/en/services/jobs/opportunities.html"
-          location:
-            - "canada.ca"
-            - "Jobs and the workplace"
-          date_iso: "2026-02-05"
-          date_label: "Feb 05, 2026"
-          description: "Search jobs by location and occupation and apply online."
-        - title: "Funding for jobs and training"
-          url: "https://www.canada.ca/en/employment-social-development/services/funding/programs.html"
-          location:
-            - "canada.ca"
-            - "Employment and Social Development"
-          date_iso: "2026-02-05"
-          date_label: "Feb 05, 2026"
-          description: "Programs that support training, workforce development, and hiring."
-        - title: "Employment Insurance benefits"
-          url: "https://www.canada.ca/en/services/benefits/ei.html"
-          location:
-            - "canada.ca"
-            - "Benefits"
-          date_iso: "2026-02-05"
-          date_label: "Feb 05, 2026"
-          description: "Learn about EI eligibility, payments, and leave benefits."
-        - title: "Immigrate as a skilled worker"
-          url: "https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry.html"
-          location:
-            - "canada.ca"
-            - "Immigration and citizenship"
-          date_iso: "2026-02-05"
-          date_label: "Feb 05, 2026"
-          description: "Apply through Express Entry for permanent residence."
-      pagination:
-        aria_label: "Search results pages"
-        pages:
-          - label: "1"
-            url: "#"
-          - label: "2"
-            url: "#"
-          - label: "3"
-            url: "#"
-        next: "Next"
-        next_url: "#"
-      advanced:
-        label: "Perform an advanced search"
-        url: "#"
-      page_details:
-        heading: "Page details"
-        date_label: "Date modified:"
-        date_value: "2026-11-17"
+      footer_notice: "Component preview footer"
+    workbench:
+      heading: "Component workbench"
+      description: "Build and review WET/GCWeb components in isolation."
+      lookbook_link: "Open Lookbook"
+      rails_preview_link: "Open Rails component previews"
+      alert_preview_link: "Open alert preview (EN)"
+      backlog_heading: "Starter component backlog"
+      table:
+        component: "Component"
+        reference: "WET reference"
+        status: "Status"
+      status:
+        in_progress: "In progress"
+        planned: "Planned"
