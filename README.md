@@ -1,24 +1,38 @@
-# README
+# GCWeb View Components
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Rails implementation of GCWeb/WET-inspired UI patterns using modern Rails and JavaScript tooling.
 
-Things you may want to cover:
+## Stack
+- Ruby + Rails 8
+- ViewComponent
+- Hotwire (Turbo + Stimulus)
+- Vite Ruby
 
-* Ruby version
+## Project goal
+Recreate key GCWeb template behavior and structure with:
+- WCAG AA baseline checks
+- EN/FR support
+- SSR-first pages with progressive enhancement
 
-* System dependencies
+## Current status
+Wave 1 work in progress:
+- Baseline fixtures and screenshots in [`fixtures/wave-1/`](./fixtures/wave-1/)
+- Home and content template parity started
+- Global shell (skip links, header, language switch, footer) in place
 
-* Configuration
+## Run locally
+```bash
+bundle install
+npm install
+bin/dev
+```
 
-* Database creation
+Default dev port is `3100` (override with `PORT=3200 bin/dev`).
 
-* Database initialization
+## Quality checks
+```bash
+bundle exec rails test
+npm run preview:check
+```
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+`preview:check` runs accessibility checks and visual regression checks.
