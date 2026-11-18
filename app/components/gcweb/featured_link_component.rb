@@ -30,7 +30,7 @@ module Gcweb
       green = value[2, 2].to_i(16)
       blue = value[4, 2].to_i(16)
 
-      luminance = [red, green, blue].map do |channel|
+      luminance = [ red, green, blue ].map do |channel|
         value = channel / 255.0
         value <= 0.03928 ? (value / 12.92) : (((value + 0.055) / 1.055)**2.4)
       end
