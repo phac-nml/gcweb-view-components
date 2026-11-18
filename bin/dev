@@ -1,2 +1,7 @@
 #!/usr/bin/env ruby
-exec "./bin/rails", "server", *ARGV
+
+if ARGV.include?("-p") || ARGV.include?("--port") || ARGV.any? { |arg| arg.start_with?("--port=") }
+  exec "./bin/rails", "server", *ARGV
+else
+  exec "./bin/rails", "server", "-p", ENV.fetch("PORT", "3100"), *ARGV
+end
