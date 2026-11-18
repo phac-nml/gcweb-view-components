@@ -16,7 +16,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.2"
+          ruby-version: "3.3"
           bundler-cache: true
 
       - name: Scan for common Rails security vulnerabilities using static analysis
@@ -36,7 +36,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.2"
+          ruby-version: "3.3"
           bundler-cache: true
 
       - name: Prepare RuboCop cache
@@ -71,7 +71,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.2"
+          ruby-version: "3.3"
           bundler-cache: true
 
       - name: Run tests
@@ -91,7 +91,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.2"
+          ruby-version: "3.3"
           bundler-cache: true
 
       - name: Set up Node.js
@@ -140,7 +140,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.2"
+          ruby-version: "3.3"
           bundler-cache: true
 
       - name: Run System Tests
