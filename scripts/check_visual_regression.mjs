@@ -21,7 +21,9 @@ const routes = [
   { name: "content-en", path: "/content" },
   { name: "content-fr", path: "/fr/content" },
   { name: "search-en", path: "/search" },
-  { name: "search-fr", path: "/fr/search" }
+  { name: "search-fr", path: "/fr/search" },
+  { name: "server-message-en", path: "/server-message" },
+  { name: "server-message-fr", path: "/fr/server-message" }
 ];
 
 const maxDiffRatio = 0.02;

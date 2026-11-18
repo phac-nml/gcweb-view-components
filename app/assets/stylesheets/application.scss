@@ -320,3 +320,20 @@ a:focus-visible {
 .search-page__details dt {
   font-weight: 700;
 }
+
+.server-message-page {
+  margin-top: 1rem;
+}
+
+.server-message-page__body {
+  margin-bottom: 2rem;
+}
+
+.server-message-page__code {
+  background: #d3080c;
+  border-radius: 0.125rem;
+  color: #fff;
+  display: inline-block;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+}

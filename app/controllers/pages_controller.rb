@@ -4,4 +4,6 @@ class PagesController < ApplicationController
   def content; end
 
   def search; end
+
+  def server_message; end
 end

@@ -13,5 +13,6 @@ Rails.application.routes.draw do
     root "pages#home"
     get "content" => "pages#content", as: :content_page
     get "search" => "pages#search", as: :search_page
+    get "server-message" => "pages#server_message", as: :server_message_page
   end
 end

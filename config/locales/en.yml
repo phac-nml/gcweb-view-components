@@ -216,3 +216,7 @@ en:
         heading: "Page details"
         date_label: "Date modified:"
         date_value: "2026-11-17"
+    server_message:
+      heading: "Message title - Canada.ca theme"
+      error_code: "Error code"
+      message: "Sample text. Sample text. Sample text. Sample text. Sample text. Sample text. Sample text. Sample text. Sample text. Sample text."

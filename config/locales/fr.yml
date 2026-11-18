@@ -187,3 +187,7 @@ fr:
         heading: "Détails de la page"
         date_label: "Date de modification :"
         date_value: "2026-11-17"
+    server_message:
+      heading: "Titre du message - Thème Canada.ca"
+      error_code: "Code d'erreur"
+      message: "Texte d'exemple. Texte d'exemple. Texte d'exemple. Texte d'exemple. Texte d'exemple. Texte d'exemple. Texte d'exemple. Texte d'exemple. Texte d'exemple. Texte d'exemple."
