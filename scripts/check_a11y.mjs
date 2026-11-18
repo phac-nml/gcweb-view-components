@@ -6,7 +6,9 @@ const routes = [
   { name: "home-en", path: "/" },
   { name: "home-fr", path: "/fr" },
   { name: "content-en", path: "/content" },
-  { name: "content-fr", path: "/fr/content" }
+  { name: "content-fr", path: "/fr/content" },
+  { name: "search-en", path: "/search" },
+  { name: "search-fr", path: "/fr/search" }
 ];
 
 const browser = await chromium.launch();
