@@ -74,6 +74,20 @@ jobs:
           ruby-version: "3.3"
           bundler-cache: true
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install JavaScript dependencies
+        run: npm ci
+
+      - name: Build Vite assets for test environment
+        env:
+          RAILS_ENV: test
+        run: bin/vite build
+
       - name: Run tests
         env:
           RAILS_ENV: test
@@ -105,6 +119,11 @@ jobs:
 
       - name: Install Playwright browser
         run: npx playwright install --with-deps chromium
+
+      - name: Build Vite assets for test environment
+        env:
+          RAILS_ENV: test
+        run: bin/vite build
 
       - name: Run preview accessibility and visual regression checks
         env:
@@ -142,6 +161,20 @@ jobs:
         with:
           ruby-version: "3.3"
           bundler-cache: true
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install JavaScript dependencies
+        run: npm ci
+
+      - name: Build Vite assets for test environment
+        env:
+          RAILS_ENV: test
+        run: bin/vite build
 
       - name: Run System Tests
         env:
