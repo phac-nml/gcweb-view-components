@@ -5,6 +5,12 @@ fr:
       aria_label: "Sélecteur de langue"
       english: "English"
       french: "Français"
+    shell:
+      signature: "Gouvernement du Canada"
+      skip_links_aria_label: "Liens d’évitement"
+      skip_to_main: "Passer au contenu principal"
+      skip_to_footer: "Passer au pied de page"
+      footer_notice: "Espace réservé pour le pied de page du gouvernement du Canada"
     home:
       heading: "Composants de vue GCWeb"
       description: "La base Rails 8 + ViewComponent + Hotwire est active."

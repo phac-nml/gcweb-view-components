@@ -34,6 +34,12 @@ en:
       aria_label: "Language switch"
       english: "English"
       french: "Français"
+    shell:
+      signature: "Government of Canada"
+      skip_links_aria_label: "Skip links"
+      skip_to_main: "Skip to main content"
+      skip_to_footer: "Skip to footer"
+      footer_notice: "Government of Canada footer placeholder"
     home:
       heading: "GCWeb View Components"
       description: "Rails 8 + ViewComponent + Hotwire foundation is active."

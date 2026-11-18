@@ -2,3 +2,78 @@
  * Global stylesheet entrypoint for Dart Sass.
  * Add imports here as the design system grows.
  */
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+}
+
+a:focus-visible {
+  outline: 3px solid #26374a;
+  outline-offset: 2px;
+}
+
+.skip-links {
+  left: 0;
+  position: absolute;
+  top: 0;
+  z-index: 1000;
+}
+
+.skip-links__link {
+  background: #26374a;
+  color: #fff;
+  display: inline-block;
+  left: -999px;
+  padding: 0.5rem 0.75rem;
+  position: absolute;
+  text-decoration: none;
+}
+
+.skip-links__link:focus {
+  left: 0.5rem;
+  top: 0.5rem;
+}
+
+.site-header {
+  background: #f5f5f5;
+  border-bottom: 1px solid #d9d9d9;
+}
+
+.site-header__inner,
+.site-footer__inner,
+.container {
+  margin: 0 auto;
+  max-width: 68rem;
+  padding: 1rem;
+}
+
+.site-header__signature {
+  font-size: 0.875rem;
+  margin: 0 0 0.25rem;
+}
+
+.site-header__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.language-switch__list {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+}
+
+.site-footer {
+  background: #f5f5f5;
+  border-top: 1px solid #d9d9d9;
+  margin-top: 2rem;
+}

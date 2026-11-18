@@ -35,11 +35,11 @@
   </head>
 
   <body>
-    <nav aria-label="<%= t('app.language_switch.aria_label') %>">
-      <%= link_to t("app.language_switch.english"), url_for(locale: :en) %>
-      |
-      <%= link_to t("app.language_switch.french"), url_for(locale: :fr) %>
-    </nav>
-    <%= yield %>
+    <%= render(AppShell::SkipLinksComponent.new) %>
+    <%= render(AppShell::HeaderComponent.new) %>
+    <main id="main-content" tabindex="-1">
+      <%= yield %>
+    </main>
+    <%= render(AppShell::FooterComponent.new) %>
   </body>
 </html>
