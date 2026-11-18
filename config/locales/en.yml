@@ -157,3 +157,62 @@ en:
         heading: "Page details"
         date_label: "Date modified:"
         date_value: "2026-11-17"
+    search:
+      heading: "Search results"
+      default_query: "jobs"
+      summary: "%{count} search results for \"%{term}\""
+      form:
+        label: "Search Government of Canada websites"
+        button: "Search"
+        privacy_note: "Don't include personal information (telephone, email, SIN, financial, medical, or work details)."
+      results:
+        - title: "Find a job - Canada.ca"
+          url: "https://www.canada.ca/en/services/jobs/opportunities.html"
+          location:
+            - "canada.ca"
+            - "Jobs and the workplace"
+          date_iso: "2026-02-05"
+          date_label: "Feb 05, 2026"
+          description: "Search jobs by location and occupation and apply online."
+        - title: "Funding for jobs and training"
+          url: "https://www.canada.ca/en/employment-social-development/services/funding/programs.html"
+          location:
+            - "canada.ca"
+            - "Employment and Social Development"
+          date_iso: "2026-02-05"
+          date_label: "Feb 05, 2026"
+          description: "Programs that support training, workforce development, and hiring."
+        - title: "Employment Insurance benefits"
+          url: "https://www.canada.ca/en/services/benefits/ei.html"
+          location:
+            - "canada.ca"
+            - "Benefits"
+          date_iso: "2026-02-05"
+          date_label: "Feb 05, 2026"
+          description: "Learn about EI eligibility, payments, and leave benefits."
+        - title: "Immigrate as a skilled worker"
+          url: "https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry.html"
+          location:
+            - "canada.ca"
+            - "Immigration and citizenship"
+          date_iso: "2026-02-05"
+          date_label: "Feb 05, 2026"
+          description: "Apply through Express Entry for permanent residence."
+      pagination:
+        aria_label: "Search results pages"
+        pages:
+          - label: "1"
+            url: "#"
+          - label: "2"
+            url: "#"
+          - label: "3"
+            url: "#"
+        next: "Next"
+        next_url: "#"
+      advanced:
+        label: "Perform an advanced search"
+        url: "#"
+      page_details:
+        heading: "Page details"
+        date_label: "Date modified:"
+        date_value: "2026-11-17"
