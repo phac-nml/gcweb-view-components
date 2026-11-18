@@ -10,6 +10,8 @@
 
 /public/assets
 /public/vite
+/public/vite-dev
+/public/vite-test
 /app/assets/builds/*
 !/app/assets/builds/.keep
 
