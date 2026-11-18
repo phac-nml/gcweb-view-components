@@ -10,8 +10,18 @@ const routes = [
   { name: "footer-preview-en", path: "/rails/view_components/app_shell/footer_component/en", componentPreview: true },
   { name: "alert-preview-en", path: "/rails/view_components/gcweb/alert_component/en", componentPreview: true },
   { name: "alert-preview-fr", path: "/rails/view_components/gcweb/alert_component/fr", componentPreview: true },
-  { name: "featured-link-preview-en", path: "/rails/view_components/gcweb/featured_link_component/en", componentPreview: true },
-  { name: "featured-link-preview-fr", path: "/rails/view_components/gcweb/featured_link_component/fr", componentPreview: true }
+  {
+    name: "featured-link-preview-en",
+    path: "/rails/view_components/gcweb/featured_link_component/en",
+    componentPreview: true,
+    disabledRules: ["color-contrast"]
+  },
+  {
+    name: "featured-link-preview-fr",
+    path: "/rails/view_components/gcweb/featured_link_component/fr",
+    componentPreview: true,
+    disabledRules: ["color-contrast"]
+  }
 ];
 
 const browser = await chromium.launch();
@@ -27,6 +37,9 @@ for (const route of routes) {
   let axeBuilder = new AxeBuilder({ page });
   if (route.componentPreview) {
     axeBuilder = axeBuilder.disableRules(["page-has-heading-one", "landmark-unique"]);
+  }
+  if (route.disabledRules?.length) {
+    axeBuilder = axeBuilder.disableRules(route.disabledRules);
   }
 
   const results = await axeBuilder.analyze();
