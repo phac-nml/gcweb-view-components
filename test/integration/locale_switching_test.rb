@@ -5,15 +5,15 @@ class LocaleSwitchingTest < ActionDispatch::IntegrationTest
     get root_path
 
     assert_response :success
-    assert_select "h1", "Canada.ca"
-    assert_select "main p", "The official website of the Government of Canada"
+    assert_select "h1", "Component workbench"
+    assert_select "main p", "Build and review WET/GCWeb components in isolation."
   end
 
   test "renders french content when locale is fr" do
     get root_path(locale: :fr)
 
     assert_response :success
-    assert_select "h1", "Canada.ca"
-    assert_select "main p", "Le site officiel du gouvernement du Canada"
+    assert_select "h1", "Atelier des composants"
+    assert_select "main p", "Créer et revoir les composants WET/GCWeb de façon isolée."
   end
 end

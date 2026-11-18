@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-PORT="${PREVIEW_PORT:-3000}"
+PORT="${PREVIEW_PORT:-3100}"
 BASE_URL="http://127.0.0.1:${PORT}"
 
 cleanup() {
@@ -15,7 +15,7 @@ trap cleanup EXIT
 
 cd "$ROOT_DIR"
 
-bundle exec rails server -e test -p "$PORT" > tmp/preview-server.log 2>&1 &
+bin/rails server -e test -p "$PORT" > tmp/preview-server.log 2>&1 &
 SERVER_PID=$!
 
 for _ in $(seq 1 60); do

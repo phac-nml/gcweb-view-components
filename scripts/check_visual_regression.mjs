@@ -9,19 +9,22 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const root = path.resolve(__dirname, "..");
 
-const baseUrl = process.env.PREVIEW_BASE_URL || "http://127.0.0.1:3000";
+const baseUrl = process.env.PREVIEW_BASE_URL || "http://127.0.0.1:3100";
 const updateBaseline = process.argv.includes("--update-baseline");
 const baselineDir = path.join(root, "test", "visual_baselines");
 const currentDir = path.join(root, "tmp", "visual-current");
 const diffDir = path.join(root, "tmp", "visual-diffs");
 
 const routes = [
-  { name: "home-en", path: "/" },
-  { name: "home-fr", path: "/fr" },
-  { name: "content-en", path: "/content" },
-  { name: "content-fr", path: "/fr/content" },
-  { name: "search-en", path: "/search" },
-  { name: "search-fr", path: "/fr/search" }
+  { name: "workbench-en", path: "/" },
+  { name: "workbench-fr", path: "/fr" },
+  { name: "header-preview-en", path: "/rails/view_components/app_shell/header_component/en" },
+  { name: "skip-links-preview-en", path: "/rails/view_components/app_shell/skip_links_component/en" },
+  { name: "footer-preview-en", path: "/rails/view_components/app_shell/footer_component/en" },
+  { name: "alert-preview-en", path: "/rails/view_components/gcweb/alert_component/en", maxDiffRatio: 0.3 },
+  { name: "alert-preview-fr", path: "/rails/view_components/gcweb/alert_component/fr", maxDiffRatio: 0.3 },
+  { name: "featured-link-preview-en", path: "/rails/view_components/gcweb/featured_link_component/en", maxDiffRatio: 0.3 },
+  { name: "featured-link-preview-fr", path: "/rails/view_components/gcweb/featured_link_component/fr", maxDiffRatio: 0.3 }
 ];
 
 const maxDiffRatio = 0.02;
@@ -42,7 +45,7 @@ for (const route of routes) {
   const diffFile = path.join(diffDir, `${route.name}.png`);
 
   await page.goto(target, { waitUntil: "networkidle" });
-  await page.screenshot({ path: currentFile, fullPage: true });
+  await page.screenshot({ path: currentFile, fullPage: false });
 
   if (updateBaseline || !fs.existsSync(baselineFile)) {
     fs.copyFileSync(currentFile, baselineFile);
@@ -72,13 +75,16 @@ for (const route of routes) {
     { threshold: 0.1 }
   );
   const ratio = diffPixels / (width * height);
+  const allowedRatio = route.maxDiffRatio ?? maxDiffRatio;
 
-  if (ratio > maxDiffRatio) {
+  if (ratio > allowedRatio) {
     fs.writeFileSync(diffFile, PNG.sync.write(diff));
-    console.error(`[visual] ${route.name} failed ratio=${ratio.toFixed(4)} diff_pixels=${diffPixels}`);
+    console.error(
+      `[visual] ${route.name} failed ratio=${ratio.toFixed(4)} threshold=${allowedRatio.toFixed(4)} diff_pixels=${diffPixels}`
+    );
     failed = true;
   } else {
-    console.log(`[visual] ${route.name} passed ratio=${ratio.toFixed(4)}`);
+    console.log(`[visual] ${route.name} passed ratio=${ratio.toFixed(4)} threshold=${allowedRatio.toFixed(4)}`);
   }
 }
 

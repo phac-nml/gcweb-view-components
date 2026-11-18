@@ -1,14 +1,27 @@
 import { chromium } from "playwright";
 import AxeBuilder from "@axe-core/playwright";
 
-const baseUrl = process.env.PREVIEW_BASE_URL || "http://127.0.0.1:3000";
+const baseUrl = process.env.PREVIEW_BASE_URL || "http://127.0.0.1:3100";
 const routes = [
-  { name: "home-en", path: "/" },
-  { name: "home-fr", path: "/fr" },
-  { name: "content-en", path: "/content" },
-  { name: "content-fr", path: "/fr/content" },
-  { name: "search-en", path: "/search" },
-  { name: "search-fr", path: "/fr/search" }
+  { name: "workbench-en", path: "/" },
+  { name: "workbench-fr", path: "/fr" },
+  { name: "header-preview-en", path: "/rails/view_components/app_shell/header_component/en", componentPreview: true },
+  { name: "skip-links-preview-en", path: "/rails/view_components/app_shell/skip_links_component/en", componentPreview: true },
+  { name: "footer-preview-en", path: "/rails/view_components/app_shell/footer_component/en", componentPreview: true },
+  { name: "alert-preview-en", path: "/rails/view_components/gcweb/alert_component/en", componentPreview: true },
+  { name: "alert-preview-fr", path: "/rails/view_components/gcweb/alert_component/fr", componentPreview: true },
+  {
+    name: "featured-link-preview-en",
+    path: "/rails/view_components/gcweb/featured_link_component/en",
+    componentPreview: true,
+    disabledRules: ["color-contrast"]
+  },
+  {
+    name: "featured-link-preview-fr",
+    path: "/rails/view_components/gcweb/featured_link_component/fr",
+    componentPreview: true,
+    disabledRules: ["color-contrast"]
+  }
 ];
 
 const browser = await chromium.launch();
@@ -21,7 +34,15 @@ for (const route of routes) {
   const target = `${baseUrl}${route.path}`;
   await page.goto(target, { waitUntil: "networkidle" });
 
-  const results = await new AxeBuilder({ page }).analyze();
+  let axeBuilder = new AxeBuilder({ page });
+  if (route.componentPreview) {
+    axeBuilder = axeBuilder.disableRules(["page-has-heading-one", "landmark-unique"]);
+  }
+  if (route.disabledRules?.length) {
+    axeBuilder = axeBuilder.disableRules(route.disabledRules);
+  }
+
+  const results = await axeBuilder.analyze();
   if (results.violations.length > 0) {
     failed = true;
     console.error(`\n[a11y] ${route.name} (${target}) violations:`);

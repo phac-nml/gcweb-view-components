@@ -1,0 +1,6 @@
+<%= content_tag tag, class: css_classes do %>
+  <% if heading.present? %>
+    <h3><%= heading %></h3>
+  <% end %>
+  <%= content %>
+<% end %>

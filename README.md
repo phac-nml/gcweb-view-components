@@ -1,24 +1,23 @@
 # GCWeb View Components
 
-Rails implementation of GCWeb/WET-inspired UI patterns using modern Rails and JavaScript tooling.
+Rails + ViewComponent workbench for building WET/GCWeb components in isolation.
 
 ## Stack
 - Ruby + Rails 8
 - ViewComponent
 - Hotwire (Turbo + Stimulus)
 - Vite Ruby
+- Lookbook
 
 ## Project goal
-Recreate key GCWeb template behavior and structure with:
-- WCAG AA baseline checks
-- EN/FR support
-- SSR-first pages with progressive enhancement
+Build pixel-accurate WET/GCWeb components (not full page templates), preview them in Lookbook, and validate with focused a11y/visual checks.
 
-## Current status
-Wave 1 work in progress:
-- Baseline fixtures and screenshots in [`fixtures/wave-1/`](./fixtures/wave-1/)
-- Home and content template parity started
-- Global shell (skip links, header, language switch, footer) in place
+Current first component:
+- Alert module preview aligned to GCWeb alert examples (`/rails/view_components/gcweb/alert_component/en`)
+- Includes heading, link, no-heading, and expand/collapse alert patterns
+
+Current next component:
+- Featured link preview aligned to GCWeb examples (`/rails/view_components/gcweb/featured_link_component/en`)
 
 ## Run locally
 ```bash
@@ -29,10 +28,20 @@ bin/dev
 
 Default dev port is `3100` (override with `PORT=3200 bin/dev`).
 
+Open:
+- Workbench: `http://127.0.0.1:3100/`
+- Lookbook: `http://127.0.0.1:3100/lookbook`
+
+## WET source references (starter backlog)
+- Alert module: https://wet-boew.github.io/wet-boew-legacy/v3.1/demos/guide-design/components-en.html#message-box-modules
+- GCWeb component source index: https://github.com/wet-boew/GCWeb/tree/master/components
+- Featured link: https://github.com/wet-boew/GCWeb/tree/master/components/gc-featured-link
+- Most requested: https://github.com/wet-boew/GCWeb/tree/master/components/gc-most-requested
+
 ## Quality checks
 ```bash
-bundle exec rails test
+bin/rails test
 npm run preview:check
 ```
 
-`preview:check` runs accessibility checks and visual regression checks.
+`preview:check` runs accessibility + visual regression on the workbench and component preview routes.

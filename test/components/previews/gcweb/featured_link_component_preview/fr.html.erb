@@ -1,0 +1,46 @@
+<h1>Lien en vedette</h1>
+
+<h2>Exemple par défaut</h2>
+<%= render(
+  Gcweb::FeaturedLinkComponent.new(
+    heading: "Pleins feux sur",
+    href: "#",
+    link_text: "[Titre de la promotion]"
+  )
+) %>
+
+<h2>Exemples avec couleur d’arrière-plan personnalisée</h2>
+<%= render(
+  Gcweb::FeaturedLinkComponent.new(
+    heading: "Pleins feux sur",
+    href: "#",
+    link_text: "[Titre de la promotion]",
+    background_color: "#005B61"
+  )
+) %>
+<%= render(
+  Gcweb::FeaturedLinkComponent.new(
+    heading: "Pleins feux sur",
+    href: "#",
+    link_text: "[Titre de la promotion]",
+    background_color: "#99dade"
+  )
+) %>
+<%= render(
+  Gcweb::FeaturedLinkComponent.new(
+    heading: "Pleins feux sur",
+    href: "#",
+    link_text: "[Titre de la promotion]",
+    background_color: "#8F8F8F"
+  )
+) %>
+
+<h2>Exemple avec description sous le lien</h2>
+<%= render(
+  Gcweb::FeaturedLinkComponent.new(
+    heading: "Pleins feux sur",
+    href: "#",
+    link_text: "[Titre de la promotion]",
+    description: "Description longue [facultatif]"
+  )
+) %>

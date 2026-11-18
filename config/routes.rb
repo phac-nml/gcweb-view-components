@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   scope "(:locale)", locale: /en|fr/ do
-    root "pages#home"
-    get "content" => "pages#content", as: :content_page
-    get "search" => "pages#search", as: :search_page
+    root "pages#index"
   end
+
+  mount Lookbook::Engine, at: "/lookbook" if defined?(Lookbook::Engine)
 end

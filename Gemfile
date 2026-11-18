@@ -65,3 +65,5 @@ gem "turbo-rails", ">= 2.0"
 gem "stimulus-rails", ">= 1.3"
 gem "vite_rails", ">= 3.11"
 gem "view_component", ">= 4.24"
+
+gem "lookbook", ">= 2.3", group: :development

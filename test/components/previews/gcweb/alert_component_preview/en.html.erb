@@ -1,0 +1,81 @@
+<h1>GCWeb Alert examples</h1>
+
+<h2>Alert with headings</h2>
+<%= render(Gcweb::AlertComponent.new(variant: :danger, heading: "Danger alert")) do %>
+  <p>Alert details.</p>
+<% end %>
+<%= render(Gcweb::AlertComponent.new(variant: :warning, heading: "Warning alert")) do %>
+  <p>Alert details.</p>
+<% end %>
+<%= render(Gcweb::AlertComponent.new(variant: :success, heading: "Success alert")) do %>
+  <p>Alert details.</p>
+<% end %>
+<%= render(Gcweb::AlertComponent.new(variant: :info, heading: "Info alert")) do %>
+  <p>Alert details.</p>
+<% end %>
+
+<h2>Links inside Alerts</h2>
+<%= render(Gcweb::AlertComponent.new(variant: :success, heading: "(Success Title)")) do %>
+  <p>Success content goes here <a href="#" class="alert-link">link text</a>.</p>
+<% end %>
+<%= render(Gcweb::AlertComponent.new(variant: :info, heading: "(Info Title)")) do %>
+  <p>Info content goes here <a href="#" class="alert-link">link text</a>.</p>
+<% end %>
+<%= render(Gcweb::AlertComponent.new(variant: :warning, heading: "(Warning Title)")) do %>
+  <p>Warning content goes here <a href="#" class="alert-link">link text</a>.</p>
+<% end %>
+<%= render(Gcweb::AlertComponent.new(variant: :danger, heading: "(Danger Title)")) do %>
+  <p>Danger content goes here <a href="#" class="alert-link">link text</a>.</p>
+<% end %>
+
+<h2>Alerts without Headings</h2>
+<%= render(Gcweb::AlertComponent.new(variant: :success)) do %>
+  <p>(Success content here.)</p>
+<% end %>
+<%= render(Gcweb::AlertComponent.new(variant: :info)) do %>
+  <p>Info content here.</p>
+<% end %>
+<%= render(Gcweb::AlertComponent.new(variant: :warning)) do %>
+  <p>(Warning content here.)</p>
+<% end %>
+<%= render(Gcweb::AlertComponent.new(variant: :danger)) do %>
+  <p>(Danger content here.)</p>
+<% end %>
+
+<h2 id="expand-collapse">Alert with expand/collapse</h2>
+<p>Use an alert with expand/collapse when you need to show several alerts on the same page.</p>
+
+<%= render(Gcweb::AlertComponent.new(variant: :warning, tag: :section)) do %>
+  <details>
+    <summary>
+      <h3 class="h5">Beware of false information online</h3>
+    </summary>
+    <p>For accurate information, always check official Government of Canada and provincial or territorial websites.</p>
+    <p>Check the <a href="#">latest scams alerts</a> related to benefits and taxes.</p>
+  </details>
+<% end %>
+<%= render(Gcweb::AlertComponent.new(variant: :info, tag: :section)) do %>
+  <details>
+    <summary>
+      <h3 class="h5">Canada Groceries and Essentials Benefit</h3>
+    </summary>
+    <p>The Government of Canada will increase the Canada Groceries and Essentials Benefit by 25% for five years.</p>
+    <p>Learn more: <a href="#">Canada Groceries and Essentials Benefit</a></p>
+  </details>
+<% end %>
+<%= render(Gcweb::AlertComponent.new(variant: :success, tag: :section)) do %>
+  <details>
+    <summary>
+      <h3 class="h5">Success alert</h3>
+    </summary>
+    <p>Alert details.</p>
+  </details>
+<% end %>
+<%= render(Gcweb::AlertComponent.new(variant: :danger, tag: :section)) do %>
+  <details open>
+    <summary>
+      <h3 class="h5">Danger alert (expanded by default)</h3>
+    </summary>
+    <p>Alert details.</p>
+  </details>
+<% end %>

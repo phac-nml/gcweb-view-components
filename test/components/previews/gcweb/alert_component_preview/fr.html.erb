@@ -1,0 +1,67 @@
+<h1>Exemples d’alertes GCWeb</h1>
+
+<h2>Alertes avec en-têtes</h2>
+<%= render(Gcweb::AlertComponent.new(variant: :danger, heading: "Alerte danger")) do %>
+  <p>Détails de l’alerte.</p>
+<% end %>
+<%= render(Gcweb::AlertComponent.new(variant: :warning, heading: "Alerte avertissement")) do %>
+  <p>Détails de l’alerte.</p>
+<% end %>
+<%= render(Gcweb::AlertComponent.new(variant: :success, heading: "Alerte succès")) do %>
+  <p>Détails de l’alerte.</p>
+<% end %>
+<%= render(Gcweb::AlertComponent.new(variant: :info, heading: "Alerte info")) do %>
+  <p>Détails de l’alerte.</p>
+<% end %>
+
+<h2>Alertes sans en-tête</h2>
+<%= render(Gcweb::AlertComponent.new(variant: :success)) do %>
+  <p>(Contenu succès ici.)</p>
+<% end %>
+<%= render(Gcweb::AlertComponent.new(variant: :info)) do %>
+  <p>Contenu info ici.</p>
+<% end %>
+<%= render(Gcweb::AlertComponent.new(variant: :warning)) do %>
+  <p>(Contenu avertissement ici.)</p>
+<% end %>
+<%= render(Gcweb::AlertComponent.new(variant: :danger)) do %>
+  <p>(Contenu danger ici.)</p>
+<% end %>
+
+<h2 id="expand-collapse">Alerte avec développer/réduire</h2>
+<p>Utilisez ce type d’alerte lorsqu’il y a plusieurs alertes sur une même page.</p>
+
+<%= render(Gcweb::AlertComponent.new(variant: :warning, tag: :section)) do %>
+  <details>
+    <summary>
+      <h3 class="h5">Méfiez-vous des fausses informations en ligne</h3>
+    </summary>
+    <p>Pour des informations exactes, consultez les sites officiels du gouvernement du Canada.</p>
+    <p>Consultez les <a href="#">alertes d’arnaques récentes</a> liées aux prestations et impôts.</p>
+  </details>
+<% end %>
+<%= render(Gcweb::AlertComponent.new(variant: :info, tag: :section)) do %>
+  <details>
+    <summary>
+      <h3 class="h5">Prestation canadienne d’épicerie et produits essentiels</h3>
+    </summary>
+    <p>Le gouvernement du Canada augmentera la prestation de 25% pendant cinq ans.</p>
+    <p>En savoir plus : <a href="#">Prestation d’épicerie et produits essentiels</a></p>
+  </details>
+<% end %>
+<%= render(Gcweb::AlertComponent.new(variant: :success, tag: :section)) do %>
+  <details>
+    <summary>
+      <h3 class="h5">Alerte succès</h3>
+    </summary>
+    <p>Détails de l’alerte.</p>
+  </details>
+<% end %>
+<%= render(Gcweb::AlertComponent.new(variant: :danger, tag: :section)) do %>
+  <details open>
+    <summary>
+      <h3 class="h5">Alerte danger (développée par défaut)</h3>
+    </summary>
+    <p>Détails de l’alerte.</p>
+  </details>
+<% end %>
