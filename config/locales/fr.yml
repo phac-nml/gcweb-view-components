@@ -1,0 +1,10 @@
+fr:
+  app:
+    title: "Composants de vue GCWeb"
+    language_switch:
+      aria_label: "Sélecteur de langue"
+      english: "English"
+      french: "Français"
+    home:
+      heading: "Composants de vue GCWeb"
+      description: "La base Rails 8 + ViewComponent + Hotwire est active."

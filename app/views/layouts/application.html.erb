@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Gcweb View Components" %></title>
+    <title><%= content_for(:title) || t("app.title") %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Gcweb View Components">
@@ -35,6 +35,11 @@
   </head>
 
   <body>
+    <nav aria-label="<%= t('app.language_switch.aria_label') %>">
+      <%= link_to t("app.language_switch.english"), url_for(locale: :en) %>
+      |
+      <%= link_to t("app.language_switch.french"), url_for(locale: :fr) %>
+    </nav>
     <%= yield %>
   </body>
 </html>

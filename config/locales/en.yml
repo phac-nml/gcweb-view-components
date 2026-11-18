@@ -28,4 +28,12 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  app:
+    title: "GCWeb View Components"
+    language_switch:
+      aria_label: "Language switch"
+      english: "English"
+      french: "Français"
+    home:
+      heading: "GCWeb View Components"
+      description: "Rails 8 + ViewComponent + Hotwire foundation is active."
