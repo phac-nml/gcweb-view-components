@@ -1,7 +1,17 @@
 {
   "private": true,
   "type": "module",
+  "scripts": {
+    "a11y:check": "node scripts/check_a11y.mjs",
+    "visual:check": "node scripts/check_visual_regression.mjs",
+    "visual:update": "node scripts/check_visual_regression.mjs --update-baseline",
+    "preview:check": "bash scripts/run_preview_checks.sh"
+  },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "pixelmatch": "^8.0.0",
+    "playwright": "^1.65.1",
+    "pngjs": "^7.0.0",
     "vite": "^8.3.8",
     "vite-plugin-ruby": "^5.2.6"
   },

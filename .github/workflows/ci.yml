@@ -78,6 +78,45 @@ jobs:
           # REDIS_URL: redis://localhost:6379/0
         run: bin/rails db:test:prepare test
 
+  preview-quality-gates:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install JavaScript dependencies
+        run: npm ci
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Run preview accessibility and visual regression checks
+        env:
+          RAILS_ENV: test
+        run: npm run preview:check
+
+      - name: Upload visual diffs and preview logs on failure
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: preview-quality-artifacts
+          path: |
+            tmp/visual-diffs
+            tmp/preview-server.log
+          if-no-files-found: ignore
+
   system-test:
     runs-on: ubuntu-latest
 
