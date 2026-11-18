@@ -4,13 +4,13 @@ class PagesController < ApplicationController
       name: "Alert module",
       slug: "alerts",
       reference_url: "https://wet-boew.github.io/wet-boew-legacy/v3.1/demos/guide-design/components-en.html#message-box-modules",
-      status: :in_progress
+      status: :done
     },
     {
       name: "Featured link",
       slug: "gc-featured-link",
       reference_url: "https://github.com/wet-boew/GCWeb/tree/master/components/gc-featured-link",
-      status: :planned
+      status: :in_progress
     },
     {
       name: "Most requested",

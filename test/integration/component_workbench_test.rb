@@ -8,6 +8,7 @@ class ComponentWorkbenchTest < ActionDispatch::IntegrationTest
     assert_select "h1", "Component workbench"
     assert_select "table.workbench__table tbody tr", minimum: 1
     assert_select "a[href='/rails/view_components']", "Open Rails component previews"
+    assert_select "a[href='/rails/view_components/gcweb/featured_link_component/en']", "Open featured link preview (EN)"
   end
 
   test "renders alert component preview route" do
@@ -28,5 +29,15 @@ class ComponentWorkbenchTest < ActionDispatch::IntegrationTest
     get "/lookbook"
 
     assert_response :success
+  end
+
+  test "renders featured link component preview route" do
+    get "/rails/view_components/gcweb/featured_link_component/en"
+
+    assert_response :success
+    assert_select "h1", "Featured link"
+    assert_select "section.gc-featured-link", minimum: 5
+    assert_select "section.gc-featured-link[data-bg-color='#005B61']", count: 1
+    assert_select "a.stretched-link", text: "[Promotion title]", count: 5
   end
 end

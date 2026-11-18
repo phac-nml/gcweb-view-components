@@ -1,0 +1,9 @@
+<%= content_tag :section, **section_attributes do %>
+  <div class="container">
+    <h2 class="wb-inv"><%= heading %></h2>
+    <p><a class="stretched-link" href="<%= href %>"><%= link_text %></a></p>
+    <% if description.present? %>
+      <p><%= description %></p>
+    <% end %>
+  </div>
+<% end %>

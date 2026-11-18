@@ -16,6 +16,9 @@ Current first component:
 - Alert module preview aligned to GCWeb alert examples (`/rails/view_components/gcweb/alert_component/en`)
 - Includes heading, link, no-heading, and expand/collapse alert patterns
 
+Current next component:
+- Featured link preview aligned to GCWeb examples (`/rails/view_components/gcweb/featured_link_component/en`)
+
 ## Run locally
 ```bash
 bundle install

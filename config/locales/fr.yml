@@ -17,6 +17,7 @@ fr:
       lookbook_link: "Ouvrir Lookbook"
       rails_preview_link: "Ouvrir les aperçus Rails des composants"
       alert_preview_link: "Ouvrir l’aperçu d’alerte (EN)"
+      featured_link_preview_link: "Ouvrir l’aperçu lien en vedette (EN)"
       backlog_heading: "Composants de départ"
       table:
         component: "Composant"
@@ -25,3 +26,4 @@ fr:
       status:
         in_progress: "En cours"
         planned: "Planifié"
+        done: "Fait"

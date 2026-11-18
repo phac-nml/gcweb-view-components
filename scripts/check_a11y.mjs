@@ -9,7 +9,9 @@ const routes = [
   { name: "skip-links-preview-en", path: "/rails/view_components/app_shell/skip_links_component/en", componentPreview: true },
   { name: "footer-preview-en", path: "/rails/view_components/app_shell/footer_component/en", componentPreview: true },
   { name: "alert-preview-en", path: "/rails/view_components/gcweb/alert_component/en", componentPreview: true },
-  { name: "alert-preview-fr", path: "/rails/view_components/gcweb/alert_component/fr", componentPreview: true }
+  { name: "alert-preview-fr", path: "/rails/view_components/gcweb/alert_component/fr", componentPreview: true },
+  { name: "featured-link-preview-en", path: "/rails/view_components/gcweb/featured_link_component/en", componentPreview: true },
+  { name: "featured-link-preview-fr", path: "/rails/view_components/gcweb/featured_link_component/fr", componentPreview: true }
 ];
 
 const browser = await chromium.launch();

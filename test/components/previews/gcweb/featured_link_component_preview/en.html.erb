@@ -1,0 +1,46 @@
+<h1>Featured link</h1>
+
+<h2>Default example</h2>
+<%= render(
+  Gcweb::FeaturedLinkComponent.new(
+    heading: "Spotlight on",
+    href: "#",
+    link_text: "[Promotion title]"
+  )
+) %>
+
+<h2>Customized background color examples</h2>
+<%= render(
+  Gcweb::FeaturedLinkComponent.new(
+    heading: "Spotlight on",
+    href: "#",
+    link_text: "[Promotion title]",
+    background_color: "#005B61"
+  )
+) %>
+<%= render(
+  Gcweb::FeaturedLinkComponent.new(
+    heading: "Spotlight on",
+    href: "#",
+    link_text: "[Promotion title]",
+    background_color: "#99dade"
+  )
+) %>
+<%= render(
+  Gcweb::FeaturedLinkComponent.new(
+    heading: "Spotlight on",
+    href: "#",
+    link_text: "[Promotion title]",
+    background_color: "#8F8F8F"
+  )
+) %>
+
+<h2>Example with featured link description below the link</h2>
+<%= render(
+  Gcweb::FeaturedLinkComponent.new(
+    heading: "Spotlight on",
+    href: "#",
+    link_text: "[Promotion title]",
+    description: "Long description [Optional]"
+  )
+) %>

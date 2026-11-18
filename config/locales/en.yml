@@ -17,6 +17,7 @@ en:
       lookbook_link: "Open Lookbook"
       rails_preview_link: "Open Rails component previews"
       alert_preview_link: "Open alert preview (EN)"
+      featured_link_preview_link: "Open featured link preview (EN)"
       backlog_heading: "Starter component backlog"
       table:
         component: "Component"
@@ -25,3 +26,4 @@ en:
       status:
         in_progress: "In progress"
         planned: "Planned"
+        done: "Done"

@@ -22,7 +22,9 @@ const routes = [
   { name: "skip-links-preview-en", path: "/rails/view_components/app_shell/skip_links_component/en" },
   { name: "footer-preview-en", path: "/rails/view_components/app_shell/footer_component/en" },
   { name: "alert-preview-en", path: "/rails/view_components/gcweb/alert_component/en" },
-  { name: "alert-preview-fr", path: "/rails/view_components/gcweb/alert_component/fr" }
+  { name: "alert-preview-fr", path: "/rails/view_components/gcweb/alert_component/fr" },
+  { name: "featured-link-preview-en", path: "/rails/view_components/gcweb/featured_link_component/en" },
+  { name: "featured-link-preview-fr", path: "/rails/view_components/gcweb/featured_link_component/fr" }
 ];
 
 const maxDiffRatio = 0.02;
