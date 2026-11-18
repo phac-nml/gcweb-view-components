@@ -191,7 +191,10 @@ a:focus-visible {
   position: relative;
 }
 
-.gc-featured-link a {
+.gc-featured-link a,
+.gc-featured-link a:visited,
+.gc-featured-link a:hover,
+.gc-featured-link a:focus {
   color: inherit;
   font-weight: 700;
 }
