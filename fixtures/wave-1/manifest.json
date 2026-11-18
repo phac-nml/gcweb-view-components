@@ -1,0 +1,53 @@
+{
+  "captured_at_utc": "2026-11-18T16:14:45Z",
+  "templates": [
+    {
+      "id": "home-en",
+      "url": "https://wet-boew.github.io/GCWeb/templates/home/home-en.html",
+      "html_path": "fixtures/wave-1/pages/home-en.html",
+      "screenshot_path": "fixtures/wave-1/screenshots/home-en-desktop.png"
+    },
+    {
+      "id": "home-fr",
+      "url": "https://wet-boew.github.io/GCWeb/templates/home/home-fr.html",
+      "html_path": "fixtures/wave-1/pages/home-fr.html",
+      "screenshot_path": "fixtures/wave-1/screenshots/home-fr-desktop.png"
+    },
+    {
+      "id": "theme-en",
+      "url": "https://wet-boew.github.io/GCWeb/templates/theme/theme-en.html",
+      "html_path": "fixtures/wave-1/pages/theme-en.html",
+      "screenshot_path": "fixtures/wave-1/screenshots/theme-en-desktop.png"
+    },
+    {
+      "id": "theme-fr",
+      "url": "https://wet-boew.github.io/GCWeb/templates/theme/theme-fr.html",
+      "html_path": "fixtures/wave-1/pages/theme-fr.html",
+      "screenshot_path": "fixtures/wave-1/screenshots/theme-fr-desktop.png"
+    },
+    {
+      "id": "search-results-en",
+      "url": "https://wet-boew.github.io/GCWeb/templates/search/results-en.html",
+      "html_path": "fixtures/wave-1/pages/search-results-en.html",
+      "screenshot_path": "fixtures/wave-1/screenshots/search-results-en-desktop.png"
+    },
+    {
+      "id": "search-results-fr",
+      "url": "https://wet-boew.github.io/GCWeb/templates/search/results-fr.html",
+      "html_path": "fixtures/wave-1/pages/search-results-fr.html",
+      "screenshot_path": "fixtures/wave-1/screenshots/search-results-fr-desktop.png"
+    },
+    {
+      "id": "servermessage-en",
+      "url": "https://wet-boew.github.io/GCWeb/templates/servermessage/servermessage-en.html",
+      "html_path": "fixtures/wave-1/pages/servermessage-en.html",
+      "screenshot_path": "fixtures/wave-1/screenshots/servermessage-en-desktop.png"
+    },
+    {
+      "id": "servermessage-fr",
+      "url": "https://wet-boew.github.io/GCWeb/templates/servermessage/servermessage-fr.html",
+      "html_path": "fixtures/wave-1/pages/servermessage-fr.html",
+      "screenshot_path": "fixtures/wave-1/screenshots/servermessage-fr-desktop.png"
+    }
+  ]
+}
