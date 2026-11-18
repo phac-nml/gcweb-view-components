@@ -45,7 +45,7 @@ for (const route of routes) {
   const diffFile = path.join(diffDir, `${route.name}.png`);
 
   await page.goto(target, { waitUntil: "networkidle" });
-  await page.screenshot({ path: currentFile, fullPage: true });
+  await page.screenshot({ path: currentFile, fullPage: false });
 
   if (updateBaseline || !fs.existsSync(baselineFile)) {
     fs.copyFileSync(currentFile, baselineFile);
