@@ -128,3 +128,62 @@ fr:
         heading: "Détails de la page"
         date_label: "Date de modification :"
         date_value: "2026-11-17"
+    search:
+      heading: "Résultats de la recherche"
+      default_query: "emploi"
+      summary: "%{count} résultats de recherche pour « %{term} »"
+      form:
+        label: "Recherchez le site Web du Gouvernement du Canada"
+        button: "Recherche"
+        privacy_note: "N'incluez pas de renseignements personnels (téléphone, courriel, NAS, renseignements financiers, médicaux ou professionnels)."
+      results:
+        - title: "Trouver un emploi - Canada.ca"
+          url: "https://www.canada.ca/fr/services/emplois/opportunites.html"
+          location:
+            - "canada.ca"
+            - "Emplois et milieu de travail"
+          date_iso: "2026-02-05"
+          date_label: "05 févr. 2026"
+          description: "Cherchez des emplois par lieu et profession et postulez en ligne."
+        - title: "Financement pour l'emploi et la formation"
+          url: "https://www.canada.ca/fr/emploi-developpement-social/services/financement/programmes.html"
+          location:
+            - "canada.ca"
+            - "Emploi et Développement social"
+          date_iso: "2026-02-05"
+          date_label: "05 févr. 2026"
+          description: "Programmes pour soutenir la formation, le développement de la main-d’œuvre et l'embauche."
+        - title: "Prestations d'assurance-emploi"
+          url: "https://www.canada.ca/fr/services/prestations/ae.html"
+          location:
+            - "canada.ca"
+            - "Prestations"
+          date_iso: "2026-02-05"
+          date_label: "05 févr. 2026"
+          description: "Découvrez l'admissibilité à l'AE, les paiements et les congés."
+        - title: "Immigrer comme travailleur qualifié"
+          url: "https://www.canada.ca/fr/immigration-refugies-citoyennete/services/immigrer-canada/entree-express.html"
+          location:
+            - "canada.ca"
+            - "Immigration et citoyenneté"
+          date_iso: "2026-02-05"
+          date_label: "05 févr. 2026"
+          description: "Présentez une demande de résidence permanente avec Entrée express."
+      pagination:
+        aria_label: "Pagination des résultats de recherche"
+        pages:
+          - label: "1"
+            url: "#"
+          - label: "2"
+            url: "#"
+          - label: "3"
+            url: "#"
+        next: "Suivante"
+        next_url: "#"
+      advanced:
+        label: "Effectuer une recherche avancée"
+        url: "#"
+      page_details:
+        heading: "Détails de la page"
+        date_label: "Date de modification :"
+        date_value: "2026-11-17"

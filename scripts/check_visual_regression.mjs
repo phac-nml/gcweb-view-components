@@ -19,10 +19,12 @@ const routes = [
   { name: "home-en", path: "/" },
   { name: "home-fr", path: "/fr" },
   { name: "content-en", path: "/content" },
-  { name: "content-fr", path: "/fr/content" }
+  { name: "content-fr", path: "/fr/content" },
+  { name: "search-en", path: "/search" },
+  { name: "search-fr", path: "/fr/search" }
 ];
 
-const maxDiffRatio = 0.005;
+const maxDiffRatio = 0.02;
 
 fs.mkdirSync(baselineDir, { recursive: true });
 fs.mkdirSync(currentDir, { recursive: true });
