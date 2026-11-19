@@ -1,0 +1,32 @@
+# Libellés et messages copiés de GCWeb v20.0.1
+# (common/form/complex-structure-form-fr.html et ses erreurs wb-frmvld).
+fr:
+  activemodel:
+    attributes:
+      contact_information:
+        rank: "Grade"
+        title: "Titre"
+        post_nominals: "Post-nominaux"
+        first_name: "Prénom"
+        last_name: "Nom de famille"
+        preferred_language: "Langue préférée"
+        email: "Courriel"
+    errors:
+      models:
+        contact_information:
+          attributes:
+            email:
+              invalid: "Veuillez fournir une adresse électronique valide."
+      messages:
+        blank: "Ce champ est obligatoire."
+  previews:
+    form:
+      contact_heading: "Renseignements de contact"
+      languages:
+        English: "Anglais"
+        French: "Français"
+      email_hint: "(votrenom@domaine.com)"
+      participation: "Comment prévoyez-vous participer?"
+      participation_choices:
+        In-person: "En personne"
+        Virtual: "Virtuel"

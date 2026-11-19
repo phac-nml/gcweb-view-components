@@ -104,6 +104,14 @@ strong {
   font-weight: var(--gcweb-font-weight-bold);
 }
 
+// Bootstrap 3 label
+label {
+  display: inline-block;
+  font-weight: var(--gcweb-font-weight-bold);
+  margin-bottom: 5px;
+  max-width: 100%;
+}
+
 // Links
 
 a {

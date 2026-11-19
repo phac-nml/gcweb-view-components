@@ -38,6 +38,17 @@
   --gcweb-color-warning-link: #66512c;
   --gcweb-color-info-link: #245269;
   --gcweb-color-success-link: #2b542c;
+  --gcweb-color-input-text: #555;
+  --gcweb-color-input-bg: #fff;
+  --gcweb-color-input-border: #ccc;
+  --gcweb-color-input-border-focus: #66afe9;
+  --gcweb-color-input-placeholder: #5c5c5c;
+  --gcweb-color-error-text: #a94442;
+  --gcweb-color-error-border-focus: #843534;
+  --gcweb-color-error-glow: #ce8483;
+  --gcweb-color-danger-bg: #f3e9e8;
+  --gcweb-input-min-height: 37px;
+  --gcweb-input-radius: 4px;
   --gcweb-space-md: 15px;
   --gcweb-spacer: 20px;
   --gcweb-line-gap: 11.5px;
@@ -286,6 +297,13 @@ small,
 b,
 strong {
   font-weight: var(--gcweb-font-weight-bold);
+}
+
+label {
+  display: inline-block;
+  font-weight: var(--gcweb-font-weight-bold);
+  margin-bottom: 5px;
+  max-width: 100%;
 }
 
 a {
@@ -568,4 +586,103 @@ details[open] > summary {
 .gc-featured-link[data-bg-color] a:hover,
 .gc-featured-link[data-bg-color] a:focus {
   color: var(--gcweb-color-text);
+}
+
+.label {
+  border-radius: 0;
+  border-style: solid;
+  border-width: 0 0 0 4px;
+  color: #fff;
+  display: inline;
+  font-size: 75%;
+  font-weight: var(--gcweb-font-weight-bold);
+  line-height: 1;
+  padding: 0.2em 0.6em 0.3em;
+  text-align: center;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+.label-danger {
+  background: var(--gcweb-color-danger-bg);
+  border-color: var(--gcweb-color-danger);
+  color: var(--gcweb-color-text-strong);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+.form-group > label {
+  display: inline-block;
+  font-weight: var(--gcweb-font-weight-bold);
+  margin-bottom: 5px;
+  max-width: 100%;
+}
+
+label.required:not(.required-no-asterisk .required)::before {
+  color: var(--gcweb-color-danger);
+  content: "* ";
+  font-weight: var(--gcweb-font-weight-bold);
+  margin-left: -0.87em;
+  vertical-align: top;
+}
+
+label.required strong.required {
+  color: var(--gcweb-color-danger);
+  font-weight: var(--gcweb-font-weight-bold);
+}
+
+.form-control {
+  font: inherit;
+  margin: 0;
+  background-color: var(--gcweb-color-input-bg);
+  background-image: none;
+  border: 1px solid var(--gcweb-color-input-border);
+  border-radius: var(--gcweb-input-radius);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  color: var(--gcweb-color-input-text);
+  display: block;
+  font-size: var(--gcweb-font-size-body);
+  line-height: var(--gcweb-line-height-body);
+  padding: 10px 14px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  height: auto;
+  max-width: 100%;
+  min-height: var(--gcweb-input-min-height);
+  width: auto;
+}
+.form-control:focus {
+  border-color: var(--gcweb-color-input-border-focus);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  outline: 0;
+}
+.form-control::placeholder {
+  color: var(--gcweb-color-input-placeholder);
+  opacity: 1;
+}
+
+select.form-control {
+  text-transform: none;
+}
+
+textarea.form-control {
+  overflow: auto;
+}
+
+.has-error .form-control {
+  border-color: var(--gcweb-color-error-text);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.has-error .form-control:focus {
+  border-color: var(--gcweb-color-error-border-focus);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px var(--gcweb-color-error-glow);
+}
+
+.form-group label strong.error {
+  display: inline-block;
+  width: 100%;
+}
+.form-group label strong.error .label {
+  font-size: 100%;
+  white-space: normal;
 }

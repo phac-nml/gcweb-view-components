@@ -2,3 +2,9 @@ en:
   gcweb:
     featured_link:
       heading: "Spotlight on"
+    # Strings wet-boew's form validation uses on GCWeb v20.0.1 (common/form).
+    form:
+      required: "(required)"
+      error_prefix: "Error: "
+      error_prefix_numbered: "Error\u00A0%{number}: "
+      select_prompt: "Make your selection"

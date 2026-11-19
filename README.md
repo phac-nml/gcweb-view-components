@@ -14,6 +14,9 @@ Rails components that render [GCWeb](https://github.com/wet-boew/GCWeb) / [WET-B
 | --- | --- | --- |
 | `Gcweb::AlertComponent` | [Alert](https://wet-boew.github.io/GCWeb/common/alert/alert-docs-en.html) | – |
 | `Gcweb::FeaturedLinkComponent` | [Featured link](https://wet-boew.github.io/GCWeb/components/gc-featured-link/gc-featured-link-doc-en.html) | `gcweb--featured-link` |
+| `Gcweb::Form::TextFieldComponent` | [Forms](https://wet-boew.github.io/GCWeb/common/form/complex-structure-form-en.html) | – |
+| `Gcweb::Form::TextAreaComponent` | [Forms](https://wet-boew.github.io/GCWeb/common/form/complex-structure-form-en.html) | – |
+| `Gcweb::Form::SelectComponent` | [Forms](https://wet-boew.github.io/GCWeb/common/form/complex-structure-form-en.html) | – |
 
 Every component has Lookbook previews (one scenario per GCWeb example, EN/FR toggle in the toolbar).
 
@@ -34,6 +37,28 @@ gem "gcweb_view_components", github: "phac-nml/gcweb-view-components"
 <% end %>
 
 <%= render Gcweb::FeaturedLinkComponent.new(href: "/promo", link_text: "[Promotion title]", background_color: "#005B61") %>
+```
+
+### Forms
+
+`Gcweb::FormBuilder` renders GCWeb form groups (label, red asterisk and "(required)", hint, inline error) from a model. It is **opt-in**: the gem never changes `ActionView::Base.default_form_builder`, so it can sit next to another library's builder.
+
+```erb
+<%= gcweb_form_with model: @contact do |f| %>
+  <%= f.text_field_group :first_name %>
+  <%= f.text_field_group :email, type: :email, hint: "(yourname@domain.com)" %>
+  <%= f.text_area_group :post_nominals, rows: 4 %>
+  <%= f.select_group :preferred_language, [ [ "English", "en" ], [ "French", "fr" ] ], prompt: true %>
+  <%= f.text_field :internal_ref %>  <%# Rails' own methods are unchanged %>
+<% end %>
+```
+
+`gcweb_form_with` is `form_with(builder: Gcweb::FormBuilder)`. The builder reads the label from `human_attribute_name`, marks a field required when it has an unconditional presence validator, and shows `model.errors` with the markup wet-boew's form validation uses ("Error 1: …"), so server-side errors look like GCWeb's client-side ones. Every inferred value can be overridden (`label:`, `required:`, `hint:`, `error:`, `id:`, …), and other options become attributes on the control.
+
+The components work without a model too:
+
+```erb
+<%= render Gcweb::Form::TextFieldComponent.new(name: "email", label: "Email", type: :email, required: true) %>
 ```
 
 ### Styles
