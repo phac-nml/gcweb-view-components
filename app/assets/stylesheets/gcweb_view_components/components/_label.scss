@@ -1,0 +1,23 @@
+// Labels — Bootstrap 3 .label with GCWeb's flat, left-bordered style
+// (components/labels). Used by inline form errors (.label-danger).
+
+.label {
+  border-radius: 0;
+  border-style: solid;
+  border-width: 0 0 0 4px;
+  color: #fff;
+  display: inline;
+  font-size: 75%;
+  font-weight: var(--gcweb-font-weight-bold);
+  line-height: 1;
+  padding: 0.2em 0.6em 0.3em;
+  text-align: center;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+.label-danger {
+  background: var(--gcweb-color-danger-bg);
+  border-color: var(--gcweb-color-danger);
+  color: var(--gcweb-color-text-strong);
+}

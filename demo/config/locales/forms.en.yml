@@ -1,0 +1,32 @@
+# Field labels and messages copied from GCWeb v20.0.1
+# (common/form/complex-structure-form-en.html and its wb-frmvld errors).
+en:
+  activemodel:
+    attributes:
+      contact_information:
+        rank: "Rank"
+        title: "Title"
+        post_nominals: "Post Nominals"
+        first_name: "First Name"
+        last_name: "Last Name"
+        preferred_language: "Preferred Language"
+        email: "Email"
+    errors:
+      models:
+        contact_information:
+          attributes:
+            email:
+              invalid: "Please enter a valid email address."
+      messages:
+        blank: "This field is required."
+  previews:
+    form:
+      contact_heading: "Contact Information"
+      languages:
+        English: "English"
+        French: "French"
+      email_hint: "(yourname@domain.com)"
+      participation: "How do you plan to participate?"
+      participation_choices:
+        In-person: "In-person"
+        Virtual: "Virtual"

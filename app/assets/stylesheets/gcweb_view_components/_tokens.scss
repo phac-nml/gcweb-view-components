@@ -56,6 +56,19 @@
   --gcweb-color-info-link: #245269;
   --gcweb-color-success-link: #2b542c;
 
+  // Forms (Bootstrap 3 .form-control and .has-error, WET-BOEW .label-danger)
+  --gcweb-color-input-text: #555; // $input-color
+  --gcweb-color-input-bg: #fff;
+  --gcweb-color-input-border: #ccc; // $input-border
+  --gcweb-color-input-border-focus: #66afe9; // $input-border-focus
+  --gcweb-color-input-placeholder: #5c5c5c;
+  --gcweb-color-error-text: #a94442; // $state-danger-text
+  --gcweb-color-error-border-focus: #843534;
+  --gcweb-color-error-glow: #ce8483;
+  --gcweb-color-danger-bg: #f3e9e8; // .label-danger / .alert-danger background
+  --gcweb-input-min-height: 37px;
+  --gcweb-input-radius: 4px;
+
   // Spacing ($spacer and Bootstrap rhythm)
   --gcweb-space-md: 15px; // $space-md
   --gcweb-spacer: 20px; // $spacer

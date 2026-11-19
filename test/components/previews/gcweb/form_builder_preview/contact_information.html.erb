@@ -1,0 +1,12 @@
+<%= gcweb_form_with model: contact, scope: :contact_information, url: "#" do |f| %>
+  <h2><%= t("previews.form.contact_heading") %></h2>
+  <%= f.text_field_group :rank, maxlength: 30, size: 50 %>
+  <%= f.text_field_group :title, maxlength: 15, size: 15 %>
+  <%= f.text_area_group :post_nominals, maxlength: 100, cols: 51, rows: 4 %>
+  <%= f.text_field_group :first_name, maxlength: 20, size: 50 %>
+  <%= f.text_field_group :last_name, maxlength: 20, size: 50 %>
+  <%= f.select_group :preferred_language,
+        ContactInformation::LANGUAGES.map { |l| [ t("previews.form.languages.#{l}"), l ] },
+        prompt: true %>
+  <%= f.text_field_group :email, type: :email, maxlength: 80, size: 50 %>
+<% end %>

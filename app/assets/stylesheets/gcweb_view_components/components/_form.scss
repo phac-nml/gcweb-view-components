@@ -1,0 +1,101 @@
+// Form fields — GCWeb common/form: Bootstrap 3 forms with WET-BOEW and
+// GCWeb overrides, plus the error markup of wet-boew's form validation
+// (wb-frmvld). Values are GCWeb v20.0.1's cascaded rules.
+//
+// GCWeb scopes the inline error styles to .wb-frmvld; here they apply to
+// any .form-group, so server-rendered errors look right without the plugin
+// wrapper.
+
+$input-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+
+.form-group {
+  margin-bottom: 15px;
+
+  // Bootstrap's global `label` rule, scoped so gcweb-components.css leaves
+  // the host app's own labels alone (gcweb.css also sets it globally).
+  > label {
+    display: inline-block;
+    font-weight: var(--gcweb-font-weight-bold);
+    margin-bottom: 5px;
+    max-width: 100%;
+  }
+}
+
+// Required fields: red asterisk hanging in the left margin, red "(required)".
+label.required:not(.required-no-asterisk .required)::before {
+  color: var(--gcweb-color-danger);
+  content: "* ";
+  font-weight: var(--gcweb-font-weight-bold);
+  margin-left: -0.87em;
+  vertical-align: top;
+}
+
+label.required strong.required {
+  color: var(--gcweb-color-danger);
+  font-weight: var(--gcweb-font-weight-bold);
+}
+
+.form-control {
+  // normalize.css resets for input/select/textarea
+  font: inherit;
+  margin: 0;
+
+  background-color: var(--gcweb-color-input-bg);
+  background-image: none;
+  border: 1px solid var(--gcweb-color-input-border);
+  border-radius: var(--gcweb-input-radius);
+  box-shadow: $input-shadow;
+  color: var(--gcweb-color-input-text);
+  display: block;
+  font-size: var(--gcweb-font-size-body);
+  line-height: var(--gcweb-line-height-body);
+  padding: 10px 14px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+  // WET-BOEW: size to content (the size/cols attributes), never past the container.
+  height: auto;
+  max-width: 100%;
+  min-height: var(--gcweb-input-min-height);
+  width: auto;
+
+  &:focus {
+    border-color: var(--gcweb-color-input-border-focus);
+    box-shadow: $input-shadow, 0 0 8px rgba(102, 175, 233, 0.6);
+    outline: 0;
+  }
+
+  &::placeholder {
+    color: var(--gcweb-color-input-placeholder);
+    opacity: 1;
+  }
+}
+
+select.form-control {
+  text-transform: none;
+}
+
+textarea.form-control {
+  overflow: auto;
+}
+
+// Error state (added by wb-frmvld, or rendered by the server).
+
+.has-error .form-control {
+  border-color: var(--gcweb-color-error-text);
+  box-shadow: $input-shadow;
+
+  &:focus {
+    border-color: var(--gcweb-color-error-border-focus);
+    box-shadow: $input-shadow, 0 0 6px var(--gcweb-color-error-glow);
+  }
+}
+
+.form-group label strong.error {
+  display: inline-block;
+  width: 100%;
+
+  .label {
+    font-size: 100%;
+    white-space: normal;
+  }
+}

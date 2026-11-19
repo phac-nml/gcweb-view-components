@@ -2,3 +2,9 @@ fr:
   gcweb:
     featured_link:
       heading: "Pleins feux sur"
+    # Strings wet-boew's form validation uses on GCWeb v20.0.1 (common/form).
+    form:
+      required: "(obligatoire)"
+      error_prefix: "Erreur\u00A0: "
+      error_prefix_numbered: "Erreur\u00A0%{number}\u00A0: "
+      select_prompt: "Faites votre choix"

@@ -22,6 +22,7 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir[
     "app/components/**/*",
+    "app/form_builders/**/*",
     "app/assets/javascripts/**/*",
     "app/assets/stylesheets/**/*",
     "config/locales/**/*",

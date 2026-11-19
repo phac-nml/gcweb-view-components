@@ -39,6 +39,66 @@ const PROPS = [
   "min-height", "clip-path", "overflow"
 ];
 
+// Extra properties for form controls (borders, shadows, focus rings).
+const FORM_PROPS = [
+  ...PROPS,
+  "border-top-style", "border-right-color", "border-bottom-color",
+  "border-top-left-radius", "border-bottom-right-radius",
+  "box-shadow", "outline-style", "outline-width", "background-image",
+  "max-width", "vertical-align", "white-space", "text-align", "font-style", "text-transform"
+];
+
+// GCWeb's form demo (common/form/complex-structure-form-en.html) lays fields
+// out with .form-horizontal and the Bootstrap grid. The components render
+// GCWeb's stacked layout (as in wet-boew's form validation demo), so before
+// reading styles the reference page drops the grid classes.
+const stackGcwebForm = (page) =>
+  page.evaluate(() => {
+    document.querySelectorAll(".form-horizontal").forEach((el) => el.classList.remove("form-horizontal"));
+    document.querySelectorAll("[class*='col-sm-'], .control-label").forEach((el) => {
+      el.className = el.className.replace(/\b(col-sm-\d+|control-label|mrgn-tp-0)\b/g, "").replace(/\s+/g, " ").trim();
+    });
+  });
+
+// Submit GCWeb's form so wet-boew's validation (wb-frmvld) adds its error
+// markup. Wait until wb-frmvld has moved focus to its error summary (it does
+// so asynchronously, and would steal focus from a field focused earlier) and
+// the 0.15s border transition to the error colour has finished.
+const submitGcwebForm = async (page) => {
+  await page.click(".wb-frmvld form [type=submit]");
+  await page.waitForSelector(".wb-frmvld section[id^='errors-']");
+  await page.waitForFunction(() => document.activeElement?.matches("section[id^='errors-']"));
+  await page.waitForTimeout(400);
+};
+
+// Focus a control and let the 0.15s border/box-shadow transition finish.
+const focus = async (page, selector) => {
+  await page.focus(selector);
+  await page.waitForTimeout(400);
+};
+
+// Field ids on GCWeb's form demo, and the matching ids in our previews.
+const GCWEB_FIELDS = {
+  rank: "00NMm000005m2W5",
+  post_nominals: "00NMm000005m2Kn",
+  first_name: "00N4t000000PQXs",
+  preferred_language: "00NMm000002JlRt",
+  email: "00NMm000000W5e5"
+};
+const theirs = (field) => `[id='${GCWEB_FIELDS[field]}']`;
+const ours = (field) => `#contact_information_${field}`;
+const fieldPair = (field, suffix = "") => [`${theirs(field)}${suffix}`, `${ours(field)}${suffix}`];
+const labelPair = (field, suffix = "") => [
+  `label[for='${GCWEB_FIELDS[field]}']${suffix}`,
+  `label[for='contact_information_${field}']${suffix}`
+];
+const groupPair = (field) => [
+  `.form-group:has(> label[for='${GCWEB_FIELDS[field]}'])`,
+  `.form-group:has(> label[for='contact_information_${field}'])`
+];
+const GCWEB_FORM = "/common/form/complex-structure-form-en.html";
+const FORM_PREVIEW = "/rails/view_components/gcweb/form_builder/contact_information";
+
 const alertPairs = (variant, scope) => [
   [`${scope}.alert-${variant}`, `${scope}.alert-${variant}`],
   [`${scope}.alert-${variant}::before`, `${scope}.alert-${variant}::before`],
@@ -101,6 +161,72 @@ const CHECKS = [
       [`section[data-bg-color='${c}']`, `section[data-bg-color='${c}']`],
       [`section[data-bg-color='${c}'] a`, `section[data-bg-color='${c}'] a`]
     ])
+  },
+  {
+    name: "form / fields",
+    gcweb: GCWEB_FORM,
+    gcwebSetup: stackGcwebForm,
+    preview: FORM_PREVIEW,
+    props: FORM_PROPS,
+    pairs: [
+      groupPair("rank"),
+      labelPair("rank"),
+      labelPair("rank", " > .field-name"),
+      fieldPair("rank"),
+      fieldPair("post_nominals"),
+      labelPair("first_name"),
+      labelPair("first_name", "::before"),
+      labelPair("first_name", " > strong.required"),
+      fieldPair("first_name"),
+      fieldPair("preferred_language"),
+      fieldPair("email")
+    ]
+  },
+  {
+    name: "form / errors",
+    gcweb: GCWEB_FORM,
+    gcwebSetup: async (page) => {
+      await stackGcwebForm(page);
+      await submitGcwebForm(page);
+    },
+    preview: `${FORM_PREVIEW}_with_errors`,
+    props: FORM_PROPS,
+    pairs: [
+      groupPair("first_name"),
+      labelPair("first_name"),
+      labelPair("first_name", " > strong.error"),
+      labelPair("first_name", " .label-danger"),
+      labelPair("first_name", " .prefix"),
+      fieldPair("first_name"),
+      fieldPair("preferred_language"),
+      labelPair("email", " .label-danger"),
+      fieldPair("email")
+    ]
+  },
+  {
+    name: "form / focus",
+    gcweb: GCWEB_FORM,
+    gcwebSetup: async (page) => {
+      await stackGcwebForm(page);
+      await focus(page, theirs("rank"));
+    },
+    preview: FORM_PREVIEW,
+    previewSetup: (page) => focus(page, ours("rank")),
+    props: FORM_PROPS,
+    pairs: [fieldPair("rank")]
+  },
+  {
+    name: "form / error focus",
+    gcweb: GCWEB_FORM,
+    gcwebSetup: async (page) => {
+      await stackGcwebForm(page);
+      await submitGcwebForm(page);
+      await focus(page, theirs("first_name"));
+    },
+    preview: `${FORM_PREVIEW}_with_errors`,
+    previewSetup: (page) => focus(page, ours("first_name")),
+    props: FORM_PROPS,
+    pairs: [fieldPair("first_name")]
   }
 ];
 
@@ -113,9 +239,12 @@ const load = async (url) => {
   await page.evaluate(() => document.fonts.ready);
 };
 
+const propsFor = (check) => check.props || PROPS;
+
 const readGcweb = async (check) => {
   await load(gcwebBase + check.gcweb);
-  return computedStyles(page, check.pairs.map(([ref]) => ref), PROPS);
+  if (check.gcwebSetup) await check.gcwebSetup(page);
+  return computedStyles(page, check.pairs.map(([ref]) => ref), propsFor(check));
 };
 
 if (mode === "capture") {
@@ -142,14 +271,15 @@ let mismatches = 0;
 let compared = 0;
 
 for (const check of CHECKS) {
-  const theirs = reference ? reference.checks[check.name] || {} : await readGcweb(check);
+  const expectedStyles = reference ? reference.checks[check.name] || {} : await readGcweb(check);
   await load(previewBase + check.preview);
-  const ours = await computedStyles(page, check.pairs.map(([, mine]) => mine), PROPS);
+  if (check.previewSetup) await check.previewSetup(page);
+  const actualStyles = await computedStyles(page, check.pairs.map(([, mine]) => mine), propsFor(check));
   const problems = [];
 
   for (const [ref, mine] of check.pairs) {
-    const expected = theirs[ref];
-    const actual = ours[mine];
+    const expected = expectedStyles[ref];
+    const actual = actualStyles[mine];
     if (!expected) {
       problems.push(`  ? ${ref}: not found in GCWeb reference`);
       continue;
@@ -158,7 +288,7 @@ for (const check of CHECKS) {
       problems.push(`  ✗ ${mine}: not found in preview`);
       continue;
     }
-    for (const prop of PROPS) {
+    for (const prop of propsFor(check)) {
       compared++;
       if (expected[prop] !== actual[prop]) {
         problems.push(`  ✗ ${mine} { ${prop} } gcweb=${expected[prop]} ours=${actual[prop]}`);
