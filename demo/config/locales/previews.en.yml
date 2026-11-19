@@ -1,0 +1,42 @@
+# Example text copied from GCWeb v20.0.1 demo pages (common/alert/alerts-en.html,
+# components/gc-featured-link/gc-featured-link-en.html).
+en:
+  previews:
+    alert:
+      details: "Alert details."
+      variants:
+        danger: "Danger alert"
+        warning: "Warning alert"
+        success: "Success alert"
+        info: "Info alert"
+      link_titles:
+        danger: "(Danger Title)"
+        warning: "(Warning Title)"
+        success: "(Success Title)"
+        info: "(Info Title)"
+      link_content:
+        danger: "(Danger content goes here"
+        warning: "(Warning content goes here"
+        success: "(Success content goes here"
+        info: "(Info content goes here"
+      link_text: "link text"
+      no_heading_content:
+        danger: "(Danger content here.)"
+        warning: "(Warning content here.)"
+        success: "(Success content here.)"
+        info: "Info content here."
+      collapsible:
+        warning_heading: "Beware of false information online"
+        warning_p1: "For accurate information, always check official Government of Canada and provincial or territorial websites."
+        warning_p2_html: "Check the <a href=\"#\">latest scams alerts</a> related to benefits and taxes."
+        info_heading: "Canada Groceries and Essentials Benefit"
+        info_p1: "The Government of Canada will increase the Canada Groceries and Essentials Benefit (formerly the GST/HST credit) by 25% for five years starting in July 2026."
+        info_p2_html: "Learn more: <a href=\"#\">Canada Groceries and Essentials Benefit</a>"
+        success_heading: "Success alert"
+        danger_heading: "Danger alert (expanded by default)"
+    featured_link:
+      link_text: "[Promotion title]"
+      description: "Long description [optional]"
+      dark: "Dark background example:"
+      light: "Light color example:"
+      medium: "Medium color example:"

@@ -1,0 +1,42 @@
+# Texte d'exemple copié des pages de démonstration GCWeb v20.0.1
+# (common/alert/alerts-fr.html, components/gc-featured-link/gc-featured-link-fr.html).
+fr:
+  previews:
+    alert:
+      details: "Détails de l’alerte."
+      variants:
+        danger: "Alerte de danger"
+        warning: "Alerte d’avertissement"
+        success: "Alerte de succès"
+        info: "Alerte d’information"
+      link_titles:
+        danger: "(Titre de danger)"
+        warning: "(Titre d’avertissement)"
+        success: "(Titre de succès)"
+        info: "(Titre d’information)"
+      link_content:
+        danger: "(Le contenu de danger va ici"
+        warning: "(Le contenu d’avertissement va ici"
+        success: "(Le contenu de succès va ici"
+        info: "(Le contenu d’information va ici"
+      link_text: "texte du lien"
+      no_heading_content:
+        danger: "(Contenu de danger ici.)"
+        warning: "(Contenu d’avertissement ici.)"
+        success: "(Contenu de succès ici.)"
+        info: "(Contenu d’information ici.)"
+      collapsible:
+        warning_heading: "Méfiez-vous des fausses informations en ligne"
+        warning_p1: "Pour obtenir des renseignements exacts, consultez toujours les sites Web officiels du gouvernement du Canada et des provinces ou territoires."
+        warning_p2_html: "Consultez les <a href=\"#\">plus récentes alertes d’arnaques</a> liées aux prestations et aux impôts."
+        info_heading: "Prestation canadienne pour l’épicerie et les biens essentiels"
+        info_p1: "Le gouvernement du Canada augmentera de 25 % la Prestation canadienne pour l’épicerie et les biens essentiels (anciennement le crédit pour la TPS/TVH) pendant cinq ans à compter de juillet 2026."
+        info_p2_html: "Pour en savoir plus : <a href=\"#\">Prestation canadienne pour l’épicerie et les biens essentiels</a>"
+        success_heading: "Alerte de succès"
+        danger_heading: "Alerte de danger (développée par défaut)"
+    featured_link:
+      link_text: "[Titre de la promotion]"
+      description: "Description longue [facultatif]"
+      dark: "Exemple de fond foncé :"
+      light: "Exemple de couleur claire :"
+      medium: "Exemple de couleur moyenne :"

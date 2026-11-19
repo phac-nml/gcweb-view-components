@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<%# Mirrors a GCWeb content page: <main> is a Bootstrap .container. %>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <%= render "layouts/preview_head" %>
+  </head>
+  <body>
+    <main property="mainContentOfPage" class="container" id="wb-cont">
+      <%= yield %>
+    </main>
+  </body>
+</html>

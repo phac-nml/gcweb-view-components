@@ -1,0 +1,203 @@
+// GCWeb base layer: typography, links, details/summary and the few Bootstrap 3
+// pieces the components rely on. No grid.
+//
+// These are global element styles, like GCWeb's own theme.css. Host apps that
+// already have their own base (e.g. Tailwind apps) can import
+// gcweb-components.css instead, which skips this file.
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--gcweb-color-body-bg);
+  color: var(--gcweb-color-text);
+  font-family: var(--gcweb-font-family-base);
+  font-size: var(--gcweb-font-size-body);
+  line-height: var(--gcweb-line-height-body);
+  margin: 0;
+}
+
+// GCWeb sets its 20px reading size on <main>, not <body>.
+main {
+  font-size: var(--gcweb-font-size-main);
+  line-height: var(--gcweb-line-height-main);
+  position: relative;
+}
+
+// Headings
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+  color: inherit;
+  font-family: var(--gcweb-font-family-heading);
+  font-variant-ligatures: no-common-ligatures;
+  font-weight: var(--gcweb-font-weight-bold);
+  margin-bottom: var(--gcweb-line-gap);
+}
+
+h1, .h1 {
+  font-size: var(--gcweb-font-size-h1);
+  line-height: 1.17;
+  margin-bottom: 0.2em;
+  margin-top: 1em;
+  padding-bottom: 4px;
+}
+
+h2, .h2 {
+  font-size: var(--gcweb-font-size-h2);
+  line-height: 1.23;
+  margin-top: 38px;
+}
+
+h3, .h3 {
+  font-size: var(--gcweb-font-size-h3);
+  line-height: 1.37;
+  margin-top: 32px;
+}
+
+h4, .h4 {
+  font-size: var(--gcweb-font-size-h4);
+  line-height: 1.33;
+  margin-top: 26px;
+}
+
+h5, .h5 {
+  font-size: var(--gcweb-font-size-h5);
+  line-height: 1.33;
+  margin-top: 23px;
+}
+
+h6, .h6 {
+  font-size: var(--gcweb-font-size-h6);
+  line-height: 1.45;
+  margin-top: 21px;
+}
+
+// Text
+
+p {
+  margin: 0 0 var(--gcweb-line-gap);
+}
+
+ul,
+ol {
+  margin-bottom: var(--gcweb-line-gap);
+  margin-top: 0;
+}
+
+small,
+.small {
+  font-size: var(--gcweb-font-size-small);
+}
+
+b,
+strong {
+  font-weight: var(--gcweb-font-weight-bold);
+}
+
+// Links
+
+a {
+  background-color: transparent;
+  color: var(--gcweb-color-link);
+  text-decoration: underline;
+
+  &:visited {
+    color: var(--gcweb-color-link-visited);
+  }
+
+  &:hover,
+  &:focus {
+    color: var(--gcweb-color-link-hover);
+  }
+
+  &:focus {
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+  }
+}
+
+// details / summary (WET-BOEW details CSS + polyfill styles)
+
+details {
+  margin-bottom: 0.25em;
+  padding-left: 1.1em;
+  padding-right: 1.1em;
+
+  &[open] {
+    border: 1px solid var(--gcweb-color-border-light);
+    border-radius: 4px;
+    padding-bottom: 1em;
+  }
+}
+
+summary {
+  cursor: pointer;
+  display: list-item;
+  list-style-type: disclosure-closed;
+
+  > :first-child {
+    display: inline;
+  }
+}
+
+details summary {
+  border: 1px solid var(--gcweb-color-border-light);
+  border-radius: 4px;
+  color: var(--gcweb-color-summary);
+  margin-left: -1.1em;
+  margin-right: -1.1em;
+  padding: 5px 15px 5px 30px;
+  text-indent: -16px;
+
+  &:hover,
+  &:focus {
+    background-color: transparent;
+    color: var(--gcweb-color-link-hover);
+    text-decoration: underline;
+  }
+
+  &:focus {
+    outline: 1px dotted currentColor;
+  }
+}
+
+details[open] > summary {
+  border: 0;
+  border-bottom: 1px solid var(--gcweb-color-border-light);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  list-style-type: disclosure-open;
+  margin-bottom: 0.25em;
+}
+
+// Bootstrap 3 container (used inside full-width components such as
+// gc-featured-link).
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--gcweb-container-gutter);
+  padding-right: var(--gcweb-container-gutter);
+
+  @media (min-width: 768px) {
+    width: 750px;
+  }
+
+  @media (min-width: 992px) {
+    width: 970px;
+  }
+
+  @media (min-width: 1200px) {
+    width: 1170px;
+  }
+}

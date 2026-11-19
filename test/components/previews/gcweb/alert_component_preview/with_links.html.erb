@@ -1,0 +1,5 @@
+<% variants.each do |variant| %>
+  <%= render Gcweb::AlertComponent.new(variant: variant, heading: t("previews.alert.link_titles.#{variant}")) do %>
+    <p><%= t("previews.alert.link_content.#{variant}") %> <a href="#" class="alert-link"><%= t("previews.alert.link_text") %></a>.)</p>
+  <% end %>
+<% end %>

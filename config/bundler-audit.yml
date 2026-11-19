@@ -1,9 +1,0 @@
-# Audit all gems listed in the Gemfile for known security problems by running bin/bundler-audit.
-# CVEs that are not relevant to the application can be enumerated on the ignore list below.
-
-ignore:
-  # Lookbook depends on css_parser 1.x, while patched css_parser 3.x requires Ruby >= 3.3.
-  # Runtime remains on Ruby 3.2.x for now, so these dev-only advisories are temporarily ignored.
-  - CVE-2026-53727
-  - GHSA-84w7-hpvm-rxx2
-  - GHSA-w3mx-4vv9-hjpg

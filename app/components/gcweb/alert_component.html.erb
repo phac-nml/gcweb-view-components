@@ -1,6 +1,11 @@
-<%= content_tag tag, class: css_classes do %>
-  <% if heading.present? %>
-    <h3><%= heading %></h3>
+<%= content_tag wrapper_tag, **wrapper_attributes do %>
+  <% if collapsible? %>
+    <%= tag.details(open: open?) do %>
+      <summary><%= heading_tag %></summary>
+      <%= content %>
+    <% end %>
+  <% else %>
+    <% if heading %><%= heading_tag %><% end %>
+    <%= content %>
   <% end %>
-  <%= content %>
 <% end %>

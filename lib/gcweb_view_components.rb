@@ -1,0 +1,9 @@
+require "view_component"
+require "gcweb_view_components/version"
+require "gcweb_view_components/engine"
+
+module GcwebViewComponents
+  def self.root
+    Pathname(File.expand_path("..", __dir__))
+  end
+end

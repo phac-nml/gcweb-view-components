@@ -1,0 +1,65 @@
+// GCWeb design tokens.
+//
+// Values are the fully-cascaded computed styles of GCWeb v20.0.1 (see
+// GcwebViewComponents::GCWEB_VERSION), read from its demo pages with
+// scripts/computed_styles.mjs. Source names in comments refer to
+// GCWeb's sites/_variables.scss.
+//
+// Exposed as CSS custom properties so host apps (and the optional Tailwind
+// preset) can read the same values. Overriding them is possible but moves
+// the look away from Canada.ca.
+
+:root {
+  // Typography
+  --gcweb-font-family-base: "Noto Sans", "Noto Sans Canadian Aboriginal", sans-serif; // $font-family-base
+  --gcweb-font-family-heading: Lato, "Noto Sans", "Noto Sans Canadian Aboriginal", sans-serif;
+  --gcweb-font-family-icon: "Glyphicons Halflings";
+  --gcweb-font-size-body: 16px; // body (Bootstrap)
+  --gcweb-line-height-body: 1.4375; // 23px
+  --gcweb-font-size-main: 1.25rem; // main: 20px
+  --gcweb-line-height-main: 1.6; // main: 32px
+  --gcweb-font-size-h1: 2.5625rem; // 41px
+  --gcweb-font-size-h2: 2.4375rem; // 39px
+  --gcweb-font-size-h3: 1.8125rem; // 29px
+  --gcweb-font-size-h4: 1.6875rem; // 27px
+  --gcweb-font-size-h5: 1.5rem; // 24px
+  --gcweb-font-size-h6: 1.375rem; // 22px
+  --gcweb-font-size-small: 87%; // $small-size
+  --gcweb-font-weight-normal: 400;
+  --gcweb-font-weight-bold: 700;
+
+  // Text and links
+  --gcweb-color-text: #333;
+  --gcweb-color-text-strong: #000;
+  --gcweb-color-body-bg: #fff;
+  --gcweb-color-link: #284162; // $button-blue
+  --gcweb-color-link-hover: #0535d2;
+  --gcweb-color-link-visited: #7834bc;
+  --gcweb-color-summary: #295376;
+  --gcweb-color-muted: #6f6f6f; // $gray-light
+
+  // Brand
+  --gcweb-color-theme: #355688; // $bg-gctheme
+  --gcweb-color-theme-light: #33465c; // $bg-gcthemelight
+  --gcweb-color-accent: #26374a; // $accent-blue
+  --gcweb-color-border-red: #a62a1e; // $border-red
+  --gcweb-color-border-light: #ddd;
+
+  // Alerts ($alert-*-color)
+  --gcweb-color-danger: #d3080c;
+  --gcweb-color-warning: #ee7100;
+  --gcweb-color-warning-details: #f90; // WET details.alert icon colour
+  --gcweb-color-info: #269abc;
+  --gcweb-color-success: #278400;
+  --gcweb-color-danger-link: #843534;
+  --gcweb-color-warning-link: #66512c;
+  --gcweb-color-info-link: #245269;
+  --gcweb-color-success-link: #2b542c;
+
+  // Spacing ($spacer and Bootstrap rhythm)
+  --gcweb-space-md: 15px; // $space-md
+  --gcweb-spacer: 20px; // $spacer
+  --gcweb-line-gap: 11.5px; // Bootstrap $line-height-computed / 2
+  --gcweb-line-gap-lg: 23px; // Bootstrap $line-height-computed
+  --gcweb-container-gutter: 15px;
+}
