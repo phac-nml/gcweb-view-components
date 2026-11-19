@@ -2,7 +2,7 @@
   "name": "gcweb_view_components",
   "version": "0.1.0",
   "description": "Stimulus controllers and styles for the gcweb_view_components Rails gem (GCWeb / WET-BOEW)",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "type": "module",
   "packageManager": "pnpm@11.22.0",
   "main": "app/assets/javascripts/gcweb_view_components/index.js",

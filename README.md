@@ -134,3 +134,9 @@ test/gcweb_reference/                       GCWeb computed-style snapshot for pa
 4. Port any wet-boew/GCWeb JavaScript to a Stimulus controller under `javascripts/gcweb_view_components/controllers/` and register it in `index.js`.
 5. Add a preview with one scenario per GCWeb example, using GCWeb's EN/FR demo text in `demo/config/locales/previews.*.yml`.
 6. Add parity checks for it in `scripts/check_gcweb_parity.mjs` and its routes in `scripts/preview_routes.mjs`, then `pnpm parity:capture`.
+
+## License
+
+[Apache License 2.0](LICENSE), the same as other phac-nml projects.
+
+The bundled fonts in `app/assets/stylesheets/gcweb_view_components/fonts/` have their own licences, which are included next to them: Lato and Noto Sans under the SIL Open Font License, and the Glyphicons subset under WET-BOEW's MIT licence. GCWeb and WET-BOEW are © the Government of Canada, MIT licensed.
