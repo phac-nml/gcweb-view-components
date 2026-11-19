@@ -1,7 +1,20 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env bash
+# Start the Lookbook demo (Rails + Vite dev server).
+#   bin/dev            -> http://127.0.0.1:3100/lookbook
+#   PORT=3200 bin/dev
+set -euo pipefail
 
-if ARGV.include?("-p") || ARGV.include?("--port") || ARGV.any? { |arg| arg.start_with?("--port=") }
-  exec "./bin/rails", "server", *ARGV
-else
-  exec "./bin/rails", "server", "-p", ENV.fetch("PORT", "3100"), *ARGV
-end
+if ! ruby -e 'exit(RUBY_VERSION >= "3.3")' 2>/dev/null; then
+  echo "bin/dev needs Ruby >= 3.3 (found $(ruby -v 2>/dev/null || echo none))." >&2
+  echo "The toolchain comes from devenv via direnv: run \`direnv allow\` in the repo root," >&2
+  echo "or start a shell with \`devenv shell\`." >&2
+  exit 1
+fi
+
+cd "$(dirname "$0")/../demo"
+
+bin/vite dev &
+VITE_PID=$!
+trap 'kill "$VITE_PID" 2>/dev/null || true' EXIT
+
+bin/rails server -p "${PORT:-3100}"

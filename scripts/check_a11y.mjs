@@ -1,65 +1,38 @@
 import { chromium } from "playwright";
 import AxeBuilder from "@axe-core/playwright";
+import { previewRoutes } from "./preview_routes.mjs";
 
 const baseUrl = process.env.PREVIEW_BASE_URL || "http://127.0.0.1:3100";
-const routes = [
-  { name: "workbench-en", path: "/" },
-  { name: "workbench-fr", path: "/fr" },
-  { name: "header-preview-en", path: "/rails/view_components/app_shell/header_component/en", componentPreview: true },
-  { name: "skip-links-preview-en", path: "/rails/view_components/app_shell/skip_links_component/en", componentPreview: true },
-  { name: "footer-preview-en", path: "/rails/view_components/app_shell/footer_component/en", componentPreview: true },
-  { name: "alert-preview-en", path: "/rails/view_components/gcweb/alert_component/en", componentPreview: true },
-  { name: "alert-preview-fr", path: "/rails/view_components/gcweb/alert_component/fr", componentPreview: true },
-  {
-    name: "featured-link-preview-en",
-    path: "/rails/view_components/gcweb/featured_link_component/en",
-    componentPreview: true,
-    disabledRules: ["color-contrast"]
-  },
-  {
-    name: "featured-link-preview-fr",
-    path: "/rails/view_components/gcweb/featured_link_component/fr",
-    componentPreview: true,
-    disabledRules: ["color-contrast"]
-  }
-];
+
+// Previews are page fragments: they have no <h1> and the example pages repeat
+// landmarks on purpose, like GCWeb's own demo pages.
+const FRAGMENT_RULES = ["page-has-heading-one", "landmark-unique"];
 
 const browser = await chromium.launch();
 const context = await browser.newContext();
 const page = await context.newPage();
-
 let failed = false;
 
-for (const route of routes) {
+for (const route of previewRoutes) {
   const target = `${baseUrl}${route.path}`;
   await page.goto(target, { waitUntil: "networkidle" });
 
-  let axeBuilder = new AxeBuilder({ page });
-  if (route.componentPreview) {
-    axeBuilder = axeBuilder.disableRules(["page-has-heading-one", "landmark-unique"]);
-  }
-  if (route.disabledRules?.length) {
-    axeBuilder = axeBuilder.disableRules(route.disabledRules);
-  }
+  const results = await new AxeBuilder({ page })
+    .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
+    .disableRules(FRAGMENT_RULES)
+    .analyze();
 
-  const results = await axeBuilder.analyze();
   if (results.violations.length > 0) {
     failed = true;
     console.error(`\n[a11y] ${route.name} (${target}) violations:`);
     for (const violation of results.violations) {
       console.error(`- ${violation.id}: ${violation.help}`);
-      for (const node of violation.nodes) {
-        console.error(`  target: ${node.target.join(", ")}`);
-      }
+      for (const node of violation.nodes) console.error(`  target: ${node.target.join(", ")}`);
     }
   } else {
     console.log(`[a11y] ${route.name} passed`);
   }
 }
 
-await context.close();
 await browser.close();
-
-if (failed) {
-  process.exit(1);
-}
+if (failed) process.exit(1);

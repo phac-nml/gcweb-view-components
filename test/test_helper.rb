@@ -1,15 +1,20 @@
 ENV["RAILS_ENV"] ||= "test"
-require_relative "../config/environment"
+
+require_relative "../demo/config/environment"
 require "rails/test_help"
+require "view_component/test_helpers"
+require "capybara/minitest"
+
+# Build the demo's Vite assets once, before parallel workers fork; otherwise
+# each worker's first preview request would start its own build.
+ViteRuby.commands.build || abort("Vite build failed; run `cd demo && bin/vite build --mode test`")
 
 module ActiveSupport
   class TestCase
-    # Run tests in parallel with specified workers
     parallelize(workers: :number_of_processors)
-
-    # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-    fixtures :all
-
-    # Add more helper methods to be used by all tests here...
   end
+end
+
+class ComponentTestCase < ViewComponent::TestCase
+  include Capybara::Minitest::Assertions
 end

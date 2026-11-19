@@ -1,0 +1,125 @@
+// Alert — GCWeb common/alert (Bootstrap 3 alert + WET-BOEW + GCWeb overrides).
+//
+// GCWeb alerts have no tinted background: a 6px left border in the variant
+// colour with a gap (16px–48px) where the Glyphicons icon sits.
+
+$alert-variants: (
+  "danger": "\e101",
+  "warning": "\e107",
+  "info": "\e086",
+  "success": "\e084"
+);
+
+.alert {
+  background-clip: content-box;
+  background-color: inherit;
+  border-color: var(--gcweb-color-text-strong);
+  border-radius: 0;
+  border-style: solid;
+  border-width: 0 0 0 6px;
+  color: var(--gcweb-color-text-strong);
+  margin-bottom: var(--gcweb-line-gap-lg);
+  margin-left: 10px;
+  padding: 0 0 0 var(--gcweb-space-md);
+
+  // Icon, drawn in the gap of the left border.
+  &::before {
+    display: flex;
+    font-family: var(--gcweb-font-family-icon);
+    font-size: 26px;
+    line-height: 2.3em;
+    margin-left: -1.27em;
+    padding: 2px;
+    position: absolute;
+  }
+
+  > * {
+    margin-left: var(--gcweb-space-md);
+  }
+
+  > :first-child {
+    margin-left: var(--gcweb-space-md);
+
+    // WET puts an icon on the first child; GCWeb moves it to ::before above.
+    &::before {
+      color: inherit;
+      content: none;
+    }
+  }
+
+  > strong:first-child,
+  > em:first-child,
+  > span:first-child {
+    display: inline-block;
+  }
+
+  > :first-child:not(details) {
+    margin-top: auto;
+    padding-top: var(--gcweb-space-md);
+  }
+
+  > :last-child {
+    padding-bottom: 25px;
+  }
+
+  > p,
+  > ul,
+  > ol {
+    margin-bottom: 0;
+  }
+
+  > p + p {
+    margin-top: 5px;
+  }
+
+  h4 {
+    color: inherit;
+    margin-top: 0;
+  }
+
+  .alert-link {
+    font-weight: var(--gcweb-font-weight-bold);
+  }
+
+  // Expand/collapse alert: <section class="alert"><details>…</details></section>
+  details {
+    margin-left: 0.5em;
+    padding-top: var(--gcweb-space-md);
+  }
+
+  > details:only-child {
+    padding-bottom: 10px;
+    padding-top: 0;
+
+    &:not([open]) {
+      min-height: 64px;
+    }
+  }
+}
+
+@each $variant, $glyph in $alert-variants {
+  .alert-#{$variant} {
+    $color: var(--gcweb-color-#{$variant});
+
+    border-color: $color;
+    border-image: linear-gradient(
+        to bottom,
+        $color 16px,
+        $color 16px,
+        transparent 16px,
+        transparent 48px,
+        $color 48px,
+        $color 48px
+      )
+      1 100%;
+
+    &::before {
+      color: $color;
+      content: $glyph;
+    }
+
+    .alert-link {
+      color: var(--gcweb-color-#{$variant}-link);
+    }
+  }
+}

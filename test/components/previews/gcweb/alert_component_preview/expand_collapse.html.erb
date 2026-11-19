@@ -1,0 +1,14 @@
+<%= render Gcweb::AlertComponent.new(variant: :warning, heading: t("previews.alert.collapsible.warning_heading"), collapsible: true) do %>
+  <p><%= t("previews.alert.collapsible.warning_p1") %></p>
+  <p><%= t("previews.alert.collapsible.warning_p2_html") %></p>
+<% end %>
+<%= render Gcweb::AlertComponent.new(variant: :info, heading: t("previews.alert.collapsible.info_heading"), collapsible: true) do %>
+  <p><%= t("previews.alert.collapsible.info_p1") %></p>
+  <p><%= t("previews.alert.collapsible.info_p2_html") %></p>
+<% end %>
+<%= render Gcweb::AlertComponent.new(variant: :success, heading: t("previews.alert.collapsible.success_heading"), collapsible: true) do %>
+  <p><%= t("previews.alert.details") %></p>
+<% end %>
+<%= render Gcweb::AlertComponent.new(variant: :danger, heading: t("previews.alert.collapsible.danger_heading"), collapsible: true, open: true) do %>
+  <p><%= t("previews.alert.details") %></p>
+<% end %>

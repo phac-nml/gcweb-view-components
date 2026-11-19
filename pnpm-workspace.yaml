@@ -1,0 +1,11 @@
+# Same settings as irida-next and pathogen-view-components.
+
+# pnpm 11 defaults this to `install`, which prints status lines on stdout
+# before `pnpm exec`/`pnpm run` and can hang nested invocations in CI
+# (vite_ruby runs Vite through pnpm from inside Rails).
+verifyDepsBeforeRun: false
+
+# pnpm 11 fails `--frozen-lockfile` installs in CI on unreviewed build
+# scripts. @parcel/watcher comes in through sass-embedded.
+allowBuilds:
+  "@parcel/watcher": true

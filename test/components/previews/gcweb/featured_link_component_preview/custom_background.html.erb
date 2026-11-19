@@ -1,0 +1,10 @@
+<% { dark: "#005B61", light: "#99dade", medium: "#8F8F8F" }.each do |label, color| %>
+  <div class="container">
+    <p><%= t("previews.featured_link.#{label}") %></p>
+  </div>
+  <%= render Gcweb::FeaturedLinkComponent.new(
+    href: "#",
+    link_text: t("previews.featured_link.link_text"),
+    background_color: color
+  ) %>
+<% end %>

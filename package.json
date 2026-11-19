@@ -1,22 +1,46 @@
 {
-  "private": true,
+  "name": "gcweb_view_components",
+  "version": "0.1.0",
+  "description": "Stimulus controllers and styles for the gcweb_view_components Rails gem (GCWeb / WET-BOEW)",
+  "license": "MIT",
   "type": "module",
+  "packageManager": "pnpm@11.22.0",
+  "main": "app/assets/javascripts/gcweb_view_components/index.js",
+  "exports": {
+    ".": "./app/assets/javascripts/gcweb_view_components/index.js",
+    "./gcweb.css": "./app/assets/stylesheets/gcweb_view_components/gcweb.css",
+    "./gcweb-components.css": "./app/assets/stylesheets/gcweb_view_components/gcweb-components.css",
+    "./scss/*": "./app/assets/stylesheets/gcweb_view_components/*"
+  },
+  "files": [
+    "app/assets/javascripts",
+    "app/assets/stylesheets"
+  ],
   "scripts": {
+    "build:css": "node scripts/build_css.mjs",
+    "build:css:check": "node scripts/build_css.mjs --check",
+    "test": "vitest run",
     "a11y:check": "node scripts/check_a11y.mjs",
     "visual:check": "node scripts/check_visual_regression.mjs",
     "visual:update": "node scripts/check_visual_regression.mjs --update-baseline",
-    "preview:check": "bash scripts/run_preview_checks.sh"
+    "preview:check": "bash scripts/run_preview_checks.sh",
+    "parity:check": "node scripts/check_gcweb_parity.mjs",
+    "parity:capture": "node scripts/check_gcweb_parity.mjs --capture",
+    "parity:live": "node scripts/check_gcweb_parity.mjs --live"
+  },
+  "peerDependencies": {
+    "@hotwired/stimulus": "^3.2.0"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",
+    "@hotwired/stimulus": "^3.2.2",
+    "jsdom": "^27.0.0",
     "pixelmatch": "^8.0.0",
     "playwright": "^1.65.1",
     "pngjs": "^7.0.0",
+    "sass-embedded": "^1.108.2",
     "vite": "^8.3.8",
-    "vite-plugin-ruby": "^5.2.6"
-  },
-  "dependencies": {
-    "@hotwired/stimulus": "^3.2.2",
-    "@hotwired/turbo-rails": "^8.0.23"
+    "vite-plugin-ruby": "^5.2.6",
+    "vitest": "^4.0.0"
   }
 }

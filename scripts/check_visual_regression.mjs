@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 import { PNG } from "pngjs";
 import pixelmatch from "pixelmatch";
+import { previewRoutes } from "./preview_routes.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -11,21 +12,15 @@ const root = path.resolve(__dirname, "..");
 
 const baseUrl = process.env.PREVIEW_BASE_URL || "http://127.0.0.1:3100";
 const updateBaseline = process.argv.includes("--update-baseline");
-const baselineDir = path.join(root, "test", "visual_baselines");
+// Font rasterisation differs between macOS and Linux, so baselines are kept
+// per platform (test/visual_baselines/darwin, …/linux). Look-alike with GCWeb
+// is checked separately by scripts/check_gcweb_parity.mjs, which is
+// platform-independent.
+const baselineDir = path.join(root, "test", "visual_baselines", process.platform);
 const currentDir = path.join(root, "tmp", "visual-current");
 const diffDir = path.join(root, "tmp", "visual-diffs");
 
-const routes = [
-  { name: "workbench-en", path: "/" },
-  { name: "workbench-fr", path: "/fr" },
-  { name: "header-preview-en", path: "/rails/view_components/app_shell/header_component/en" },
-  { name: "skip-links-preview-en", path: "/rails/view_components/app_shell/skip_links_component/en" },
-  { name: "footer-preview-en", path: "/rails/view_components/app_shell/footer_component/en" },
-  { name: "alert-preview-en", path: "/rails/view_components/gcweb/alert_component/en", maxDiffRatio: 0.3 },
-  { name: "alert-preview-fr", path: "/rails/view_components/gcweb/alert_component/fr", maxDiffRatio: 0.3 },
-  { name: "featured-link-preview-en", path: "/rails/view_components/gcweb/featured_link_component/en", maxDiffRatio: 0.3 },
-  { name: "featured-link-preview-fr", path: "/rails/view_components/gcweb/featured_link_component/fr", maxDiffRatio: 0.3 }
-];
+const routes = previewRoutes;
 
 const maxDiffRatio = 0.02;
 
@@ -34,7 +29,7 @@ fs.mkdirSync(currentDir, { recursive: true });
 fs.mkdirSync(diffDir, { recursive: true });
 
 const browser = await chromium.launch();
-const page = await browser.newPage({ viewport: { width: 1440, height: 1800 } });
+const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
 
 let failed = false;
 
@@ -45,11 +40,12 @@ for (const route of routes) {
   const diffFile = path.join(diffDir, `${route.name}.png`);
 
   await page.goto(target, { waitUntil: "networkidle" });
-  await page.screenshot({ path: currentFile, fullPage: false });
+  await page.evaluate(() => document.fonts.ready);
+  await page.screenshot({ path: currentFile, fullPage: true });
 
   if (updateBaseline || !fs.existsSync(baselineFile)) {
     fs.copyFileSync(currentFile, baselineFile);
-    console.log(`[visual] baseline updated: ${route.name}`);
+    console.log(`[visual] baseline ${updateBaseline ? "updated" : "created (none committed for " + process.platform + ")"}: ${route.name}`);
     continue;
   }
 

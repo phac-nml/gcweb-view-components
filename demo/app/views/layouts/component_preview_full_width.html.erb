@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<%# For full-bleed components (e.g. gc-featured-link): <main> has no container. %>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <%= render "layouts/preview_head" %>
+  </head>
+  <body>
+    <main property="mainContentOfPage" id="wb-cont">
+      <%= yield %>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,69 @@
+// Featured link — GCWeb components/gc-featured-link.
+
+.gc-featured-link {
+  background-color: var(--gcweb-color-theme);
+  color: #fff;
+  font-family: Lato, sans-serif;
+  opacity: 0.9;
+  padding-bottom: var(--gcweb-space-md);
+  padding-top: var(--gcweb-space-md);
+  position: relative;
+
+  // Same as the Bootstrap .container in the base layer, repeated here so the
+  // component also works with gcweb-components.css (no base layer).
+  > .container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--gcweb-container-gutter);
+    padding-right: var(--gcweb-container-gutter);
+
+    @media (min-width: 768px) {
+      width: 750px;
+    }
+
+    @media (min-width: 992px) {
+      width: 970px;
+    }
+
+    @media (min-width: 1200px) {
+      width: 1170px;
+    }
+  }
+
+  .stretched-link {
+    text-decoration-thickness: 1.5px;
+
+    &:hover {
+      text-decoration-thickness: 2.5px;
+      text-underline-offset: 1px;
+    }
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+
+  a,
+  a:visited,
+  a:hover,
+  a:focus {
+    color: #fff;
+    font-weight: var(--gcweb-font-weight-bold);
+  }
+
+  // Custom background (data-bg-color). Until the gcweb--featured-link
+  // Stimulus controller paints it, GCWeb shows a transparent band with dark
+  // text; the controller then sets the background and an accessible text
+  // colour.
+  &[data-bg-color] {
+    background-color: transparent;
+    color: var(--gcweb-color-text);
+
+    a,
+    a:visited,
+    a:hover,
+    a:focus {
+      color: var(--gcweb-color-text);
+    }
+  }
+}

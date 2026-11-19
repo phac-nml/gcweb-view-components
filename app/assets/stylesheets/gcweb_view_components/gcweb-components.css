@@ -1,0 +1,392 @@
+/* gcweb_view_components — generated from gcweb-components.scss by `pnpm build:css`. Do not edit. */
+:root {
+  --gcweb-font-family-base: "Noto Sans", "Noto Sans Canadian Aboriginal", sans-serif;
+  --gcweb-font-family-heading: Lato, "Noto Sans", "Noto Sans Canadian Aboriginal", sans-serif;
+  --gcweb-font-family-icon: "Glyphicons Halflings";
+  --gcweb-font-size-body: 16px;
+  --gcweb-line-height-body: 1.4375;
+  --gcweb-font-size-main: 1.25rem;
+  --gcweb-line-height-main: 1.6;
+  --gcweb-font-size-h1: 2.5625rem;
+  --gcweb-font-size-h2: 2.4375rem;
+  --gcweb-font-size-h3: 1.8125rem;
+  --gcweb-font-size-h4: 1.6875rem;
+  --gcweb-font-size-h5: 1.5rem;
+  --gcweb-font-size-h6: 1.375rem;
+  --gcweb-font-size-small: 87%;
+  --gcweb-font-weight-normal: 400;
+  --gcweb-font-weight-bold: 700;
+  --gcweb-color-text: #333;
+  --gcweb-color-text-strong: #000;
+  --gcweb-color-body-bg: #fff;
+  --gcweb-color-link: #284162;
+  --gcweb-color-link-hover: #0535d2;
+  --gcweb-color-link-visited: #7834bc;
+  --gcweb-color-summary: #295376;
+  --gcweb-color-muted: #6f6f6f;
+  --gcweb-color-theme: #355688;
+  --gcweb-color-theme-light: #33465c;
+  --gcweb-color-accent: #26374a;
+  --gcweb-color-border-red: #a62a1e;
+  --gcweb-color-border-light: #ddd;
+  --gcweb-color-danger: #d3080c;
+  --gcweb-color-warning: #ee7100;
+  --gcweb-color-warning-details: #f90;
+  --gcweb-color-info: #269abc;
+  --gcweb-color-success: #278400;
+  --gcweb-color-danger-link: #843534;
+  --gcweb-color-warning-link: #66512c;
+  --gcweb-color-info-link: #245269;
+  --gcweb-color-success-link: #2b542c;
+  --gcweb-space-md: 15px;
+  --gcweb-spacer: 20px;
+  --gcweb-line-gap: 11.5px;
+  --gcweb-line-gap-lg: 23px;
+  --gcweb-container-gutter: 15px;
+}
+
+@font-face {
+  font-display: fallback;
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: url("fonts/noto-sans-400-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-display: optional;
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: url("fonts/noto-sans-400-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-display: fallback;
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 700;
+  src: url("fonts/noto-sans-700-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-display: optional;
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 700;
+  src: url("fonts/noto-sans-700-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-display: fallback;
+  font-family: "Noto Sans";
+  font-style: italic;
+  font-weight: 400;
+  src: url("fonts/noto-sans-400-italic-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-display: optional;
+  font-family: "Noto Sans";
+  font-style: italic;
+  font-weight: 400;
+  src: url("fonts/noto-sans-400-italic-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-display: fallback;
+  font-family: "Noto Sans";
+  font-style: italic;
+  font-weight: 700;
+  src: url("fonts/noto-sans-700-italic-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-display: optional;
+  font-family: "Noto Sans";
+  font-style: italic;
+  font-weight: 700;
+  src: url("fonts/noto-sans-700-italic-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-display: fallback;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  src: url("fonts/lato-400-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-display: optional;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  src: url("fonts/lato-400-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-display: fallback;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  src: url("fonts/lato-700-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-display: optional;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  src: url("fonts/lato-700-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-display: fallback;
+  font-family: "Lato";
+  font-style: italic;
+  font-weight: 400;
+  src: url("fonts/lato-400-italic-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-display: optional;
+  font-family: "Lato";
+  font-style: italic;
+  font-weight: 400;
+  src: url("fonts/lato-400-italic-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-display: fallback;
+  font-family: "Lato";
+  font-style: italic;
+  font-weight: 700;
+  src: url("fonts/lato-700-italic-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-display: optional;
+  font-family: "Lato";
+  font-style: italic;
+  font-weight: 700;
+  src: url("fonts/lato-700-italic-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-display: fallback;
+  font-family: "Noto Sans Canadian Aboriginal";
+  font-style: normal;
+  font-weight: 400;
+  src: url("fonts/noto-sans-canadian-aboriginal.woff2") format("woff2");
+  unicode-range: U+1400-167F, U+18B0-18FF, U+11AB0-11ABF;
+}
+@font-face {
+  font-display: fallback;
+  font-family: "Noto Sans Canadian Aboriginal";
+  font-style: normal;
+  font-weight: 700;
+  src: url("fonts/noto-sans-canadian-aboriginal.woff2") format("woff2");
+  unicode-range: U+1400-167F, U+18B0-18FF, U+11AB0-11ABF;
+}
+@font-face {
+  font-display: block;
+  font-family: "Glyphicons Halflings";
+  src: url("fonts/glyphicons-halflings-regular.woff2") format("woff2");
+}
+.wb-inv {
+  clip-path: inset(50%);
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  position: absolute;
+  width: 1px;
+}
+
+.stretched-link::after {
+  background-color: rgba(0, 0, 0, 0);
+  bottom: 0;
+  content: "";
+  left: 0;
+  pointer-events: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
+
+.alert {
+  background-clip: content-box;
+  background-color: inherit;
+  border-color: var(--gcweb-color-text-strong);
+  border-radius: 0;
+  border-style: solid;
+  border-width: 0 0 0 6px;
+  color: var(--gcweb-color-text-strong);
+  margin-bottom: var(--gcweb-line-gap-lg);
+  margin-left: 10px;
+  padding: 0 0 0 var(--gcweb-space-md);
+}
+.alert::before {
+  display: flex;
+  font-family: var(--gcweb-font-family-icon);
+  font-size: 26px;
+  line-height: 2.3em;
+  margin-left: -1.27em;
+  padding: 2px;
+  position: absolute;
+}
+.alert > * {
+  margin-left: var(--gcweb-space-md);
+}
+.alert > :first-child {
+  margin-left: var(--gcweb-space-md);
+}
+.alert > :first-child::before {
+  color: inherit;
+  content: none;
+}
+.alert > strong:first-child,
+.alert > em:first-child,
+.alert > span:first-child {
+  display: inline-block;
+}
+.alert > :first-child:not(details) {
+  margin-top: auto;
+  padding-top: var(--gcweb-space-md);
+}
+.alert > :last-child {
+  padding-bottom: 25px;
+}
+.alert > p,
+.alert > ul,
+.alert > ol {
+  margin-bottom: 0;
+}
+.alert > p + p {
+  margin-top: 5px;
+}
+.alert h4 {
+  color: inherit;
+  margin-top: 0;
+}
+.alert .alert-link {
+  font-weight: var(--gcweb-font-weight-bold);
+}
+.alert details {
+  margin-left: 0.5em;
+  padding-top: var(--gcweb-space-md);
+}
+.alert > details:only-child {
+  padding-bottom: 10px;
+  padding-top: 0;
+}
+.alert > details:only-child:not([open]) {
+  min-height: 64px;
+}
+
+.alert-danger {
+  border-color: var(--gcweb-color-danger);
+  border-image: linear-gradient(to bottom, var(--gcweb-color-danger) 16px, var(--gcweb-color-danger) 16px, transparent 16px, transparent 48px, var(--gcweb-color-danger) 48px, var(--gcweb-color-danger) 48px) 1 100%;
+}
+.alert-danger::before {
+  color: var(--gcweb-color-danger);
+  content: "\e101";
+}
+.alert-danger .alert-link {
+  color: var(--gcweb-color-danger-link);
+}
+
+.alert-warning {
+  border-color: var(--gcweb-color-warning);
+  border-image: linear-gradient(to bottom, var(--gcweb-color-warning) 16px, var(--gcweb-color-warning) 16px, transparent 16px, transparent 48px, var(--gcweb-color-warning) 48px, var(--gcweb-color-warning) 48px) 1 100%;
+}
+.alert-warning::before {
+  color: var(--gcweb-color-warning);
+  content: "\e107";
+}
+.alert-warning .alert-link {
+  color: var(--gcweb-color-warning-link);
+}
+
+.alert-info {
+  border-color: var(--gcweb-color-info);
+  border-image: linear-gradient(to bottom, var(--gcweb-color-info) 16px, var(--gcweb-color-info) 16px, transparent 16px, transparent 48px, var(--gcweb-color-info) 48px, var(--gcweb-color-info) 48px) 1 100%;
+}
+.alert-info::before {
+  color: var(--gcweb-color-info);
+  content: "\e086";
+}
+.alert-info .alert-link {
+  color: var(--gcweb-color-info-link);
+}
+
+.alert-success {
+  border-color: var(--gcweb-color-success);
+  border-image: linear-gradient(to bottom, var(--gcweb-color-success) 16px, var(--gcweb-color-success) 16px, transparent 16px, transparent 48px, var(--gcweb-color-success) 48px, var(--gcweb-color-success) 48px) 1 100%;
+}
+.alert-success::before {
+  color: var(--gcweb-color-success);
+  content: "\e084";
+}
+.alert-success .alert-link {
+  color: var(--gcweb-color-success-link);
+}
+
+.gc-featured-link {
+  background-color: var(--gcweb-color-theme);
+  color: #fff;
+  font-family: Lato, sans-serif;
+  opacity: 0.9;
+  padding-bottom: var(--gcweb-space-md);
+  padding-top: var(--gcweb-space-md);
+  position: relative;
+}
+.gc-featured-link > .container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--gcweb-container-gutter);
+  padding-right: var(--gcweb-container-gutter);
+}
+@media (min-width: 768px) {
+  .gc-featured-link > .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .gc-featured-link > .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .gc-featured-link > .container {
+    width: 1170px;
+  }
+}
+.gc-featured-link .stretched-link {
+  text-decoration-thickness: 1.5px;
+}
+.gc-featured-link .stretched-link:hover {
+  text-decoration-thickness: 2.5px;
+  text-underline-offset: 1px;
+}
+.gc-featured-link p {
+  margin-bottom: 0;
+}
+.gc-featured-link a,
+.gc-featured-link a:visited,
+.gc-featured-link a:hover,
+.gc-featured-link a:focus {
+  color: #fff;
+  font-weight: var(--gcweb-font-weight-bold);
+}
+.gc-featured-link[data-bg-color] {
+  background-color: transparent;
+  color: var(--gcweb-color-text);
+}
+.gc-featured-link[data-bg-color] a,
+.gc-featured-link[data-bg-color] a:visited,
+.gc-featured-link[data-bg-color] a:hover,
+.gc-featured-link[data-bg-color] a:focus {
+  color: var(--gcweb-color-text);
+}

@@ -1,0 +1,7 @@
+// gcweb_view_components — components only, without the global base layer.
+// For host apps that keep their own base styles (e.g. Tailwind apps).
+// Compiled to gcweb-components.css in this folder.
+@use "tokens";
+@use "fonts";
+@use "utilities";
+@use "components";

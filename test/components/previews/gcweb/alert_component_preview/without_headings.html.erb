@@ -1,0 +1,6 @@
+<% variants.each do |variant| %>
+  <h3><%= t("previews.alert.variants.#{variant}") %></h3>
+  <%= render Gcweb::AlertComponent.new(variant: variant) do %>
+    <p><%= t("previews.alert.no_heading_content.#{variant}") %></p>
+  <% end %>
+<% end %>
