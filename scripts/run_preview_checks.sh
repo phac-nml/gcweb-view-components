@@ -18,6 +18,12 @@ cleanup() {
 }
 trap cleanup EXIT
 
+# Refuse to run against some other server (e.g. a running bin/dev) on the port.
+if curl -fsS "${BASE_URL}/up" >/dev/null 2>&1; then
+  echo "Port ${PORT} is already in use (is bin/dev running?). Stop it or set PREVIEW_PORT." >&2
+  exit 1
+fi
+
 mkdir -p "$ROOT_DIR/demo/tmp"
 (cd "$ROOT_DIR/demo" && bin/vite build --mode test >/dev/null && exec bin/rails server -e test -p "$PORT") > "$LOG" 2>&1 &
 SERVER_PID=$!
