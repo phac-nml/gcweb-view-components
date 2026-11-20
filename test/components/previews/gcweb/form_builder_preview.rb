@@ -17,6 +17,15 @@ module Gcweb
   # <% end %>
   # ```
   #
+  # Forms also get the `gcweb--form-validation` Stimulus controller, which
+  # checks fields in the browser first (pass `validate: false` to leave it
+  # out). Register the gem's controllers to use it:
+  #
+  # ```js
+  # import { registerGcwebControllers } from "gcweb_view_components"
+  # registerGcwebControllers(application)
+  # ```
+  #
   # Labels come from `human_attribute_name`, the required marker from
   # presence (or acceptance) validators, and errors from `model.errors`, numbered like
   # wet-boew's "Error 1: …". When there are errors, `gcweb_form_with` puts
@@ -37,6 +46,17 @@ module Gcweb
     # the error summary (focused on load) at the top.
     def contact_information_with_errors
       render_with_template(template: "gcweb/form_builder_preview/contact_information", locals: { contact: ContactInformation.with_errors })
+    end
+
+    # @label Client-side validation
+    #
+    # The contact form with a submit button. Submit it empty, or with an
+    # invalid email address: the `gcweb--form-validation` controller checks
+    # the fields in the browser and shows the same errors and summary the
+    # server renders, without a round trip. Fix a field and its error and
+    # the summary update. (Button styles aren't part of the gem yet.)
+    def client_validation
+      render_with_template(template: "gcweb/form_builder_preview/contact_information", locals: { contact: ContactInformation.new, submit: true })
     end
 
     # @label Checkboxes and radio buttons

@@ -120,6 +120,29 @@ module Gcweb
       assert_selector "#contact_information_first_name-error"
     end
 
+    test "gcweb_form_with adds the client-side validation controller with the locale's messages" do
+      I18n.with_locale(:fr) { render_form(ContactInformation.new) { |f| f.text_field_group(:first_name) } }
+
+      form = page.find("form[data-controller='gcweb--form-validation']")
+      assert_equal "2", form["data-gcweb--form-validation-heading-level-value"]
+      messages = JSON.parse(form["data-gcweb--form-validation-messages-value"])
+      assert_equal "Ce champ est obligatoire.", messages["required"]
+      assert_equal "Veuillez fournir au moins %{count} caractères.", messages["minlength"]
+      assert_equal "Erreur\u00A0%{number}\u00A0: ", messages["prefix"]
+      assert_equal "Le formulaire n'a pu être soumis car %{count} erreurs ont été trouvées.", messages["summaryOther"]
+      assert_no_selector "form[novalidate]"
+    end
+
+    test "the controller joins the form's own controllers, and validate: false leaves it out" do
+      render_in_view_context do
+        gcweb_form_with(model: ContactInformation.new, scope: :contact_information, url: "#", data: { controller: "autosave" }, error_summary: { heading_level: 3 }) { "" }
+      end
+      assert_selector "form[data-controller='autosave gcweb--form-validation'][data-gcweb--form-validation-heading-level-value='3']"
+
+      render_in_view_context { gcweb_form_with(model: ContactInformation.new, scope: :contact_information, url: "#", validate: false) { "" } }
+      assert_no_selector "form[data-controller]"
+    end
+
     test "no summary without errors" do
       render_form(ContactInformation.new) { |f| f.text_field_group(:first_name) }
 

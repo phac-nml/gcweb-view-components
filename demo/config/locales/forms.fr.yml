@@ -65,3 +65,4 @@ fr:
       address_heading: "Adresse de contact"
       date_hint: "(par exemple, 1990 07 25)"
       base_error: "Cette inscription a déjà été soumise."
+      submit: "Soumettre"

@@ -15,7 +15,7 @@ class PreviewsTest < ActionDispatch::IntegrationTest
     "gcweb/form/fieldset_component" => %w[playground default heading border_bottom with_error],
     "gcweb/form/error_summary_component" => %w[default one_error without_links],
     "gcweb/form_builder" => %w[
-      contact_information contact_information_with_errors
+      contact_information contact_information_with_errors client_validation
       preferences preferences_with_errors
       personal_details personal_details_with_errors
     ]

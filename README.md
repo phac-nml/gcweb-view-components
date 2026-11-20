@@ -76,6 +76,8 @@ Radio buttons and checkboxes use GCWeb's large `gc-chckbxrdio` style in a fields
 
 When a field shows an error, `gcweb_form_with` puts an error summary at the top of the form, where wet-boew's validation puts it: "The form could not be submitted because 2 errors were found.", then a numbered link to each field. The form's fields are rendered first, so the numbers and links always match them. A checkbox or radio group's link goes to its first option, and a fieldset's to its legend. Errors the form didn't show (on `:base`, or on an attribute without a field) are listed last, without a link. The summary has `autofocus`, so after a failed submit it is focused first, as wb-frmvld does, and Turbo honours it too. Pass `error_summary: false` to leave it out, or `error_summary: { heading_level: 3 }` to change it. `Gcweb::Form::ErrorSummaryComponent` renders one on its own.
 
+Forms from `gcweb_form_with` also check their fields in the browser before submitting, with the `gcweb--form-validation` Stimulus controller (a port of wet-boew's `wb-frmvld` built on the browser's Constraint Validation API). It shows the same inline errors and summary the server renders, with wet-boew's messages in the page's language ("This field is required.", "Please enter a valid email address.", …), and stops the submit until they're fixed. Like jQuery Validation, it checks everything on submit and focuses the summary. After that it rechecks fields as they're edited, updating the numbers and the summary. A checkbox group counts as required when its legend is marked required. The messages come from the gem's locale files (`gcweb.form.validation.*`), so apps can override them like any translation. The controller sets `novalidate` itself, so if the gem's controllers aren't registered, the browser's own validation still applies. Pass `validate: false` to leave it out.
+
 The components work without a model too:
 
 ```erb
@@ -124,6 +126,11 @@ import { registerGcwebControllers } from "gcweb_view_components" // app/assets/j
 const application = Application.start()
 registerGcwebControllers(application)
 ```
+
+| Identifier | Used by |
+| --- | --- |
+| `gcweb--featured-link` | `Gcweb::FeaturedLinkComponent` (background and text colours) |
+| `gcweb--form-validation` | forms from `gcweb_form_with` (client-side validation) |
 
 ## Developing
 
