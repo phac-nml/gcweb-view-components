@@ -374,6 +374,29 @@ const hoverLabelLink = async (page) => {
 const BADGE_GREY = "a:not(.btn) > .badge:not(:empty)";
 const BADGE_BUTTON = "a.btn-primary > .badge";
 
+// Panels and wells (components/panels). GCWeb lays the stacking examples
+// out in grid columns, which the preview doesn't, so widths aren't
+// compared (as everywhere). GCWeb has no wells demo: the wells check adds
+// GCWeb's documented well markup to its panels page and lets GCWeb's CSS
+// render it.
+const GCWEB_PANELS = "/components/panels/panels-en.html";
+const PANELS_PREVIEW = "/rails/view_components/gcweb/panel_component";
+const PANEL_PROPS = [...FORM_PROPS, "border-top-right-radius", "border-bottom-left-radius"];
+const PANEL_BOX_PARTS = ["", " > .panel-heading", " .panel-title", " > .panel-body", " > .panel-body > p"];
+const panelPairs = (gcwebPanel, ourPanel, parts) => parts.map((part) => [`${gcwebPanel}${part}`, `${ourPanel}${part}`]);
+const APPEARANCE = (n) => `dl:has(.panel) > dd:nth-of-type(${n}) > .panel`;
+const WELL_PARTS = [".well-sm", ".well:not(.well-sm, .well-lg, .well-bold)", ".well-lg", ".well-bold", ".well-bold > p", ".well-bold strong"];
+const addGcwebWells = (page) =>
+  page.evaluate(() => {
+    document.querySelector("main h1").insertAdjacentHTML("afterend", `
+      <div class="parity-wells">
+        <div class="well well-sm"><p>Small well</p></div>
+        <div class="well"><p>Well</p></div>
+        <div class="well well-lg"><p>Large well</p></div>
+        <div class="well well-bold"><p>Bold well with <strong>strong text</strong></p></div>
+      </div>`);
+  });
+
 const CHECKS = [
   {
     name: "alert / with headings",
@@ -861,6 +884,31 @@ const CHECKS = [
     preview: "/rails/view_components/gcweb/badge_component/self_collapsing",
     props: FORM_PROPS,
     pairs: [["a > .badge:empty", "a > .badge:empty"]]
+  },
+  {
+    name: "panels / stacking options",
+    gcweb: GCWEB_PANELS,
+    preview: `${PANELS_PREVIEW}/stacking`,
+    props: PANEL_PROPS,
+    pairs: [
+      ...panelPairs("main .row > div:nth-child(1) > .panel", ".panel-examples > div:nth-child(1) > .panel", PANEL_BOX_PARTS),
+      ...panelPairs("main .row > div:nth-child(4) > .panel", ".panel-examples > div:nth-child(2) > .panel", [...PANEL_BOX_PARTS, " > .panel-footer"])
+    ]
+  },
+  {
+    name: "panels / appearances",
+    gcweb: GCWEB_PANELS,
+    preview: `${PANELS_PREVIEW}/appearances`,
+    props: PANEL_PROPS,
+    pairs: [1, 2, 3, 4, 5, 6].flatMap((n) => panelPairs(APPEARANCE(n), APPEARANCE(n), PANEL_BOX_PARTS))
+  },
+  {
+    name: "wells / sizes and bold",
+    gcweb: GCWEB_PANELS,
+    gcwebSetup: addGcwebWells,
+    preview: "/rails/view_components/gcweb/well_component/default",
+    props: PANEL_PROPS,
+    pairs: WELL_PARTS.map((part) => [`.parity-wells ${part}`, `main ${part}`])
   },
   overlayCheck("left panel", "left-panel", PANEL_PARTS, "panels"),
   overlayCheck("right panel", "right-panel", PANEL_PARTS, "panels"),

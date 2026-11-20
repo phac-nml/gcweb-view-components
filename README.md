@@ -16,6 +16,8 @@ Rails components that render [GCWeb](https://github.com/wet-boew/GCWeb) / [WET-B
 | `Gcweb::ButtonComponent` | [Buttons](https://wet-boew.github.io/GCWeb/common/button/button-en.html) | – |
 | `Gcweb::LabelComponent` | [Labels](https://wet-boew.github.io/GCWeb/components/labels/labels-en.html) | – |
 | `Gcweb::BadgeComponent` | [Badges](https://wet-boew.github.io/GCWeb/components/badges/badges-en.html) | – |
+| `Gcweb::PanelComponent` | [Panels](https://wet-boew.github.io/GCWeb/components/panels/panels-en.html) | – |
+| `Gcweb::WellComponent` | [Panels](https://wet-boew.github.io/GCWeb/components/panels/panels-en.html) (wells) | – |
 | `Gcweb::FeaturedLinkComponent` | [Featured link](https://wet-boew.github.io/GCWeb/components/gc-featured-link/gc-featured-link-doc-en.html) | `gcweb--featured-link` |
 | `Gcweb::AccordionComponent` | [Toggle (accordion)](https://wet-boew.github.io/gcweb-compiled-demos/wetboew-demos/toggle/toggle-en.html#accordion) | `gcweb--toggle` |
 | `Gcweb::TabsComponent` | [Tabbed interface](https://wet-boew.github.io/gcweb-compiled-demos/wetboew-demos/tabs/tabs-en.html) | `gcweb--tabs` |

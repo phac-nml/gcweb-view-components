@@ -1,0 +1,12 @@
+<%= render Gcweb::WellComponent.new(size: :sm) do %>
+  <p><%= t("previews.wells.small") %></p>
+<% end %>
+<%= render Gcweb::WellComponent.new do %>
+  <p><%= t("previews.wells.normal") %></p>
+<% end %>
+<%= render Gcweb::WellComponent.new(size: :lg) do %>
+  <p><%= t("previews.wells.large") %></p>
+<% end %>
+<%= render Gcweb::WellComponent.new(bold: true) do %>
+  <p><%= t("previews.wells.bold_html") %></p>
+<% end %>

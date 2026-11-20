@@ -1,0 +1,7 @@
+// GCWeb spacing helpers the component examples use. Loaded after the
+// components: like GCWeb's, they have no !important and win by coming
+// later (e.g. over .panel's bottom margin).
+
+.mrgn-bttm-0 {
+  margin-bottom: 0;
+}

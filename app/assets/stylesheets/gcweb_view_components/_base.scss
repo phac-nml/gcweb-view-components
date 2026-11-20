@@ -99,6 +99,27 @@ ol {
   margin-top: 0;
 }
 
+// Definition lists (Bootstrap 3, with GCWeb's spacing).
+dl {
+  margin-bottom: var(--gcweb-line-gap-lg);
+  margin-top: 0;
+}
+
+dt,
+dd {
+  line-height: var(--gcweb-line-height-body);
+}
+
+dt {
+  font-weight: var(--gcweb-font-weight-bold);
+  margin-bottom: 3px;
+}
+
+dd {
+  margin-bottom: 15px;
+  margin-left: 0;
+}
+
 small,
 .small {
   font-size: var(--gcweb-font-size-small);

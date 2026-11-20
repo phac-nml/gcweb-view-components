@@ -1,0 +1,32 @@
+# Example text from GCWeb v20.0.1's panels demo
+# (components/panels/panels-fr.html). GCWeb has no wells demo; the well
+# text is the gem's own.
+fr:
+  previews:
+    panels:
+      title: "Titre du panneau"
+      content: "Contenu"
+      # GCWeb's French page has "Panel Contenu".
+      panel_content: "Contenu du panneau"
+      footer: "Pied de page du panneau"
+      padded: "Contenu rempli :"
+      add_footer: "Ajouter un pied de page :"
+      variants:
+        default: "Panneau par défaut"
+        primary: "Panneau primaire"
+        success: "Panneau sur la réussite"
+        info: "Panneau d'information"
+        warning: "Panneau d'avertissement"
+        danger: "Panneau de danger"
+      uses:
+        default: "L'utiliser pour mettre en évidence des renseignements généraux ou des actions générales dans une boîte autonome."
+        primary: "L'utiliser pour mettre en évidence des renseignements généraux ou des actions générales dans une boîte autonome."
+        success: "À utiliser pour mettre en évidence des informations ou des actions correctes dans un encadré autonome."
+        info: "À utiliser pour mettre en évidence des informations ou des actions spécialisées dans un encadré autonome."
+        warning: "À utiliser pour mettre en évidence des informations ou des actions d'avertissement dans un encadré autonome."
+        danger: "À utiliser pour mettre en évidence des informations ou des actions dangereuses dans un encadré autonome."
+    wells:
+      small: "Petit encadré (size: :sm)."
+      normal: "Encadré."
+      large: "Grand encadré (size: :lg)."
+      bold_html: "Encadré en gras : le texte est en gras, et le <strong>texte important</strong> est en graisse normale."
