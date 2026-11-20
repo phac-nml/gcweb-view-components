@@ -1,0 +1,8 @@
+<%= gcweb_form_with model: survey, scope: :preference_survey, url: "#" do |f| %>
+  <h2><%= t("previews.form.survey_heading") %></h2>
+  <%= f.radio_buttons_group :pet,
+        PreferenceSurvey::PETS.map { |pet| [ t("previews.form.pets.#{pet}"), pet ] } %>
+  <%= f.check_boxes_group :condiments,
+        PreferenceSurvey::CONDIMENTS.map { |c| [ t("previews.form.condiments.#{c}"), c ] } %>
+  <%= f.check_box_group :terms %>
+<% end %>

@@ -5,6 +5,9 @@ module Gcweb
   #     <%= f.text_field_group :email, type: :email, hint: "(yourname@domain.com)" %>
   #     <%= f.text_area_group :message, rows: 5 %>
   #     <%= f.select_group :language, [ [ "English", "en" ], [ "French", "fr" ] ], prompt: true %>
+  #     <%= f.radio_buttons_group :contact_method, [ [ "Email", "email" ], [ "Phone", "phone" ] ] %>
+  #     <%= f.check_boxes_group :topics, [ [ "Health", "health" ], [ "Science", "science" ] ] %>
+  #     <%= f.check_box_group :terms %>
   #     <%= f.text_field :internal_ref %>   <%# plain Rails, unchanged %>
   #   <% end %>
   #
@@ -19,12 +22,15 @@ module Gcweb
   # - name and id: Rails' field_name / field_id
   # - value: the attribute before type cast, as Rails' text_field does
   # - label: helpers.label translations, then human_attribute_name
-  # - required: an unconditional presence validator (override with required:)
+  # - required: an unconditional presence or acceptance validator (override with required:)
   # - error: the attribute's first error message, numbered in render order
   #   like wet-boew's "Error 1: …" prefixes
   #
   # Any option can be passed explicitly to override what the builder infers.
   class FormBuilder < ActionView::Helpers::FormBuilder
+    REQUIRED_VALIDATORS = %i[presence acceptance].freeze
+    private_constant :REQUIRED_VALIDATORS
+
     # @param method [Symbol] attribute
     # @param type [Symbol] input type, see Gcweb::Form::TextFieldComponent::TYPES
     def text_field_group(method, type: :text, **options)
@@ -38,6 +44,23 @@ module Gcweb
     # @param choices [Array, Hash, String] see Gcweb::Form::SelectComponent
     def select_group(method, choices, **options)
       render_group(Gcweb::Form::SelectComponent, method, choices: choices, **options)
+    end
+
+    # GCWeb large radio buttons in a fieldset.
+    # @param choices [Array, Hash] see Gcweb::Form::ChoicesComponent
+    def radio_buttons_group(method, choices, **options)
+      render_group(Gcweb::Form::RadiosComponent, method, choices: choices, **options)
+    end
+
+    # GCWeb large checkboxes in a fieldset; the values arrive as an array.
+    # @param choices [Array, Hash] see Gcweb::Form::ChoicesComponent
+    def check_boxes_group(method, choices, **options)
+      render_group(Gcweb::Form::CheckboxesComponent, method, choices: choices, **options)
+    end
+
+    # A single GCWeb checkbox ("tickbox"), with Rails' hidden "0" input.
+    def check_box_group(method, **options)
+      render_group(Gcweb::Form::CheckboxComponent, method, **options)
     end
 
     private
@@ -85,13 +108,14 @@ module Gcweb
         method.to_s.humanize
     end
 
-    # Only unconditional presence validators count; a validator with
+    # Presence and acceptance ("tick to agree") validators make a field
+    # required. Only unconditional ones count; a validator with
     # if/unless/on may not apply to this render.
     def presence_required?(method)
       return false unless @object.class.respond_to?(:validators_on)
 
       @object.class.validators_on(method).any? do |validator|
-        validator.kind == :presence && validator.options.slice(:if, :unless, :on).empty?
+        REQUIRED_VALIDATORS.include?(validator.kind) && validator.options.slice(:if, :unless, :on).empty?
       end
     end
   end

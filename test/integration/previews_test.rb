@@ -9,7 +9,10 @@ class PreviewsTest < ActionDispatch::IntegrationTest
     "gcweb/form/text_field_component" => %w[playground optional_and_required with_hint with_error],
     "gcweb/form/text_area_component" => %w[playground default],
     "gcweb/form/select_component" => %w[playground default],
-    "gcweb/form_builder" => %w[contact_information contact_information_with_errors]
+    "gcweb/form/radios_component" => %w[playground default inline with_error],
+    "gcweb/form/checkboxes_component" => %w[playground default disabled inline with_error],
+    "gcweb/form/checkbox_component" => %w[playground default required_with_error],
+    "gcweb/form_builder" => %w[contact_information contact_information_with_errors preferences preferences_with_errors]
   }.freeze
 
   SCENARIOS.each do |preview, scenarios|
@@ -51,6 +54,10 @@ class PreviewsTest < ActionDispatch::IntegrationTest
     assert_select ".form-group.has-error", 4
     assert_select "#contact_information_first_name-error .label-danger", "Erreur\u00A01\u00A0: Ce champ est obligatoire."
     assert_select ".field_with_errors", 0
+
+    get "/rails/view_components/gcweb/form_builder/preferences_with_errors", params: { locale: "fr" }
+    assert_select "fieldset.gc-chckbxrdio legend strong.error", 2
+    assert_select "#preference_survey_terms-error .label-danger", "Erreur\u00A03\u00A0: Ce champ est obligatoire."
   end
 
   test "preview pages send a CSP header without unsafe-inline scripts" do

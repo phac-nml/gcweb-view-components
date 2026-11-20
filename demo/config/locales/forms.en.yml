@@ -1,5 +1,6 @@
 # Field labels and messages copied from GCWeb v20.0.1
-# (common/form/complex-structure-form-en.html and its wb-frmvld errors).
+# (common/form/complex-structure-form-en.html and its wb-frmvld errors,
+# components/gc-chckbxrdio/gc-chckbxrdio-en.html).
 en:
   activemodel:
     attributes:
@@ -11,12 +12,20 @@ en:
         last_name: "Last Name"
         preferred_language: "Preferred Language"
         email: "Email"
+      preference_survey:
+        pet: "Which is your favorite pet?"
+        condiments: "Choose your condiments:"
+        terms: "I agree to the terms and conditions"
     errors:
       models:
         contact_information:
           attributes:
             email:
               invalid: "Please enter a valid email address."
+        preference_survey:
+          attributes:
+            terms:
+              accepted: "This field is required."
       messages:
         blank: "This field is required."
   previews:
@@ -30,3 +39,15 @@ en:
       participation_choices:
         In-person: "In-person"
         Virtual: "Virtual"
+      pets:
+        dog: "Dog"
+        cat: "Cat"
+        rat: "Rat"
+      condiments:
+        ketchup: "Ketchup"
+        relish: "Relish"
+        mustard: "Mustard"
+      option_legend: "Choose an option:"
+      option: "Option %{number}"
+      remember_me: "Remember me"
+      survey_heading: "Your preferences"

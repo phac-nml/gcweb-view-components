@@ -412,6 +412,22 @@ details[open] > summary {
   z-index: 1;
 }
 
+.list-unstyled {
+  list-style: none;
+  padding-left: 0;
+}
+
+ol.lst-spcd-2 > li,
+ul.lst-spcd-2 > li {
+  margin-bottom: 20px;
+}
+ol.lst-spcd-2 ol,
+ol.lst-spcd-2 ul,
+ul.lst-spcd-2 ol,
+ul.lst-spcd-2 ul {
+  margin-top: 20px;
+}
+
 .alert {
   background-clip: content-box;
   background-color: inherit;
@@ -619,7 +635,9 @@ details[open] > summary {
   max-width: 100%;
 }
 
-label.required:not(.required-no-asterisk .required)::before {
+label.required:not(.required-no-asterisk .required)::before,
+legend.required:not(.required-no-asterisk .required)::before,
+.checkbox.required:not(.required-no-asterisk .required)::before {
   color: var(--gcweb-color-danger);
   content: "* ";
   font-weight: var(--gcweb-font-weight-bold);
@@ -627,7 +645,9 @@ label.required:not(.required-no-asterisk .required)::before {
   vertical-align: top;
 }
 
-label.required strong.required {
+label.required strong.required,
+legend.required strong.required,
+.checkbox.required strong.required {
   color: var(--gcweb-color-danger);
   font-weight: var(--gcweb-font-weight-bold);
 }
@@ -678,11 +698,212 @@ textarea.form-control {
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px var(--gcweb-color-error-glow);
 }
 
-.form-group label strong.error {
+.form-group label strong.error,
+.gc-chckbxrdio label strong.error,
+.gc-chckbxrdio legend strong.error {
   display: inline-block;
   width: 100%;
 }
-.form-group label strong.error .label {
+.form-group label strong.error .label,
+.gc-chckbxrdio label strong.error .label,
+.gc-chckbxrdio legend strong.error .label {
   font-size: 100%;
   white-space: normal;
+}
+
+fieldset.gc-chckbxrdio {
+  border: 0;
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+}
+
+.gc-chckbxrdio legend {
+  border: 0;
+  color: var(--gcweb-color-text);
+  display: block;
+  float: none;
+  font-size: 22px;
+  font-weight: var(--gcweb-font-weight-bold);
+  line-height: 1.65em;
+  margin-bottom: 15px;
+  margin-top: 0;
+  padding: 0;
+  width: 100%;
+}
+.gc-chckbxrdio label {
+  cursor: pointer;
+  display: block;
+  font-size: 20px;
+  max-width: 100%;
+}
+
+.gc-chckbxrdio .checkbox,
+.gc-chckbxrdio .radio,
+.checkbox.gc-chckbxrdio {
+  display: block;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  position: relative;
+}
+.gc-chckbxrdio .checkbox label,
+.gc-chckbxrdio .radio label,
+.checkbox.gc-chckbxrdio label {
+  font-weight: var(--gcweb-font-weight-normal);
+  margin-bottom: 0;
+  min-height: 23px;
+  padding-left: 20px;
+}
+
+.gc-chckbxrdio .checkbox + .checkbox,
+.gc-chckbxrdio .radio + .radio {
+  margin-top: -5px;
+}
+
+.gc-chckbxrdio ul.lst-spcd-2 > li {
+  margin-bottom: 20px;
+}
+
+.gc-chckbxrdio input[type=checkbox],
+.gc-chckbxrdio input[type=radio] {
+  box-sizing: border-box;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  margin: 9px 0 0 10px;
+  opacity: 0;
+  padding: 0;
+  position: absolute;
+  z-index: 2;
+}
+.gc-chckbxrdio input[type=checkbox]:focus,
+.gc-chckbxrdio input[type=radio]:focus {
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.gc-chckbxrdio input[type=checkbox]:hover,
+.gc-chckbxrdio input[type=radio]:hover {
+  cursor: pointer;
+}
+.gc-chckbxrdio input[type=checkbox] + label,
+.gc-chckbxrdio input[type=radio] + label {
+  display: inline-block;
+  line-height: 2;
+  margin-left: 36px;
+  width: auto;
+}
+.gc-chckbxrdio input[type=checkbox] + label::before,
+.gc-chckbxrdio input[type=radio] + label::before {
+  border: 4px solid #fff;
+  box-shadow: 0 0 0 2px var(--gcweb-color-text-strong);
+  box-sizing: border-box;
+  content: "";
+  display: inline-block;
+  height: 36px;
+  left: 0;
+  position: absolute;
+  top: 2px;
+  width: 36px;
+}
+.gc-chckbxrdio input[type=checkbox] + label:hover::before,
+.gc-chckbxrdio input[type=radio] + label:hover::before {
+  background-image: linear-gradient(to bottom, #e5e5e5, #fff 50%);
+}
+.gc-chckbxrdio input[type=checkbox]:hover + label::before,
+.gc-chckbxrdio input[type=radio]:hover + label::before {
+  background-image: linear-gradient(to bottom, #e5e5e5, #fff 50%);
+}
+.gc-chckbxrdio input[type=checkbox]:focus + label::before,
+.gc-chckbxrdio input[type=radio]:focus + label::before {
+  box-shadow: 0 0 0 2px var(--gcweb-color-text-strong), 0 0 8px 4px #3b99fc;
+}
+.gc-chckbxrdio input[type=checkbox][disabled],
+.gc-chckbxrdio input[type=radio][disabled] {
+  cursor: not-allowed;
+}
+.gc-chckbxrdio input[type=checkbox][disabled] + label,
+.gc-chckbxrdio input[type=radio][disabled] + label {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.gc-chckbxrdio input[type=radio] + label::before {
+  border-radius: 50%;
+}
+.gc-chckbxrdio input[type=radio]:checked + label::before {
+  background: #444;
+}
+.gc-chckbxrdio input[type=checkbox]:checked + label::after {
+  border-color: #333;
+  border-style: solid;
+  border-width: 0 5px 5px 0;
+  box-sizing: border-box;
+  content: "";
+  display: inline-block;
+  height: 26px;
+  left: 12px;
+  position: absolute;
+  top: 4px;
+  transform: rotate(45deg);
+  width: 13px;
+}
+
+.gc-chckbxrdio.checkbox input[type=checkbox] + label {
+  font-size: 17px;
+  min-height: 23px;
+}
+.gc-chckbxrdio.checkbox input[type=checkbox] + label::before {
+  height: 24px;
+  left: 6px;
+  top: 4px;
+  width: 24px;
+}
+.gc-chckbxrdio.checkbox input[type=checkbox]:checked + label::after {
+  border-width: 0 3px 3px 0;
+  height: 16px;
+  left: 14px;
+  top: 6px;
+  width: 9px;
+}
+
+.gc-chckbxrdio.form-inline .label-inline {
+  padding-right: 20px;
+  position: relative;
+  vertical-align: middle;
+}
+.gc-chckbxrdio.form-inline .label-inline label {
+  font-weight: var(--gcweb-font-weight-normal);
+  margin-bottom: 0;
+  padding-left: 10px;
+}
+@media screen and (max-width: 991px) {
+  .gc-chckbxrdio.form-inline .label-inline {
+    margin-bottom: 20px;
+  }
+}
+@media (min-width: 768px) {
+  .gc-chckbxrdio.form-inline .checkbox,
+  .gc-chckbxrdio.form-inline .radio {
+    display: inline-block;
+    margin-bottom: 0;
+    margin-top: 0;
+    vertical-align: middle;
+  }
+  .gc-chckbxrdio.form-inline .checkbox input[type=checkbox],
+  .gc-chckbxrdio.form-inline .radio input[type=radio] {
+    margin-left: 0;
+  }
+  .gc-chckbxrdio.form-inline .label-inline:last-child {
+    padding-right: 0;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .gc-chckbxrdio input[type=checkbox]:focus + label::before,
+  .gc-chckbxrdio input[type=radio]:focus + label::before {
+    border: 5px double #000;
+  }
+  .gc-chckbxrdio input[type=radio]:checked + label::before {
+    outline: 10px solid #444;
+    outline-offset: -20px;
+  }
 }

@@ -17,6 +17,9 @@ Rails components that render [GCWeb](https://github.com/wet-boew/GCWeb) / [WET-B
 | `Gcweb::Form::TextFieldComponent` | [Forms](https://wet-boew.github.io/GCWeb/common/form/complex-structure-form-en.html) | – |
 | `Gcweb::Form::TextAreaComponent` | [Forms](https://wet-boew.github.io/GCWeb/common/form/complex-structure-form-en.html) | – |
 | `Gcweb::Form::SelectComponent` | [Forms](https://wet-boew.github.io/GCWeb/common/form/complex-structure-form-en.html) | – |
+| `Gcweb::Form::RadiosComponent` | [Checkboxes and radio buttons](https://wet-boew.github.io/GCWeb/components/gc-chckbxrdio/gc-chckbxrdio-doc-en.html) | – |
+| `Gcweb::Form::CheckboxesComponent` | [Checkboxes and radio buttons](https://wet-boew.github.io/GCWeb/components/gc-chckbxrdio/gc-chckbxrdio-doc-en.html) | – |
+| `Gcweb::Form::CheckboxComponent` (tickbox) | [Checkboxes and radio buttons](https://wet-boew.github.io/GCWeb/components/gc-chckbxrdio/gc-chckbxrdio-doc-en.html) | – |
 
 Every component has Lookbook previews (one scenario per GCWeb example, EN/FR toggle in the toolbar).
 
@@ -49,11 +52,16 @@ gem "gcweb_view_components", github: "phac-nml/gcweb-view-components"
   <%= f.text_field_group :email, type: :email, hint: "(yourname@domain.com)" %>
   <%= f.text_area_group :post_nominals, rows: 4 %>
   <%= f.select_group :preferred_language, [ [ "English", "en" ], [ "French", "fr" ] ], prompt: true %>
+  <%= f.radio_buttons_group :contact_method, [ [ "Email", "email" ], [ "Phone", "phone" ] ] %>
+  <%= f.check_boxes_group :topics, [ [ "Health", "health" ], [ "Science", "science" ] ] %>
+  <%= f.check_box_group :terms %>
   <%= f.text_field :internal_ref %>  <%# Rails' own methods are unchanged %>
 <% end %>
 ```
 
-`gcweb_form_with` is `form_with(builder: Gcweb::FormBuilder)`. The builder reads the label from `human_attribute_name`, marks a field required when it has an unconditional presence validator, and shows `model.errors` with the markup wet-boew's form validation uses ("Error 1: …"), so server-side errors look like GCWeb's client-side ones. Every inferred value can be overridden (`label:`, `required:`, `hint:`, `error:`, `id:`, …), and other options become attributes on the control.
+`gcweb_form_with` is `form_with(builder: Gcweb::FormBuilder)`. The builder reads the label from `human_attribute_name`, marks a field required when it has an unconditional presence (or, for `check_box_group`, acceptance) validator, and shows `model.errors` with the markup wet-boew's form validation uses ("Error 1: …"), so server-side errors look like GCWeb's client-side ones. Every inferred value can be overridden (`label:`, `required:`, `hint:`, `error:`, `id:`, …), and other options become attributes on the control.
+
+Radio buttons and checkboxes use GCWeb's large `gc-chckbxrdio` style in a fieldset, with the question, required marker and error in the legend. `inline: true` puts the options in a row and `disabled: [values]` disables some of them. Checkbox groups submit an array (`name[]`), and both send an empty value when nothing is chosen, as Rails' collection helpers do.
 
 The components work without a model too:
 

@@ -49,9 +49,10 @@ module Gcweb
         @control_attributes = control_attributes
       end
 
-      # Same id Rails derives from a field name: "user[email]" -> "user_email".
+      # Same id Rails derives from a field name: "user[email]" -> "user_email",
+      # "user[tags][]" -> "user_tags".
       def self.id_for(name)
-        name.to_s.gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").delete_suffix("_")
+        name.to_s.delete_suffix("[]").gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").delete_suffix("_")
       end
 
       def required? = @required
@@ -69,7 +70,7 @@ module Gcweb
       def label_content
         parts = [ tag.span(label, class: "field-name") ]
         parts << hint if hint
-        parts << tag.strong(t("gcweb.form.required"), class: "required", aria: { hidden: true }) if required?
+        parts << tag.strong(t("gcweb.form.required"), class: "required", aria: { hidden: required_attribute? || nil }) if required?
         parts << error_tag if error?
         safe_join(parts, " ")
       end
@@ -87,6 +88,11 @@ module Gcweb
       def control
         raise NotImplementedError, "#{self.class} must implement #control"
       end
+
+      # Whether the control carries the HTML required attribute. When it does,
+      # screen readers already announce "required", so the visible
+      # "(required)" text is aria-hidden to avoid saying it twice.
+      def required_attribute? = required?
 
       # Attributes shared by every control. Explicit class/aria/data entries in
       # control_attributes are merged, not replaced.
