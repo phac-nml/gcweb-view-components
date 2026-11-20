@@ -1,5 +1,9 @@
-// Labels — Bootstrap 3 .label with GCWeb's flat, left-bordered style
-// (components/labels). Used by inline form errors (.label-danger).
+// Labels (GCWeb components/labels), Gcweb::LabelComponent: Bootstrap 3
+// .label with GCWeb's flat style, black text on a tinted background with a
+// 4px left border in the variant colour. Also used by inline form errors
+// (.label-danger).
+
+@use "sass:list";
 
 .label {
   border-radius: 0;
@@ -14,10 +18,43 @@
   text-align: center;
   vertical-align: baseline;
   white-space: nowrap;
+
+  &:empty {
+    display: none;
+  }
 }
 
-.label-danger {
-  background: var(--gcweb-color-danger-bg);
-  border-color: var(--gcweb-color-danger);
-  color: var(--gcweb-color-text-strong);
+a.label:focus,
+a.label:hover {
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+$label-variants: (
+  "default": (var(--gcweb-color-label-default-bg), var(--gcweb-color-label-default-border)),
+  "primary": (var(--gcweb-color-label-primary-bg), var(--gcweb-color-label-primary-border)),
+  "success": (var(--gcweb-color-label-success-bg), var(--gcweb-color-success)),
+  "info": (var(--gcweb-color-label-info-bg), var(--gcweb-color-info)),
+  "warning": (var(--gcweb-color-label-warning-bg), var(--gcweb-color-warning-details)),
+  "danger": (var(--gcweb-color-danger-bg), var(--gcweb-color-danger))
+);
+
+@each $variant, $colors in $label-variants {
+  .label-#{$variant} {
+    &,
+    &[href]:active,
+    &[href]:focus,
+    &[href]:hover {
+      background: list.nth($colors, 1);
+      border-color: list.nth($colors, 2);
+      color: var(--gcweb-color-text-strong);
+    }
+
+    &[href]:active,
+    &[href]:focus,
+    &[href]:hover {
+      text-decoration: underline;
+    }
+  }
 }

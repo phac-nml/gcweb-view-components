@@ -1,0 +1,10 @@
+<dl>
+  <dt><%= t("previews.badges.grey") %></dt>
+  <dd>
+    <p><a href="#"><%= t("previews.badges.inbox") %> <%= render Gcweb::BadgeComponent.new(description: t("previews.badges.unread")).with_content("42") %></a></p>
+  </dd>
+  <dt><%= t("previews.badges.button") %></dt>
+  <dd>
+    <p><a class="btn btn-primary" href="#"><%= t("previews.badges.inbox") %> <%= render Gcweb::BadgeComponent.new(description: t("previews.badges.unread")).with_content("42") %></a></p>
+  </dd>
+</dl>
