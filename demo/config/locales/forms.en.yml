@@ -64,3 +64,4 @@ en:
       contact_legend: "Contact information"
       address_heading: "Contact Address"
       date_hint: "(for example, 1990 07 25)"
+      base_error: "This registration has already been submitted."

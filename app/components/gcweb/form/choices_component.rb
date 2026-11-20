@@ -58,10 +58,13 @@ module Gcweb
         "#{id}_#{option_value.to_s.gsub(/[\s.]/, "_").gsub(/[^-[[:word:]]]/, "").downcase}"
       end
 
-      # The first input's id, which an error summary links to.
+      # The first input's id, which an error summary links to (wb-frmvld
+      # links a group's error to its first input).
       def first_option_id
         option_id(normalized_choices.first&.dig(1))
       end
+
+      def error_target_id = first_option_id
 
       private
 

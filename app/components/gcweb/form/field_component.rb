@@ -59,6 +59,9 @@ module Gcweb
       def error? = !@error.nil?
       def error_id = "#{id}-error"
 
+      # The id an error summary links to for this field.
+      def error_target_id = id
+
       def group_attributes
         @group_html.merge(class: class_names("form-group", { "has-error" => error? }, @group_html[:class]))
       end

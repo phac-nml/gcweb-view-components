@@ -21,6 +21,7 @@ Rails components that render [GCWeb](https://github.com/wet-boew/GCWeb) / [WET-B
 | `Gcweb::Form::CheckboxesComponent` | [Checkboxes and radio buttons](https://wet-boew.github.io/GCWeb/components/gc-chckbxrdio/gc-chckbxrdio-doc-en.html) | – |
 | `Gcweb::Form::CheckboxComponent` (tickbox) | [Checkboxes and radio buttons](https://wet-boew.github.io/GCWeb/components/gc-chckbxrdio/gc-chckbxrdio-doc-en.html) | – |
 | `Gcweb::Form::FieldsetComponent` | [Forms](https://wet-boew.github.io/GCWeb/common/form/complex-structure-form-en.html) | – |
+| `Gcweb::Form::ErrorSummaryComponent` | [Form validation](https://wet-boew.github.io/wet-boew/docs/ref/formvalid/formvalid-en.html) | – |
 
 Every component has Lookbook previews (one scenario per GCWeb example, EN/FR toggle in the toolbar).
 
@@ -72,6 +73,8 @@ gem "gcweb_view_components", github: "phac-nml/gcweb-view-components"
 Radio buttons and checkboxes use GCWeb's large `gc-chckbxrdio` style in a fieldset, with the question, required marker and error in the legend. `inline: true` puts the options in a row and `disabled: [values]` disables some of them. Checkbox groups submit an array (`name[]`), and both send an empty value when nothing is chosen, as Rails' collection helpers do.
 
 `fieldset_group` wraps its block's fields in a fieldset. Without an attribute it is a section of the form, with a plain legend (`heading: :h2` puts the text in a heading, as GCWeb's sections do, and `border: :bottom` is GCWeb's `legend-brdr-bttm`). With an attribute, the legend, required marker and error come from it, for an answer split over several fields but validated as one, such as a date. The `fieldset` and `legend` styles are global element styles, like `label`, so they are in `gcweb.css` only. Apps using `gcweb-components.css` get the required marker and error styles but keep their own fieldset and legend look.
+
+When a field shows an error, `gcweb_form_with` puts an error summary at the top of the form, where wet-boew's validation puts it: "The form could not be submitted because 2 errors were found.", then a numbered link to each field. The form's fields are rendered first, so the numbers and links always match them. A checkbox or radio group's link goes to its first option, and a fieldset's to its legend. Errors the form didn't show (on `:base`, or on an attribute without a field) are listed last, without a link. The summary has `autofocus`, so after a failed submit it is focused first, as wb-frmvld does, and Turbo honours it too. Pass `error_summary: false` to leave it out, or `error_summary: { heading_level: 3 }` to change it. `Gcweb::Form::ErrorSummaryComponent` renders one on its own.
 
 The components work without a model too:
 

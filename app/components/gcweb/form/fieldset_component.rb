@@ -27,7 +27,9 @@ module Gcweb
     #
     # The group markup is the legend wb-frmvld renders for a checkbox or
     # radio group on GCWeb v20.0.1. The legend is the group's accessible
-    # name, so the error is read when focus enters any of its fields.
+    # name, so the error is read when focus enters any of its fields. With
+    # an error the legend also gets the group's id, which the error summary
+    # links to (wb-frmvld links group errors to the legend the same way).
     # Without required, hint or error the legend is plain text, as in GCWeb.
     #
     # Inside a form, prefer the builder: `f.fieldset_group :date_of_birth do … end`.
@@ -73,7 +75,7 @@ module Gcweb
       def plain_legend? = !required? && hint.nil? && !error?
 
       def legend_attributes
-        { class: class_names(required: required?).presence }
+        { id: (id if error?), class: class_names(required: required?).presence }.compact
       end
 
       def fieldset_attributes

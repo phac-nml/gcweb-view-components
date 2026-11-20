@@ -8,3 +8,8 @@ en:
       error_prefix: "Error: "
       error_prefix_numbered: "Error\u00A0%{number}: "
       select_prompt: "Make your selection"
+      error_summary:
+        heading:
+          one: "The form could not be submitted because 1 error was found."
+          other: "The form could not be submitted because %{count} errors were found."
+        separator: " - "

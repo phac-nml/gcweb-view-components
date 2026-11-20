@@ -29,6 +29,9 @@ module Gcweb
   # - error: the attribute's first error message, numbered in render order
   #   like wet-boew's "Error 1: …" prefixes
   #
+  # gcweb_form_with puts an error summary (#error_summary) at the top of
+  # the form, listing those errors with links to their fields.
+  #
   # Any option can be passed explicitly to override what the builder infers.
   class FormBuilder < ActionView::Helpers::FormBuilder
     REQUIRED_VALIDATORS = %i[presence acceptance].freeze
@@ -88,12 +91,33 @@ module Gcweb
       end
     end
 
+    # The error summary for everything rendered so far: each field's error
+    # with its number and a link to the field, then any errors the form
+    # didn't show (on :base, or on attributes without a field), numbered
+    # after them and without links. nil when there are none.
+    #
+    # gcweb_form_with renders the form's fields first and then puts this
+    # at the top, so call it yourself only after the fields.
+    #
+    # @param options see Gcweb::Form::ErrorSummaryComponent (id defaults to
+    #   "errors-" plus the form's id, as wb-frmvld names it)
+    def error_summary(**options)
+      errors = rendered_errors + unrendered_errors
+      return if errors.empty?
+
+      @template.render(Gcweb::Form::ErrorSummaryComponent.new(errors: errors, id: "errors-#{form_id || "default"}", **options))
+    end
+
+    # The id of the <form>, used to name its error summary.
+    attr_accessor :form_id
+
     private
 
     def render_group(component_class, method, **options, &block)
       error = options.key?(:error) ? options.delete(:error) : field_errors(method).first
+      rendered_methods << method.to_sym
 
-      @template.render(component_class.new(
+      component = component_class.new(
         name: options.delete(:name) || field_name(method),
         id: options.delete(:id) || field_id(method),
         value: options.key?(:value) ? options.delete(:value) : field_value(method),
@@ -102,7 +126,29 @@ module Gcweb
         error: error,
         error_number: (options.delete(:error_number) || next_error_number if error.present?),
         **options
-      ), &block)
+      )
+      record_error(component) if component.error?
+
+      @template.render(component, &block)
+    end
+
+    def record_error(component)
+      rendered_errors << { number: component.error_number, target: component.error_target_id, label: component.label, message: component.error }
+    end
+
+    def rendered_errors = (@gcweb_rendered_errors ||= [])
+    def rendered_methods = (@gcweb_rendered_methods ||= Set.new)
+
+    def unrendered_errors
+      return [] unless @object.respond_to?(:errors)
+
+      @object.errors.group_by_attribute.filter_map do |attribute, errors|
+        next if rendered_methods.include?(attribute)
+
+        messages = attribute == :base ? errors.map(&:message) : [ errors.first.message ]
+        label = label_text(attribute) unless attribute == :base
+        messages.map { |message| { number: next_error_number, target: nil, label: label, message: message } }
+      end.flatten
     end
 
     def field_errors(method)

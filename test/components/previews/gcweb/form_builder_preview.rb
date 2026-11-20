@@ -19,7 +19,8 @@ module Gcweb
   #
   # Labels come from `human_attribute_name`, the required marker from
   # presence (or acceptance) validators, and errors from `model.errors`, numbered like
-  # wet-boew's "Error 1: …".
+  # wet-boew's "Error 1: …". When there are errors, `gcweb_form_with` puts
+  # an error summary linking to each field at the top of the form.
   #
   # The example is the "Contact Information" section of GCWeb's
   # [complex structure form](https://wet-boew.github.io/GCWeb/common/form/complex-structure-form-en.html).
@@ -32,7 +33,8 @@ module Gcweb
     # @label Contact information with errors
     #
     # The same form after a failed submit: the model's validation errors,
-    # rendered server-side with the markup wet-boew's validation uses.
+    # rendered server-side with the markup wet-boew's validation uses, and
+    # the error summary (focused on load) at the top.
     def contact_information_with_errors
       render_with_template(template: "gcweb/form_builder_preview/contact_information", locals: { contact: ContactInformation.with_errors })
     end
