@@ -131,6 +131,24 @@ const groupPair = (field) => [
 const GCWEB_FORM = "/common/form/complex-structure-form-en.html";
 const FORM_PREVIEW = "/rails/view_components/gcweb/form_builder/contact_information";
 
+// Fieldsets. GCWeb's form demo has section fieldsets (legend > h2); the
+// "Contact Address" one holds City/Town. It has no fieldset with a required
+// marker or error outside gc-chckbxrdio, and no legend-brdr-bttm example,
+// so those checks add them to the demo: the error check inserts the markup
+// FieldsetComponent renders, and GCWeb's CSS styles it.
+const GCWEB_ADDRESS = "fieldset:has([id='00N4t000000PQba'])";
+const FIELDSET_PREVIEW = "/rails/view_components/gcweb/form_builder/personal_details";
+const OUR_DATE = "fieldset:has(#personal_details_birth_year)";
+const addGcwebFieldset = (page) =>
+  page.evaluate((address) => {
+    // After a section, so (like ours) it is not a first child.
+    document.querySelector(address).insertAdjacentHTML("afterend", `
+      <fieldset id="dob">
+        <legend class="required"><span class="field-name">Date of birth</span> (for example, 1990 07 25) <strong class="required">(required)</strong> <strong id="dob-error" class="error"><span class="label label-danger"><span class="prefix">Error&nbsp;1: </span>This field is required.</span></strong></legend>
+        <div class="form-group"><label for="dob-year"><span class="field-name">Year</span></label> <input class="form-control" id="dob-year" type="text" size="4" maxlength="4"></div>
+      </fieldset>`);
+  }, GCWEB_ADDRESS);
+
 const alertPairs = (variant, scope) => [
   [`${scope}.alert-${variant}`, `${scope}.alert-${variant}`],
   [`${scope}.alert-${variant}::before`, `${scope}.alert-${variant}::before`],
@@ -419,6 +437,53 @@ const CHECKS = [
       ["label[for=terms]::before", "label[for=preference_survey_terms]::before"],
       ["label[for=terms] > strong.required", "label[for=preference_survey_terms] > strong.required"],
       ["#terms-error .label-danger", "#preference_survey_terms-error .label-danger"]
+    ]
+  },
+  {
+    name: "fieldset / section",
+    gcweb: GCWEB_FORM,
+    gcwebSetup: stackGcwebForm,
+    preview: FIELDSET_PREVIEW,
+    props: FORM_PROPS,
+    pairs: [
+      // Neither is its form's first child, so both have the rule above.
+      [GCWEB_ADDRESS, OUR_DATE],
+      [`${GCWEB_ADDRESS} > legend`, "fieldset:has(#personal_details_city) > legend"],
+      [`${GCWEB_ADDRESS} > legend > h2`, "fieldset:has(#personal_details_city) > legend > h2"]
+    ]
+  },
+  {
+    name: "fieldset / legend-brdr-bttm",
+    gcweb: GCWEB_FORM,
+    gcwebSetup: async (page) => {
+      await stackGcwebForm(page);
+      await page.evaluate((s) => document.querySelector(s).classList.add("legend-brdr-bttm"), GCWEB_ADDRESS);
+    },
+    preview: "/rails/view_components/gcweb/form/fieldset_component/border_bottom",
+    props: FORM_PROPS,
+    pairs: [
+      [GCWEB_ADDRESS, "fieldset.legend-brdr-bttm"],
+      [`${GCWEB_ADDRESS} > legend`, "fieldset.legend-brdr-bttm > legend"]
+    ]
+  },
+  {
+    name: "fieldset / errors",
+    gcweb: GCWEB_FORM,
+    gcwebSetup: async (page) => {
+      await stackGcwebForm(page);
+      await addGcwebFieldset(page);
+    },
+    preview: `${FIELDSET_PREVIEW}_with_errors`,
+    props: FORM_PROPS,
+    pairs: [
+      ["#dob", OUR_DATE],
+      ["#dob > legend", `${OUR_DATE} > legend`],
+      ["#dob > legend > .field-name", `${OUR_DATE} > legend > .field-name`],
+      ["#dob > legend::before", `${OUR_DATE} > legend::before`],
+      ["#dob > legend > strong.required", `${OUR_DATE} > legend > strong.required`],
+      ["#dob-error", "#personal_details_date_of_birth-error"],
+      ["#dob-error .label-danger", "#personal_details_date_of_birth-error .label-danger"],
+      ["#dob-error .prefix", "#personal_details_date_of_birth-error .prefix"]
     ]
   }
 ];

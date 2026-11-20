@@ -45,6 +45,40 @@ module Gcweb
       assert_selector "label #preference_survey_terms-error", text: "Error\u00A03: This field is required."
     end
 
+    def render_details(model, &fields)
+      render_in_view_context(model, fields) do |m, f_block|
+        gcweb_form_with(model: m, scope: :personal_details, url: "#") { |f| f_block.call(f) }
+      end
+    end
+
+    test "fieldset_group without an attribute is a section with a plain legend" do
+      render_details(PersonalDetails.new) do |f|
+        f.fieldset_group(legend: "Contact Address", heading: :h2) { f.text_field_group(:city) }
+      end
+
+      assert_selector "fieldset:not([class]) > legend:not([class]) > h2", exact_text: "Contact Address"
+      assert_selector "fieldset > legend + .form-group > input#personal_details_city"
+    end
+
+    test "fieldset_group takes legend, required and a numbered error from the attribute" do
+      render_details(PersonalDetails.with_errors) do |f|
+        f.fieldset_group(:date_of_birth) { f.text_field_group(:birth_year) + f.text_field_group(:birth_month) } +
+          f.text_field_group(:city, error: "Nope")
+      end
+
+      assert_selector "fieldset > legend.required > span.field-name", text: "Date of birth"
+      assert_selector "legend > strong.required:not([aria-hidden])", text: "(required)"
+      assert_selector "legend #personal_details_date_of_birth-error", text: "Error\u00A01: This field is required."
+      assert_selector "fieldset input#personal_details_birth_year:not(.error):not([required])"
+      assert_selector "#personal_details_city-error", text: "Error\u00A02: Nope"
+    end
+
+    test "fieldset_group legend: overrides the attribute's label" do
+      render_details(PersonalDetails.new) { |f| f.fieldset_group(:date_of_birth, legend: "Born") { "" } }
+
+      assert_selector "legend.required > span.field-name", exact_text: "Born"
+    end
+
     test "gcweb_form_with uses Gcweb::FormBuilder" do
       builder = nil
       render_form(ContactInformation.new) { |f| builder = f; "" }

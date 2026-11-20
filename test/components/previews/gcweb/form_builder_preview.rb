@@ -13,6 +13,7 @@ module Gcweb
   #   <%= f.radio_buttons_group :pet, pet_choices %>
   #   <%= f.check_boxes_group :condiments, condiment_choices %>
   #   <%= f.check_box_group :terms %>
+  #   <%= f.fieldset_group :date_of_birth do %> … <% end %>
   # <% end %>
   # ```
   #
@@ -51,6 +52,24 @@ module Gcweb
     # the tickbox's in its label.
     def preferences_with_errors
       render_with_template(template: "gcweb/form_builder_preview/preferences", locals: { survey: PreferenceSurvey.with_errors })
+    end
+
+    # @label Fieldsets
+    #
+    # `fieldset_group` without an attribute is a section of the form (the
+    # "Contact Address" section of GCWeb's complex structure form). With
+    # one, here a date of birth entered as three fields, the legend,
+    # required marker and error come from the attribute.
+    def personal_details
+      render_with_template(template: "gcweb/form_builder_preview/personal_details", locals: { details: PersonalDetails.new })
+    end
+
+    # @label Fieldsets with errors
+    #
+    # Submitted with the date left empty: the error is on the date's legend,
+    # not on one of its fields.
+    def personal_details_with_errors
+      render_with_template(template: "gcweb/form_builder_preview/personal_details", locals: { details: PersonalDetails.with_errors })
     end
   end
 end

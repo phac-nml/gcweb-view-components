@@ -29,6 +29,7 @@
   --gcweb-color-accent: #26374a;
   --gcweb-color-border-red: #a62a1e;
   --gcweb-color-border-light: #ddd;
+  --gcweb-color-legend-border: #e5e5e5;
   --gcweb-color-danger: #d3080c;
   --gcweb-color-warning: #ee7100;
   --gcweb-color-warning-details: #f90;
@@ -297,6 +298,37 @@ small,
 b,
 strong {
   font-weight: var(--gcweb-font-weight-bold);
+}
+
+fieldset {
+  border: 0;
+  border-top: 1px solid var(--gcweb-color-legend-border);
+  margin: 0;
+  min-width: 0;
+  padding: 10px 0 0;
+}
+fieldset:first-child {
+  border-top: 0;
+}
+fieldset.legend-brdr-bttm {
+  border-top: 0;
+}
+fieldset.legend-brdr-bttm legend {
+  border-bottom: 1px solid var(--gcweb-color-legend-border);
+  float: none;
+  margin-bottom: 10px;
+}
+
+legend {
+  border: 0;
+  color: var(--gcweb-color-text);
+  display: block;
+  float: left;
+  font-size: 1.2em;
+  line-height: 1.65em;
+  margin-bottom: 23px;
+  padding: 0;
+  width: 100%;
 }
 
 label {
@@ -700,13 +732,13 @@ textarea.form-control {
 
 .form-group label strong.error,
 .gc-chckbxrdio label strong.error,
-.gc-chckbxrdio legend strong.error {
+legend strong.error {
   display: inline-block;
   width: 100%;
 }
 .form-group label strong.error .label,
 .gc-chckbxrdio label strong.error .label,
-.gc-chckbxrdio legend strong.error .label {
+legend strong.error .label {
   font-size: 100%;
   white-space: normal;
 }

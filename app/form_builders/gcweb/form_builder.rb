@@ -8,6 +8,9 @@ module Gcweb
   #     <%= f.radio_buttons_group :contact_method, [ [ "Email", "email" ], [ "Phone", "phone" ] ] %>
   #     <%= f.check_boxes_group :topics, [ [ "Health", "health" ], [ "Science", "science" ] ] %>
   #     <%= f.check_box_group :terms %>
+  #     <%= f.fieldset_group :date_of_birth do %>
+  #       <%= f.text_field_group :birth_year, size: 4 %>
+  #     <% end %>
   #     <%= f.text_field :internal_ref %>   <%# plain Rails, unchanged %>
   #   <% end %>
   #
@@ -63,9 +66,31 @@ module Gcweb
       render_group(Gcweb::Form::CheckboxComponent, method, **options)
     end
 
+    # A fieldset around the block's fields.
+    #
+    # With an attribute, the legend, required marker and error come from
+    # it, as for the other groups. Use one for an answer split over several
+    # fields, such as a date validated as a whole:
+    #
+    #   <%= f.fieldset_group :date_of_birth do %> … <% end %>
+    #
+    # Without one, it is a section of the form:
+    #
+    #   <%= f.fieldset_group legend: "Contact Address", heading: :h2 do %> … <% end %>
+    #
+    # @param legend [String, nil] overrides the attribute's label
+    # @see Gcweb::Form::FieldsetComponent for heading:, border: and the rest
+    def fieldset_group(method = nil, legend: nil, **options, &block)
+      if method
+        render_group(Gcweb::Form::FieldsetComponent, method, label: legend, **options, &block)
+      else
+        @template.render(Gcweb::Form::FieldsetComponent.new(legend: legend, **options), &block)
+      end
+    end
+
     private
 
-    def render_group(component_class, method, **options)
+    def render_group(component_class, method, **options, &block)
       error = options.key?(:error) ? options.delete(:error) : field_errors(method).first
 
       @template.render(component_class.new(
@@ -77,7 +102,7 @@ module Gcweb
         error: error,
         error_number: (options.delete(:error_number) || next_error_number if error.present?),
         **options
-      ))
+      ), &block)
     end
 
     def field_errors(method)

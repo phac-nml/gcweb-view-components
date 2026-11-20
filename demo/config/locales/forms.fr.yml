@@ -1,6 +1,8 @@
 # Libellés et messages copiés de GCWeb v20.0.1
 # (common/form/complex-structure-form-fr.html et ses erreurs wb-frmvld,
-# components/gc-chckbxrdio/gc-chckbxrdio-fr.html).
+# components/gc-chckbxrdio/gc-chckbxrdio-fr.html, et la légende « Coordonnées »
+# de la démo formvalid de wet-boew). Les libellés de la date de naissance
+# sont les nôtres : GCWeb n'a pas d'exemple de date en trois champs.
 fr:
   activemodel:
     attributes:
@@ -16,6 +18,14 @@ fr:
         pet: "Quel est votre animal favori?"
         condiments: "Choisissez vos condiments\u00A0:"
         terms: "J'accepte les conditions générales"
+      personal_details:
+        address: "Adresse"
+        city: "Ville / localité"
+        postal_code: "Code postal"
+        date_of_birth: "Date de naissance"
+        birth_year: "Année"
+        birth_month: "Mois"
+        birth_day: "Jour"
     errors:
       models:
         contact_information:
@@ -51,3 +61,6 @@ fr:
       option: "Option %{number}"
       remember_me: "Se souvenir de moi"
       survey_heading: "Vos préférences"
+      contact_legend: "Coordonnées"
+      address_heading: "Adresse de contact"
+      date_hint: "(par exemple, 1990 07 25)"

@@ -29,6 +29,7 @@
   --gcweb-color-accent: #26374a;
   --gcweb-color-border-red: #a62a1e;
   --gcweb-color-border-light: #ddd;
+  --gcweb-color-legend-border: #e5e5e5;
   --gcweb-color-danger: #d3080c;
   --gcweb-color-warning: #ee7100;
   --gcweb-color-warning-details: #f90;
@@ -514,13 +515,13 @@ textarea.form-control {
 
 .form-group label strong.error,
 .gc-chckbxrdio label strong.error,
-.gc-chckbxrdio legend strong.error {
+legend strong.error {
   display: inline-block;
   width: 100%;
 }
 .form-group label strong.error .label,
 .gc-chckbxrdio label strong.error .label,
-.gc-chckbxrdio legend strong.error .label {
+legend strong.error .label {
   font-size: 100%;
   white-space: normal;
 }
