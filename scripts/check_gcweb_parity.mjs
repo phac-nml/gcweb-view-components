@@ -397,6 +397,16 @@ const addGcwebWells = (page) =>
       </div>`);
   });
 
+// In-page table of contents (components/gc-toc). GCWeb v20.0.1 has no
+// gc-toc styles, so this checks that the base layer renders its heading,
+// list and links, and the sections they point to, as GCWeb does.
+const TOC_PARTS = [
+  "nav.gc-toc", "nav.gc-toc > h2", "nav.gc-toc > ul",
+  "nav.gc-toc > ul > li:nth-child(1)", "nav.gc-toc > ul > li:nth-child(3)",
+  "nav.gc-toc > ul > li:nth-child(1) > a",
+  "section:has(> #section1) > h2", "section:has(> #section1) > p"
+];
+
 const CHECKS = [
   {
     name: "alert / with headings",
@@ -909,6 +919,12 @@ const CHECKS = [
     preview: "/rails/view_components/gcweb/well_component/default",
     props: PANEL_PROPS,
     pairs: WELL_PARTS.map((part) => [`.parity-wells ${part}`, `main ${part}`])
+  },
+  {
+    name: "table of contents / default",
+    gcweb: "/components/gc-toc/toc-en.html",
+    preview: "/rails/view_components/gcweb/table_of_contents_component/default",
+    pairs: TOC_PARTS.map((part) => [part, part])
   },
   overlayCheck("left panel", "left-panel", PANEL_PARTS, "panels"),
   overlayCheck("right panel", "right-panel", PANEL_PARTS, "panels"),

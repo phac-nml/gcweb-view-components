@@ -2,6 +2,9 @@ fr:
   gcweb:
     featured_link:
       heading: "Pleins feux sur"
+    # The in-page table of contents heading (GCWeb components/gc-toc).
+    table_of_contents:
+      title: "Sur cette page"
     # wet-boew's overlay close buttons on GCWeb v20.0.1 (i18n close, colon,
     # esc-key and overlay-close).
     overlay:

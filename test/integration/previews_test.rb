@@ -11,6 +11,7 @@ class PreviewsTest < ActionDispatch::IntegrationTest
     "gcweb/badge_component" => %w[playground default self_collapsing],
     "gcweb/panel_component" => %w[playground stacking appearances],
     "gcweb/well_component" => %w[playground default],
+    "gcweb/table_of_contents_component" => %w[playground default],
     "gcweb/overlay_component" => %w[playground panels bars popups full_screen custom_footer open_on_load],
     "gcweb/form/text_field_component" => %w[playground optional_and_required with_hint with_error],
     "gcweb/form/text_area_component" => %w[playground default],
