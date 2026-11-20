@@ -18,6 +18,8 @@
   --gcweb-line-height-body: 1.4375; // 23px
   --gcweb-font-size-main: 1.25rem; // main: 20px
   --gcweb-line-height-main: 1.6; // main: 32px
+  --gcweb-font-size-main-sm: 1.125rem; // main under 768px: 18px
+  --gcweb-line-height-main-sm: 1.55; // 27.9px
   --gcweb-font-size-h1: 2.5625rem; // 41px
   --gcweb-font-size-h2: 2.4375rem; // 39px
   --gcweb-font-size-h3: 1.8125rem; // 29px
@@ -140,6 +142,12 @@
   --gcweb-btn-link-color: #295376; // Bootstrap $link-color
   --gcweb-btn-min-size: 36px;
   --gcweb-btn-input-min-height: 37px; // input[type=submit] etc.
+
+  // Tabs (wet-boew wb-tabs)
+  --gcweb-color-tab-bg: #ebf2fc;
+  --gcweb-color-tab-border: #ccc;
+  --gcweb-color-tab-hover: rgba(204, 204, 204, 0.9);
+  --gcweb-color-tab-active-border: #666;
 
   // Spacing ($spacer and Bootstrap rhythm)
   --gcweb-space-md: 15px; // $space-md

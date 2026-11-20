@@ -287,6 +287,21 @@ const CHOICE_ERROR_PAIRS = [
       ["#terms-error .label-danger", "#preference_survey_terms-error .label-danger"]
     ];
 
+// Tabs (wb-tabs). GCWeb's demo is on the compiled-demos site, not under
+// gcwebBase. Its first example has panels details-panel1..3 (2 open), the
+// second details-panel10..30; the previews use the same ids.
+const GCWEB_TABS = "https://wet-boew.github.io/gcweb-compiled-demos/wetboew-demos/tabs/tabs-en.html";
+const TABS_PREVIEW = "/rails/view_components/gcweb/tabs_component";
+const TABS_PROPS = [...FORM_PROPS, "cursor", "z-index", "top", "overflow-x", "overflow-y", "visibility", "max-height", "text-indent", "list-style-type"];
+const tabsPairs = (gcwebRoot, ourRoot, suffixes) => suffixes.map((suffix) => [`${gcwebRoot}${suffix}`, `${ourRoot}${suffix}`]);
+const EXAMPLE_1 = ".wb-tabs:has(> .tabpanels > [id='details-panel2'])";
+const EXAMPLE_2 = ".wb-tabs:has(> .tabpanels > [id='details-panel20'])";
+const clickTab = (id) => async (page) => {
+  await page.click(`[id='${id}-lnk']`);
+  await page.waitForTimeout(400);
+};
+const focusTab = (id) => (page) => page.focus(`[id='${id}-lnk']`);
+
 const CHECKS = [
   {
     name: "alert / with headings",
@@ -629,14 +644,82 @@ const CHECKS = [
     props: CHOICE_PROPS,
     pairs: CHOICE_ERROR_PAIRS
   },
-  ...BUTTON_CHECKS
+  ...BUTTON_CHECKS,
+  {
+    name: "tabs / default",
+    gcweb: GCWEB_TABS,
+    preview: `${TABS_PREVIEW}/default`,
+    props: TABS_PROPS,
+    pairs: tabsPairs(EXAMPLE_1, ".wb-tabs", [
+      "",
+      " > ul[role=tablist]",
+      " > ul[role=tablist] > li:first-child",
+      " > ul[role=tablist] > li:first-child > a",
+      " > ul[role=tablist] > li.active",
+      " > ul[role=tablist] > li.active > a",
+      " > ul[role=tablist] > li:last-child > a",
+      " > .tabpanels",
+      " > .tabpanels > [id='details-panel2']",
+      " > .tabpanels > [id='details-panel2'] > summary",
+      " > .tabpanels > [id='details-panel2'] > .tgl-panel",
+      " > .tabpanels > [id='details-panel2'] > .tgl-panel > p",
+      " > .tabpanels > [id='details-panel1']"
+    ])
+  },
+  {
+    name: "tabs / focused tab",
+    gcweb: GCWEB_TABS,
+    gcwebSetup: focusTab("details-panel1"),
+    preview: `${TABS_PREVIEW}/default`,
+    previewSetup: focusTab("details-panel1"),
+    props: TABS_PROPS,
+    pairs: [["[id='details-panel1-lnk']", "[id='details-panel1-lnk']"]]
+  },
+  {
+    name: "tabs / details inside a panel",
+    gcweb: GCWEB_TABS,
+    gcwebSetup: clickTab("details-panel20"),
+    preview: `${TABS_PREVIEW}/ignore_session`,
+    previewSetup: clickTab("details-panel20"),
+    props: TABS_PROPS,
+    pairs: tabsPairs(EXAMPLE_2, ".wb-tabs", [
+      " > ul[role=tablist] > li.active > a",
+      " > .tabpanels > [id='details-panel20']",
+      " > .tabpanels > [id='details-panel20'] details",
+      " > .tabpanels > [id='details-panel20'] details > summary",
+      " > .tabpanels > [id='details-panel10']"
+    ])
+  },
+  {
+    name: "tabs / small screen accordion",
+    gcweb: GCWEB_TABS,
+    preview: `${TABS_PREVIEW}/default`,
+    viewport: { width: 375, height: 812 },
+    props: TABS_PROPS,
+    pairs: tabsPairs(EXAMPLE_1, ".wb-tabs", [
+      "",
+      " > ul[role=tablist]",
+      " > .tabpanels",
+      " > .tabpanels > [id='details-panel1']",
+      " > .tabpanels > [id='details-panel1'] > summary",
+      " > .tabpanels > [id='details-panel2']",
+      " > .tabpanels > [id='details-panel2'] > summary",
+      " > .tabpanels > [id='details-panel2'] > .tgl-panel",
+      " > .tabpanels > [id='details-panel3']",
+      " > .tabpanels > [id='details-panel3'] > summary"
+    ])
+  }
 ];
 
 const browser = await chromium.launch();
 const context = await browser.newContext({ viewport: { width: 1280, height: 900 } });
 const page = await context.newPage();
 
-const load = async (url) => {
+const DEFAULT_VIEWPORT = { width: 1280, height: 900 };
+const gcwebUrl = (location) => (/^https?:/.test(location) ? location : gcwebBase + location);
+
+const load = async (url, viewport = DEFAULT_VIEWPORT) => {
+  await page.setViewportSize(viewport);
   await page.mouse.up(); // release a press left by the previous check
   await page.goto(url, { waitUntil: "networkidle" });
   await page.evaluate(() => document.fonts.ready);
@@ -645,7 +728,7 @@ const load = async (url) => {
 const propsFor = (check) => check.props || PROPS;
 
 const readGcweb = async (check) => {
-  await load(gcwebBase + check.gcweb);
+  await load(gcwebUrl(check.gcweb), check.viewport);
   if (check.gcwebSetup) await check.gcwebSetup(page);
   return computedStyles(page, check.pairs.map(([ref]) => ref), propsFor(check));
 };
@@ -675,7 +758,7 @@ let compared = 0;
 
 for (const check of CHECKS) {
   const expectedStyles = reference ? reference.checks[check.name] || {} : await readGcweb(check);
-  await load(previewBase + check.preview);
+  await load(previewBase + check.preview, check.viewport);
   if (check.previewSetup) await check.previewSetup(page);
   const actualStyles = await computedStyles(page, check.pairs.map(([, mine]) => mine), propsFor(check));
   const problems = [];

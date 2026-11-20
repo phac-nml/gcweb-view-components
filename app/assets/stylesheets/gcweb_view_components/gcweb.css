@@ -7,6 +7,8 @@
   --gcweb-line-height-body: 1.4375;
   --gcweb-font-size-main: 1.25rem;
   --gcweb-line-height-main: 1.6;
+  --gcweb-font-size-main-sm: 1.125rem;
+  --gcweb-line-height-main-sm: 1.55;
   --gcweb-font-size-h1: 2.5625rem;
   --gcweb-font-size-h2: 2.4375rem;
   --gcweb-font-size-h3: 1.8125rem;
@@ -105,6 +107,10 @@
   --gcweb-btn-link-color: #295376;
   --gcweb-btn-min-size: 36px;
   --gcweb-btn-input-min-height: 37px;
+  --gcweb-color-tab-bg: #ebf2fc;
+  --gcweb-color-tab-border: #ccc;
+  --gcweb-color-tab-hover: rgba(204, 204, 204, 0.9);
+  --gcweb-color-tab-active-border: #666;
   --gcweb-space-md: 15px;
   --gcweb-spacer: 20px;
   --gcweb-line-gap: 11.5px;
@@ -287,6 +293,12 @@ main {
   font-size: var(--gcweb-font-size-main);
   line-height: var(--gcweb-line-height-main);
   position: relative;
+}
+@media screen and (max-width: 767px) {
+  main {
+    font-size: var(--gcweb-font-size-main-sm);
+    line-height: var(--gcweb-line-height-main-sm);
+  }
 }
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
@@ -1363,4 +1375,214 @@ input.btn-xs:is([type=button], [type=reset], [type=submit]) {
 
 input.btn.btn-call-to-action {
   padding-bottom: 2em;
+}
+
+.wb-tabs {
+  position: relative;
+}
+.wb-tabs > .tabpanels {
+  overflow: hidden;
+  position: relative;
+}
+.wb-tabs > .tabpanels > details {
+  padding: 6px 12px;
+}
+.wb-tabs > .tabpanels > details > summary {
+  margin: -6px -12px;
+}
+.wb-tabs details[open] {
+  border-top-left-radius: 0;
+}
+.wb-tabs [role=tablist] {
+  border-spacing: 10px 0;
+  display: flex;
+  list-style: none;
+  margin-bottom: -1px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0;
+  position: relative;
+}
+.wb-tabs [role=tablist] > li {
+  background: var(--gcweb-color-tab-bg);
+  border: 1px solid var(--gcweb-color-tab-border);
+  color: var(--gcweb-color-text-strong);
+  display: flex;
+  position: relative;
+  text-align: center;
+}
+.wb-tabs [role=tablist] > li a {
+  color: var(--gcweb-color-text-strong);
+  display: inline-block;
+  padding: 10px;
+  text-decoration: none;
+}
+.wb-tabs [role=tablist] > li a:hover, .wb-tabs [role=tablist] > li a:focus {
+  background: var(--gcweb-color-tab-hover);
+}
+.wb-tabs [role=tablist] > li.active {
+  border-bottom: 0;
+  z-index: 2;
+}
+.wb-tabs [role=tablist] > li.active a {
+  background: var(--gcweb-color-body-bg);
+  border-color: var(--gcweb-color-tab-active-border);
+  border-style: solid;
+  border-width: 4px 0 0;
+  cursor: default;
+  padding-top: 6px;
+}
+.wb-tabs [role=tablist] > li + li {
+  margin-left: 10px;
+}
+.wb-tabs [role=tablist].generated li {
+  border-bottom: 0;
+  top: 1px;
+}
+.wb-tabs [role=tablist].allow-wrap {
+  border-spacing: 0;
+  display: block;
+}
+.wb-tabs [role=tablist].allow-wrap li {
+  display: inline-block;
+  left: auto;
+  margin: 0 10px 0 0;
+}
+.wb-tabs [role=tabpanel] {
+  overflow-x: auto;
+  position: relative;
+  z-index: 1;
+}
+.wb-tabs [role=tabpanel].out {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 0;
+}
+.wb-tabs .fade {
+  opacity: 0;
+  transition: all 0s ease 0s;
+}
+.wb-tabs .fade.in {
+  animation: gcweb-fadein 225ms;
+  opacity: 1;
+  visibility: visible;
+}
+.wb-tabs .fade.out {
+  animation: gcweb-fadeout 125ms;
+  opacity: 0;
+  visibility: hidden;
+}
+.wb-tabs .fade.out.noheight {
+  animation-name: gcweb-fadeoutnoheight;
+  max-height: 0;
+}
+@media screen and (max-width: 991px) {
+  .wb-tabs {
+    border: 1px solid var(--gcweb-color-tab-border);
+    border-radius: 4px;
+    margin-bottom: 15px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .wb-tabs > .tabpanels > details {
+    border: 0;
+    border-bottom: 1px solid var(--gcweb-color-tab-border);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .wb-tabs > .tabpanels > details:last-of-type {
+    border-bottom: 0;
+  }
+  .wb-tabs > .tabpanels > details > summary {
+    border: 0;
+  }
+  .wb-tabs > .tabpanels > details[open] > summary {
+    border: 0;
+    margin-bottom: 0;
+  }
+  .wb-tabs > .tabpanels > details > .tgl-panel {
+    overflow-x: auto;
+    position: relative;
+    z-index: 1;
+  }
+  .wb-tabs.tabs-acc > ul {
+    display: none;
+  }
+}
+@media screen and (min-width: 992px) {
+  .wb-tabs > .tabpanels > details {
+    border: 1px solid var(--gcweb-color-tab-border);
+  }
+  .wb-tabs.wb-tabs-inited > .tabpanels > details {
+    display: none;
+  }
+  .wb-tabs.wb-tabs-inited > .tabpanels > details[open] {
+    display: block;
+  }
+  .wb-tabs.wb-tabs-inited > .tabpanels > details[open] > summary {
+    display: none !important;
+  }
+}
+
+@keyframes gcweb-fadein {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+@keyframes gcweb-fadeout {
+  0% {
+    opacity: 1;
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+@keyframes gcweb-fadeoutnoheight {
+  0% {
+    max-height: 100%;
+    opacity: 1;
+    visibility: visible;
+  }
+  99.9999% {
+    max-height: 100%;
+  }
+  100% {
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wb-tabs .fade.in,
+  .wb-tabs .fade.out {
+    animation: none;
+  }
+}
+@media print {
+  .wb-tabs [role=tablist] {
+    display: none !important;
+  }
+  .wb-tabs > .tabpanels {
+    overflow: visible !important;
+  }
+  .wb-tabs [role=tabpanel] {
+    display: block !important;
+    max-height: none;
+    opacity: 1 !important;
+    overflow: visible !important;
+    position: static !important;
+    transform: none;
+    visibility: visible !important;
+  }
+  .wb-tabs [role=tabpanel] summary {
+    display: list-item !important;
+  }
 }

@@ -32,6 +32,11 @@ main {
   font-size: var(--gcweb-font-size-main);
   line-height: var(--gcweb-line-height-main);
   position: relative;
+
+  @media screen and (max-width: 767px) {
+    font-size: var(--gcweb-font-size-main-sm);
+    line-height: var(--gcweb-line-height-main-sm);
+  }
 }
 
 // Headings
