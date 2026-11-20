@@ -13,6 +13,7 @@ Rails components that render [GCWeb](https://github.com/wet-boew/GCWeb) / [WET-B
 | Component | GCWeb reference | Stimulus |
 | --- | --- | --- |
 | `Gcweb::AlertComponent` | [Alert](https://wet-boew.github.io/GCWeb/common/alert/alert-docs-en.html) | – |
+| `Gcweb::ButtonComponent` | [Buttons](https://wet-boew.github.io/GCWeb/common/button/button-en.html) | – |
 | `Gcweb::FeaturedLinkComponent` | [Featured link](https://wet-boew.github.io/GCWeb/components/gc-featured-link/gc-featured-link-doc-en.html) | `gcweb--featured-link` |
 | `Gcweb::Form::TextFieldComponent` | [Forms](https://wet-boew.github.io/GCWeb/common/form/complex-structure-form-en.html) | – |
 | `Gcweb::Form::TextAreaComponent` | [Forms](https://wet-boew.github.io/GCWeb/common/form/complex-structure-form-en.html) | – |
@@ -42,6 +43,8 @@ gem "gcweb_view_components", github: "phac-nml/gcweb-view-components"
 <% end %>
 
 <%= render Gcweb::FeaturedLinkComponent.new(href: "/promo", link_text: "[Promotion title]", background_color: "#005B61") %>
+
+<%= render Gcweb::ButtonComponent.new(variant: :primary, type: :submit).with_content("Submit") %>
 ```
 
 ### Forms

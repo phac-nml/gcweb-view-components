@@ -1,7 +1,30 @@
-# Example text copied from GCWeb v20.0.1 demo pages (common/alert/alerts-en.html,
+# Example text copied from GCWeb v20.0.1 demo pages (common/alert/alerts-en.html, common/button/button-en.html,
 # components/gc-featured-link/gc-featured-link-en.html).
 en:
   previews:
+    button:
+      button: "Button"
+      input: "Input"
+      submit: "Submit"
+      link: "Link"
+      variants:
+        default: "Default"
+        primary: "Primary"
+        success: "Success"
+        info: "Info"
+        warning: "Warning"
+        danger: "Danger"
+        link: "Link"
+      anchor_html: "Anchor <code>&lt;a&gt;</code> styled as a button"
+      call_to_action: "Supertask (Call to Action)"
+      sizes:
+        xs: "Extra small button"
+        sm: "Small button"
+        default: "Default button"
+        lg: "Large button"
+      block: "Block level button"
+      active_heading: "Active state"
+      disabled_heading: "Disabled state"
     alert:
       details: "Alert details."
       variants:

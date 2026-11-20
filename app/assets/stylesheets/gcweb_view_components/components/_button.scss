@@ -1,0 +1,240 @@
+// Buttons — GCWeb common/button: Bootstrap 3 .btn with WET-BOEW and GCWeb
+// overrides (outset border, Lato, 36px minimum target, wrapping text, the
+// $accent-blue primary button and the call-to-action "supertask" button).
+// Values are GCWeb v20.0.1's cascaded rules; rule order follows theirs where
+// equal specificity decides the winner (e.g. hover beats focus).
+//
+// Button groups, toolbars and input groups are not included.
+
+$variants: default, primary, success, info, warning, danger, call-to-action;
+
+.btn {
+  // normalize.css resets for button/input
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  text-transform: none;
+  -webkit-appearance: button;
+
+  background-image: none;
+  border: 1px outset transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Lato, sans-serif;
+  font-size: var(--gcweb-font-size-body);
+  font-weight: var(--gcweb-font-weight-normal);
+  height: auto;
+  line-height: var(--gcweb-line-height-body);
+  margin-bottom: 0;
+  min-height: var(--gcweb-btn-min-size);
+  min-width: var(--gcweb-btn-min-size);
+  padding: 10px 14px;
+  text-align: center;
+  touch-action: manipulation;
+  user-select: none;
+  vertical-align: middle;
+  white-space: normal;
+
+  &:focus,
+  &.focus,
+  &:active:focus,
+  &:active.focus,
+  &.active:focus,
+  &.active.focus {
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+  }
+
+  &:hover,
+  &:focus,
+  &.focus {
+    color: var(--gcweb-btn-default-text);
+    text-decoration: none;
+  }
+
+  &:active,
+  &.active {
+    background-image: none;
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    outline: 0;
+  }
+
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    border-style: solid;
+    box-shadow: none;
+    cursor: not-allowed;
+    opacity: 0.65;
+  }
+}
+
+a.btn {
+  text-decoration: none;
+
+  &.disabled,
+  fieldset[disabled] & {
+    pointer-events: none;
+  }
+}
+
+// Specificity of .btn, so .btn-xs can still drop the minimum height.
+.btn:where(input[type="button"], input[type="reset"], input[type="submit"]) {
+  min-height: var(--gcweb-btn-input-min-height);
+}
+
+@each $v in $variants {
+  $t: "--gcweb-btn-#{$v}";
+
+  .btn-#{$v} {
+    background-color: var(#{$t}-bg);
+    border-color: var(#{$t}-border);
+    color: var(#{$t}-text);
+
+    &:focus,
+    &.focus {
+      background-color: var(#{$t}-hover-bg);
+      border-color: var(#{$t}-focus-border);
+      color: var(#{$t}-text);
+    }
+
+    &:hover {
+      background-color: var(#{$t}-hover-bg);
+      border-color: var(#{$t}-hover-border);
+      color: var(#{$t}-text);
+    }
+
+    &:active,
+    &.active {
+      background-color: var(#{$t}-hover-bg);
+      background-image: none;
+      border-color: var(#{$t}-hover-border);
+      color: var(#{$t}-text);
+
+      &:hover,
+      &:focus,
+      &.focus {
+        background-color: var(#{$t}-active-hover-bg);
+        border-color: var(#{$t}-focus-border);
+        color: var(#{$t}-text);
+      }
+    }
+
+    // Disabled buttons keep their resting colours when hovered or focused.
+    // Primary goes back to Bootstrap's blue here (GCWeb only overrides the
+    // resting state).
+    &.disabled,
+    &[disabled],
+    fieldset[disabled] & {
+      &:hover,
+      &:focus,
+      &.focus {
+        @if $v == primary {
+          background-color: var(#{$t}-disabled-bg);
+          border-color: var(#{$t}-disabled-border);
+        } @else {
+          background-color: var(#{$t}-bg);
+          border-color: var(#{$t}-border);
+        }
+      }
+    }
+
+    // Beat a:visited on links styled as buttons.
+    &:visited {
+      color: var(#{$t}-text);
+    }
+  }
+}
+
+.btn-link {
+  background-color: transparent;
+  border-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--gcweb-btn-link-color);
+  font-weight: var(--gcweb-font-weight-normal);
+
+  &:active,
+  &.active,
+  &[disabled],
+  fieldset[disabled] & {
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  &:active,
+  &:focus,
+  &:hover {
+    border-color: transparent;
+  }
+
+  &:focus,
+  &:hover {
+    background-color: transparent;
+    color: var(--gcweb-color-link-hover);
+    text-decoration: underline;
+  }
+
+  &[disabled],
+  fieldset[disabled] & {
+    &:focus,
+    &:hover {
+      color: var(--gcweb-color-muted);
+      text-decoration: none;
+    }
+  }
+}
+
+// Sizes. GCWeb repeats them as `form .btn.btn-lg` with the same values.
+.btn-lg {
+  border-radius: 6px;
+  font-size: 18px;
+  // Bootstrap's 1.3333333 (24px at 18px). Written in px because CSS
+  // minifiers such as Lightning CSS (Vite's default) round the ratio to
+  // 1.33333, which computes to 23.9999px.
+  line-height: 24px;
+  padding: 10px 16px;
+}
+
+.btn-sm,
+.btn-xs {
+  border-radius: 3px;
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 5px 10px;
+}
+
+.btn-xs {
+  padding: 1px 5px;
+}
+
+.btn.btn-xs {
+  min-height: 0;
+}
+
+input.btn-xs:is([type="button"], [type="reset"], [type="submit"]) {
+  height: 25px;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+
+  + .btn-block {
+    margin-top: 5px;
+  }
+}
+
+// Supertask: one per page, for the main task.
+.btn-call-to-action {
+  font-size: 1.1em;
+  margin-bottom: 25px;
+  margin-top: 15px;
+  padding: 0.58em 1em;
+  text-shadow: 1px 2px var(--gcweb-btn-call-to-action-text-shadow);
+}
+
+input.btn.btn-call-to-action {
+  padding-bottom: 2em;
+}

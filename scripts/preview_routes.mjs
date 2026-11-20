@@ -2,6 +2,7 @@
 // Each scenario is checked in English and French (?locale=fr).
 const SCENARIOS = {
   "gcweb/alert_component": ["with_headings", "with_links", "without_headings", "expand_collapse"],
+  "gcweb/button_component": ["default", "colours", "call_to_action", "sizing", "full_width", "states"],
   "gcweb/featured_link_component": ["default", "custom_background", "with_description"],
   "gcweb/form/text_field_component": ["optional_and_required", "with_hint", "with_error"],
   "gcweb/form/text_area_component": ["default"],

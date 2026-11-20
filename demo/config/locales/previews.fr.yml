@@ -1,7 +1,30 @@
 # Texte d'exemple copié des pages de démonstration GCWeb v20.0.1
-# (common/alert/alerts-fr.html, components/gc-featured-link/gc-featured-link-fr.html).
+# (common/alert/alerts-fr.html, common/button/button-fr.html, components/gc-featured-link/gc-featured-link-fr.html).
 fr:
   previews:
+    button:
+      button: "Bouton"
+      input: "Entrer"
+      submit: "Soumettre"
+      link: "Lien"
+      variants:
+        default: "Par défaut"
+        primary: "Primaire"
+        success: "Succès"
+        info: "Info"
+        warning: "Avertissement"
+        danger: "Danger"
+        link: "Lien"
+      anchor_html: "Ancre <code>&lt;a&gt;</code> sous forme de bouton"
+      call_to_action: "Supertâche (Appel à l'action)"
+      sizes:
+        xs: "Très petit bouton"
+        sm: "Petit bouton"
+        default: "Bouton par défaut"
+        lg: "Gros bouton"
+      block: "Bouton de blocage de niveau"
+      active_heading: "État d'activation"
+      disabled_heading: "État de désactivation"
     alert:
       details: "Détails de l’alerte."
       variants:

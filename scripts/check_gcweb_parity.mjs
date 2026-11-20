@@ -169,6 +169,70 @@ const addGcwebFieldset = (page) =>
       </fieldset>`);
   }, GCWEB_ADDRESS);
 
+// Buttons. GCWeb's button page has no ids, so selectors pick the first
+// match in <main>, which is the example in the section our preview copies.
+// Bootstrap 3 buttons have no transitions, so states apply at once.
+const GCWEB_BUTTONS = "/common/button/button-en.html";
+const BUTTON_PREVIEW = "/rails/view_components/gcweb/button_component";
+const BUTTON_PROPS = [
+  ...FORM_PROPS,
+  "cursor", "min-width", "text-shadow", "outline-color", "outline-offset",
+  "border-top-right-radius", "border-bottom-left-radius", "touch-action", "user-select"
+];
+const BUTTON_COLOURS = ["default", "primary", "success", "info", "warning", "danger", "link"];
+const hover = (selector) => (page) => page.hover(selector);
+// Press and hold: :active, :hover and :focus at once.
+const press = (selector) => async (page) => {
+  await page.hover(selector);
+  await page.mouse.down();
+};
+const buttonCheck = (name, preview, pairs, extra = {}) => ({
+  name: `button / ${name}`,
+  gcweb: GCWEB_BUTTONS,
+  preview: `${BUTTON_PREVIEW}/${preview}`,
+  props: BUTTON_PROPS,
+  pairs: pairs.map((p) => (typeof p === "string" ? [`main ${p}`, `main ${p}`] : p)),
+  ...extra
+});
+// One check per state, each on a freshly loaded page.
+const buttonStateChecks = (state, setup, selectors, preview) =>
+  selectors.map(([label, selector]) =>
+    buttonCheck(`${label} ${state}`, preview, [selector], {
+      gcwebSetup: setup(`main ${selector}`),
+      previewSetup: setup(`main ${selector}`)
+    }));
+const colourButtons = [
+  ...BUTTON_COLOURS.map((v) => [v, `button.btn-${v}`]),
+  ["call to action", "button.btn-call-to-action"]
+];
+const previewFor = (label) => (label === "call to action" ? "call_to_action" : "colours");
+
+const BUTTON_CHECKS = [
+  buttonCheck("basic use", "default", [
+    "button.btn-default[type=submit]",
+    "input.btn-default[type=button]",
+    "input.btn-default[type=submit]",
+    "a.btn-default"
+  ]),
+  buttonCheck("colours", "colours", BUTTON_COLOURS.map((v) => `button.btn-${v}`)),
+  buttonCheck("call to action", "call_to_action", ["button.btn-call-to-action"]),
+  buttonCheck("sizing", "sizing", ["button.btn-xs", "button.btn-sm", "button.btn-lg"]),
+  buttonCheck("full width", "full_width", ["button.btn-block"]),
+  buttonCheck("active", "states", ["button.btn-default.active", "a.btn-default.active"]),
+  // GCWeb's example uses class="disabled"; ButtonComponent sets the
+  // disabled attribute on buttons. Both match the same rules.
+  buttonCheck("disabled", "states", [
+    ["main button.btn-default.disabled", "main button.btn-default[disabled]"],
+    ["main a.btn-default.disabled", "main a.btn-default.disabled"]
+  ]),
+  ...colourButtons.flatMap(([label, selector]) =>
+    buttonStateChecks("hover", hover, [[label, selector]], previewFor(label))),
+  ...colourButtons.flatMap(([label, selector]) =>
+    buttonStateChecks("focus", (s) => (page) => focus(page, s), [[label, selector]], previewFor(label))),
+  ...buttonStateChecks("pressed", press, [["default", "button.btn-default[type=submit]"]], "default"),
+  ...buttonStateChecks("pressed", press, [["primary", "button.btn-primary"], ["link", "button.btn-link"]], "colours")
+];
+
 const alertPairs = (variant, scope) => [
   [`${scope}.alert-${variant}`, `${scope}.alert-${variant}`],
   [`${scope}.alert-${variant}::before`, `${scope}.alert-${variant}::before`],
@@ -560,7 +624,8 @@ const CHECKS = [
     previewSetup: submitPreviewForm,
     props: CHOICE_PROPS,
     pairs: CHOICE_ERROR_PAIRS
-  }
+  },
+  ...BUTTON_CHECKS
 ];
 
 const browser = await chromium.launch();
@@ -568,6 +633,7 @@ const context = await browser.newContext({ viewport: { width: 1280, height: 900 
 const page = await context.newPage();
 
 const load = async (url) => {
+  await page.mouse.up(); // release a press left by the previous check
   await page.goto(url, { waitUntil: "networkidle" });
   await page.evaluate(() => document.fonts.ready);
 };
