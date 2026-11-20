@@ -1,0 +1,31 @@
+# Example text from GCWeb v20.0.1's panels demo
+# (components/panels/panels-en.html). GCWeb has no wells demo; the well
+# text is the gem's own.
+en:
+  previews:
+    panels:
+      title: "Panel title"
+      content: "Content"
+      panel_content: "Panel content"
+      footer: "Panel footer"
+      padded: "Padded content:"
+      add_footer: "Add a footer:"
+      variants:
+        default: "Default panel"
+        primary: "Primary panel"
+        success: "Success panel"
+        info: "Info panel"
+        warning: "Warning panel"
+        danger: "Danger panel"
+      uses:
+        default: "Use to spotlight general information/actions within a self-contained box."
+        primary: "Use to spotlight general information/actions within a self-contained box."
+        success: "Use to spotlight correct information/actions within a self-contained box."
+        info: "Use to spotlight specialized information/actions within a self-contained box."
+        warning: "Use to spotlight warning information/actions within a self-contained box."
+        danger: "Use to spotlight dangerous information/actions within a self-contained box."
+    wells:
+      small: "Small well (size: :sm)."
+      normal: "Well."
+      large: "Large well (size: :lg)."
+      bold_html: "Bold well: the text is bold, and <strong>strong text</strong> is set in normal weight."

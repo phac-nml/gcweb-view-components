@@ -1,0 +1,4 @@
+<%= render Gcweb::PanelComponent.new(variant: variant, title: title) do |panel| %>
+  <% panel.with_footer { t("previews.panels.footer") } if footer %>
+  <p><%= t("previews.panels.panel_content") %></p>
+<% end %>

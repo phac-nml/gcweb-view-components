@@ -1,0 +1,11 @@
+<dl>
+  <% Gcweb::PanelComponent::VARIANTS.each do |variant| %>
+    <dt><%= t("previews.panels.variants.#{variant}") %></dt>
+    <dd>
+      <p><%= t("previews.panels.uses.#{variant}") %></p>
+      <%= render Gcweb::PanelComponent.new(variant: variant, title: t("previews.panels.title"), class: "mrgn-bttm-0") do %>
+        <p><%= t("previews.panels.panel_content") %></p>
+      <% end %>
+    </dd>
+  <% end %>
+</dl>

@@ -1,0 +1,15 @@
+<div class="panel-examples">
+  <div>
+    <p><%= t("previews.panels.padded") %></p>
+    <%= render Gcweb::PanelComponent.new(title: t("previews.panels.title"), tag: :div) do %>
+      <p><%= t("previews.panels.content") %></p>
+    <% end %>
+  </div>
+  <div>
+    <p><%= t("previews.panels.add_footer") %></p>
+    <%= render Gcweb::PanelComponent.new(title: t("previews.panels.title"), tag: :div) do |panel| %>
+      <% panel.with_footer { t("previews.panels.footer") } %>
+      <p><%= t("previews.panels.content") %></p>
+    <% end %>
+  </div>
+</div>

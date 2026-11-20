@@ -172,6 +172,35 @@
   --gcweb-color-badge-danger: #bc3331;
   --gcweb-color-badge-call-to-action: #318000;
 
+  // Panels (components/panels; Bootstrap 3 .panel with GCWeb's colours):
+  // border, heading text and heading background per variant.
+  --gcweb-color-panel-bg: #fff;
+  --gcweb-color-panel-default-border: #8e8e8e;
+  --gcweb-color-panel-default-text: #333;
+  --gcweb-color-panel-default-heading-bg: #f5f5f5;
+  --gcweb-color-panel-primary-border: #2572b4;
+  --gcweb-color-panel-primary-text: #fff;
+  --gcweb-color-panel-primary-heading-bg: #2572b4;
+  --gcweb-color-panel-success-border: #629339;
+  --gcweb-color-panel-success-text: #3c763d;
+  --gcweb-color-panel-success-heading-bg: #dff0d8;
+  --gcweb-color-panel-info-border: #2392a9;
+  --gcweb-color-panel-info-text: #31708f;
+  --gcweb-color-panel-info-heading-bg: #d9edf7;
+  --gcweb-color-panel-warning-border: #ba8312;
+  --gcweb-color-panel-warning-text: #8a6d3b;
+  --gcweb-color-panel-warning-heading-bg: #fcf8e3;
+  --gcweb-color-panel-danger-border: #c16171;
+  --gcweb-color-panel-danger-text: #a94442;
+  --gcweb-color-panel-danger-heading-bg: #f2dede;
+  --gcweb-color-panel-footer-bg: #f5f5f5;
+  --gcweb-shadow-panel: 0 1px 1px rgba(0, 0, 0, 0.05);
+
+  // Wells (Bootstrap 3 .well)
+  --gcweb-color-well-bg: #f5f5f5; // $well-bg
+  --gcweb-color-well-border: #e3e3e3; // darken($well-bg, 7%)
+  --gcweb-shadow-well: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+
   // Overlays (wet-boew wb-overlay) and Bootstrap modal parts
   --gcweb-color-overlay-bg: #fff; // $overlay-background-color
   --gcweb-color-overlay-text: #fff; // $overlay-header-color
