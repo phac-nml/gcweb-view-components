@@ -13,3 +13,17 @@ fr:
           one: "Le formulaire n'a pu être soumis car 1 erreur a été trouvée."
           other: "Le formulaire n'a pu être soumis car %{count} erreurs ont été trouvées."
         separator: " - "
+      # Messages de jquery.validate sur GCWeb v20.0.1, utilisés par le
+      # contrôleur gcweb--form-validation (API Constraint Validation).
+      validation:
+        required: "Ce champ est obligatoire."
+        email: "Veuillez fournir une adresse électronique valide."
+        url: "Veuillez fournir une adresse URL valide."
+        number: "Veuillez fournir un numéro valide."
+        date: "Veuillez fournir une date valide."
+        minlength: "Veuillez fournir au moins %{count} caractères."
+        maxlength: "Veuillez fournir au plus %{count} caractères."
+        min: "Veuillez fournir une valeur supérieure ou égale à %{count}."
+        max: "Veuillez fournir une valeur inférieure ou égale à %{count}."
+        step: "Veuillez fournir une valeur multiple de %{count}."
+        pattern: "Format non valide."

@@ -12,7 +12,7 @@ const SCENARIOS = {
   "gcweb/form/fieldset_component": ["default", "heading", "border_bottom", "with_error"],
   "gcweb/form/error_summary_component": ["default", "one_error", "without_links"],
   "gcweb/form_builder": [
-    "contact_information", "contact_information_with_errors",
+    "contact_information", "contact_information_with_errors", "client_validation",
     "preferences", "preferences_with_errors",
     "personal_details", "personal_details_with_errors"
   ]

@@ -65,3 +65,4 @@ en:
       address_heading: "Contact Address"
       date_hint: "(for example, 1990 07 25)"
       base_error: "This registration has already been submitted."
+      submit: "Submit"

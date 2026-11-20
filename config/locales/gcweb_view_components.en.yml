@@ -13,3 +13,17 @@ en:
           one: "The form could not be submitted because 1 error was found."
           other: "The form could not be submitted because %{count} errors were found."
         separator: " - "
+      # jquery.validate's messages on GCWeb v20.0.1, used by the
+      # gcweb--form-validation controller (Constraint Validation API).
+      validation:
+        required: "This field is required."
+        email: "Please enter a valid email address."
+        url: "Please enter a valid URL."
+        number: "Please enter a valid number."
+        date: "Please enter a valid date."
+        minlength: "Please enter at least %{count} characters."
+        maxlength: "Please enter no more than %{count} characters."
+        min: "Please enter a value greater than or equal to %{count}."
+        max: "Please enter a value less than or equal to %{count}."
+        step: "Please enter a multiple of %{count}."
+        pattern: "Invalid format."

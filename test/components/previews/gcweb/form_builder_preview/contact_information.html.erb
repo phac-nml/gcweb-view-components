@@ -1,4 +1,5 @@
-<%= gcweb_form_with model: contact, scope: :contact_information, url: "#" do |f| %>
+<%# With submit: a GET to the preview itself, so a valid form just reloads it. %>
+<%= gcweb_form_with model: contact, scope: :contact_information, url: "#", method: (local_assigns[:submit] ? :get : :post) do |f| %>
   <h2><%= t("previews.form.contact_heading") %></h2>
   <%= f.text_field_group :rank, maxlength: 30, size: 50 %>
   <%= f.text_field_group :title, maxlength: 15, size: 15 %>
@@ -9,4 +10,7 @@
         ContactInformation::LANGUAGES.map { |l| [ t("previews.form.languages.#{l}"), l ] },
         prompt: true %>
   <%= f.text_field_group :email, type: :email, maxlength: 80, size: 50 %>
+  <% if local_assigns[:submit] %>
+    <button type="submit" class="btn btn-primary"><%= t("previews.form.submit") %></button>
+  <% end %>
 <% end %>

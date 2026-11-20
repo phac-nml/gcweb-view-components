@@ -114,6 +114,15 @@ const submitGcwebFormByKeyboard = async (page) => {
   await page.waitForTimeout(400);
 };
 
+// Submit one of our previews in the browser, as a user would, so the
+// gcweb--form-validation controller renders its errors and focuses the
+// summary. requestSubmit() fires the submit event the controller handles.
+const submitPreviewForm = async (page) => {
+  await page.evaluate(() => document.querySelector("form").requestSubmit());
+  await page.waitForFunction(() => document.activeElement?.matches("section[id^='errors-']"));
+  await page.waitForTimeout(400);
+};
+
 // Focus a control and let the 0.15s border/box-shadow transition finish.
 const focus = async (page, selector) => {
   await page.focus(selector);
@@ -166,6 +175,49 @@ const alertPairs = (variant, scope) => [
   [`${scope}.alert-${variant} > :first-child`, `${scope}.alert-${variant} > :first-child`],
   [`${scope}.alert-${variant} > :last-child`, `${scope}.alert-${variant} > :last-child`]
 ];
+
+// Pairs shared by the server-rendered and client-side error checks.
+const FORM_ERROR_PAIRS = [
+      groupPair("first_name"),
+      labelPair("first_name"),
+      labelPair("first_name", " > strong.error"),
+      labelPair("first_name", " .label-danger"),
+      labelPair("first_name", " .prefix"),
+      fieldPair("first_name"),
+      fieldPair("preferred_language"),
+      labelPair("email", " .label-danger"),
+      fieldPair("email")
+    ];
+
+const SUMMARY_PAIRS = [
+      ["section#errors-default", "section#errors-default"],
+      ["section#errors-default::before", "section#errors-default::before"],
+      ["section#errors-default > h2", "section#errors-default > h2"],
+      ["section#errors-default > ul", "section#errors-default > ul"],
+      ["section#errors-default li:first-child", "section#errors-default li:first-child"],
+      ["section#errors-default li:first-child > a", "section#errors-default li:first-child > a"],
+      ["section#errors-default li:first-child .prefix", "section#errors-default li:first-child .prefix"],
+      ["section#errors-default li:last-child", "section#errors-default li:last-child"]
+    ];
+
+const CHOICE_ERROR_PAIRS = [
+      ["fieldset:has(#animal-1)", "fieldset:has(#preference_survey_pet_dog)"],
+      ["fieldset:has(#animal-1) > legend", "fieldset:has(#preference_survey_pet_dog) > legend"],
+      ["fieldset:has(#animal-1) > legend::before", "fieldset:has(#preference_survey_pet_dog) > legend::before"],
+      ["fieldset:has(#animal-1) > legend > strong.required", "fieldset:has(#preference_survey_pet_dog) > legend > strong.required"],
+      ["#animal-error", "#preference_survey_pet-error"],
+      ["#animal-error .label-danger", "#preference_survey_pet-error .label-danger"],
+      ["#animal-error .prefix", "#preference_survey_pet-error .prefix"],
+      ["#animal-1", "#preference_survey_pet_dog"],
+      ["#cond-error .label-danger", "#preference_survey_condiments-error .label-danger"],
+      ["#cond-1", "#preference_survey_condiments_ketchup"],
+      ["div.checkbox:has(#terms)", "div.checkbox:has(#preference_survey_terms)"],
+      ["div.checkbox:has(#terms)::before", "div.checkbox:has(#preference_survey_terms)::before"],
+      ["label[for=terms]", "label[for=preference_survey_terms]"],
+      ["label[for=terms]::before", "label[for=preference_survey_terms]::before"],
+      ["label[for=terms] > strong.required", "label[for=preference_survey_terms] > strong.required"],
+      ["#terms-error .label-danger", "#preference_survey_terms-error .label-danger"]
+    ];
 
 const CHECKS = [
   {
@@ -252,17 +304,7 @@ const CHECKS = [
     },
     preview: `${FORM_PREVIEW}_with_errors`,
     props: FORM_PROPS,
-    pairs: [
-      groupPair("first_name"),
-      labelPair("first_name"),
-      labelPair("first_name", " > strong.error"),
-      labelPair("first_name", " .label-danger"),
-      labelPair("first_name", " .prefix"),
-      fieldPair("first_name"),
-      fieldPair("preferred_language"),
-      labelPair("email", " .label-danger"),
-      fieldPair("email")
-    ]
+    pairs: FORM_ERROR_PAIRS
   },
   {
     // wb-frmvld focuses its summary after the submit; ours has autofocus.
@@ -274,16 +316,7 @@ const CHECKS = [
     },
     preview: `${FORM_PREVIEW}_with_errors`,
     props: FORM_PROPS,
-    pairs: [
-      ["section#errors-default", "section#errors-default"],
-      ["section#errors-default::before", "section#errors-default::before"],
-      ["section#errors-default > h2", "section#errors-default > h2"],
-      ["section#errors-default > ul", "section#errors-default > ul"],
-      ["section#errors-default li:first-child", "section#errors-default li:first-child"],
-      ["section#errors-default li:first-child > a", "section#errors-default li:first-child > a"],
-      ["section#errors-default li:first-child .prefix", "section#errors-default li:first-child .prefix"],
-      ["section#errors-default li:last-child", "section#errors-default li:last-child"]
-    ]
+    pairs: SUMMARY_PAIRS
   },
   {
     name: "form / focus",
@@ -452,24 +485,7 @@ const CHECKS = [
     },
     preview: "/rails/view_components/gcweb/form_builder/preferences_with_errors",
     props: CHOICE_PROPS,
-    pairs: [
-      ["fieldset:has(#animal-1)", "fieldset:has(#preference_survey_pet_dog)"],
-      ["fieldset:has(#animal-1) > legend", "fieldset:has(#preference_survey_pet_dog) > legend"],
-      ["fieldset:has(#animal-1) > legend::before", "fieldset:has(#preference_survey_pet_dog) > legend::before"],
-      ["fieldset:has(#animal-1) > legend > strong.required", "fieldset:has(#preference_survey_pet_dog) > legend > strong.required"],
-      ["#animal-error", "#preference_survey_pet-error"],
-      ["#animal-error .label-danger", "#preference_survey_pet-error .label-danger"],
-      ["#animal-error .prefix", "#preference_survey_pet-error .prefix"],
-      ["#animal-1", "#preference_survey_pet_dog"],
-      ["#cond-error .label-danger", "#preference_survey_condiments-error .label-danger"],
-      ["#cond-1", "#preference_survey_condiments_ketchup"],
-      ["div.checkbox:has(#terms)", "div.checkbox:has(#preference_survey_terms)"],
-      ["div.checkbox:has(#terms)::before", "div.checkbox:has(#preference_survey_terms)::before"],
-      ["label[for=terms]", "label[for=preference_survey_terms]"],
-      ["label[for=terms]::before", "label[for=preference_survey_terms]::before"],
-      ["label[for=terms] > strong.required", "label[for=preference_survey_terms] > strong.required"],
-      ["#terms-error .label-danger", "#preference_survey_terms-error .label-danger"]
-    ]
+    pairs: CHOICE_ERROR_PAIRS
   },
   {
     name: "fieldset / section",
@@ -517,6 +533,33 @@ const CHECKS = [
       ["#dob-error .label-danger", "#personal_details_date_of_birth-error .label-danger"],
       ["#dob-error .prefix", "#personal_details_date_of_birth-error .prefix"]
     ]
+  },
+  // Client-side validation: our empty forms, submitted in the browser, next
+  // to GCWeb's submitted the same way.
+  {
+    name: "client validation / errors",
+    gcweb: GCWEB_FORM,
+    gcwebSetup: async (page) => {
+      await stackGcwebForm(page);
+      await submitGcwebFormByKeyboard(page);
+    },
+    preview: FORM_PREVIEW,
+    previewSetup: submitPreviewForm,
+    props: FORM_PROPS,
+    pairs: [...FORM_ERROR_PAIRS, ...SUMMARY_PAIRS]
+  },
+  {
+    name: "client validation / checkboxes and radios",
+    gcweb: GCWEB_FORM,
+    gcwebSetup: async (page) => {
+      await stackGcwebForm(page);
+      await addGcwebChoices(page);
+      await submitGcwebForm(page);
+    },
+    preview: "/rails/view_components/gcweb/form_builder/preferences",
+    previewSetup: submitPreviewForm,
+    props: CHOICE_PROPS,
+    pairs: CHOICE_ERROR_PAIRS
   }
 ];
 
