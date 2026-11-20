@@ -324,9 +324,11 @@ const GCWEB_PRINT_ON = "section:has(> #print) li:first-child > details";
 // same way ours does, and the mouse stays off it.
 const GCWEB_OVERLAY = "https://wet-boew.github.io/gcweb-compiled-demos/wetboew-demos/overlay/overlay-en.html";
 const OVERLAY_PREVIEW = "/rails/view_components/gcweb/overlay_component";
+// Like the other checks, no width, height, top or left: they follow the
+// rendered text, which differs between macOS and Linux.
 const OVERLAY_PROPS = [
   ...FORM_PROPS, "cursor", "z-index", "float", "outline-offset", "transform", "overflow-y", "max-height",
-  "width", "height", "top", "left", "border-top-right-radius", "border-bottom-left-radius", "user-select"
+  "border-top-right-radius", "border-bottom-left-radius", "user-select"
 ];
 const openOverlay = (id) => async (page) => {
   await page.focus(`a.overlay-lnk[href='#${id}']`);
