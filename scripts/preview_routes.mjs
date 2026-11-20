@@ -7,6 +7,7 @@ const SCENARIOS = {
   "gcweb/tabs_component": ["default", "ignore_session", "many_tabs"],
   "gcweb/accordion_component": ["default", "persist"],
   "gcweb/toggle": ["details_elements", "print_states", "grouped", "persist"],
+  "gcweb/overlay_component": ["panels", "bars", "popups", "full_screen", "custom_footer", "open_on_load"],
   "gcweb/form/text_field_component": ["optional_and_required", "with_hint", "with_error"],
   "gcweb/form/text_area_component": ["default"],
   "gcweb/form/select_component": ["default"],

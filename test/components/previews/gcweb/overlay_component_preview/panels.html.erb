@@ -1,0 +1,10 @@
+<ul>
+  <li><p><%= gcweb_overlay_link_to t("previews.overlay.left_panel_link"), "left-panel" %></p></li>
+  <li><p><%= gcweb_overlay_link_to t("previews.overlay.right_panel_link"), "right-panel" %></p></li>
+</ul>
+<%= render Gcweb::OverlayComponent.new(id: "left-panel", title: t("previews.overlay.left_panel"), variant: :panel_left) do %>
+  <%= render "gcweb/overlay_component_preview/links" %>
+<% end %>
+<%= render Gcweb::OverlayComponent.new(id: "right-panel", title: t("previews.overlay.right_panel"), variant: :panel_right) do %>
+  <%= render "gcweb/overlay_component_preview/links" %>
+<% end %>

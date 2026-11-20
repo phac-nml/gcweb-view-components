@@ -1,0 +1,8 @@
+<p><%= gcweb_overlay_link_to t("previews.overlay.mid_screen"), "playground" %></p>
+<%= render Gcweb::OverlayComponent.new(id: "playground", title: t("previews.overlay.mid_screen"), **options) do %>
+  <% if options[:variant].to_s.start_with?("bar") %>
+    <%= render "gcweb/overlay_component_preview/buttons" %>
+  <% else %>
+    <%= render "gcweb/overlay_component_preview/ordered_list" %>
+  <% end %>
+<% end %>

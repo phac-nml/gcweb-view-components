@@ -1,0 +1,24 @@
+# Example text from GCWeb v20.0.1's overlay demo
+# (wetboew-demos/overlay/overlay-en.html).
+en:
+  previews:
+    overlay:
+      left_panel_link: "Left-panel"
+      left_panel: "Left panel"
+      right_panel_link: "Right-panel"
+      right_panel: "Right panel"
+      top_bar: "Top bar"
+      bottom_bar: "Bottom bar"
+      mid_screen: "Middle screen overlay"
+      mid_screen_hidden_link: "Middle screen overlay - Beginning with a hidden link"
+      mid_screen_bg: "Middle screen overlay with background"
+      full_screen: "Full-screen overlay"
+      hidden_header: "Full-screen overlay - Hidden header"
+      link: "Link %{number}"
+      hidden_link: "Hidden link"
+      button: "Button %{number}"
+      list_html: "ordered list (<code>ol</code>) %{level} level default appearance"
+      first: "first"
+      second: "second"
+      third: "third"
+      custom_close: "Close overlay/modal"

@@ -7,6 +7,7 @@ class PreviewsTest < ActionDispatch::IntegrationTest
     "gcweb/alert_component" => %w[playground with_headings with_links without_headings expand_collapse],
     "gcweb/button_component" => %w[playground default colours call_to_action sizing full_width states],
     "gcweb/featured_link_component" => %w[playground default custom_background with_description],
+    "gcweb/overlay_component" => %w[playground panels bars popups full_screen custom_footer open_on_load],
     "gcweb/form/text_field_component" => %w[playground optional_and_required with_hint with_error],
     "gcweb/form/text_area_component" => %w[playground default],
     "gcweb/form/select_component" => %w[playground default],

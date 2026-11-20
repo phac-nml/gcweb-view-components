@@ -17,6 +17,7 @@ Rails components that render [GCWeb](https://github.com/wet-boew/GCWeb) / [WET-B
 | `Gcweb::FeaturedLinkComponent` | [Featured link](https://wet-boew.github.io/GCWeb/components/gc-featured-link/gc-featured-link-doc-en.html) | `gcweb--featured-link` |
 | `Gcweb::AccordionComponent` | [Toggle (accordion)](https://wet-boew.github.io/gcweb-compiled-demos/wetboew-demos/toggle/toggle-en.html#accordion) | `gcweb--toggle` |
 | `Gcweb::TabsComponent` | [Tabbed interface](https://wet-boew.github.io/gcweb-compiled-demos/wetboew-demos/tabs/tabs-en.html) | `gcweb--tabs` |
+| `Gcweb::OverlayComponent` | [Overlay](https://wet-boew.github.io/gcweb-compiled-demos/wetboew-demos/overlay/overlay-en.html) | `gcweb--overlay` |
 | `Gcweb::Form::TextFieldComponent` | [Forms](https://wet-boew.github.io/GCWeb/common/form/complex-structure-form-en.html) | – |
 | `Gcweb::Form::TextAreaComponent` | [Forms](https://wet-boew.github.io/GCWeb/common/form/complex-structure-form-en.html) | – |
 | `Gcweb::Form::SelectComponent` | [Forms](https://wet-boew.github.io/GCWeb/common/form/complex-structure-form-en.html) | – |
@@ -136,6 +137,7 @@ registerGcwebControllers(application)
 | --- | --- |
 | `gcweb--featured-link` | `Gcweb::FeaturedLinkComponent` (background and text colours) |
 | `gcweb--form-validation` | forms from `gcweb_form_with` (client-side validation) |
+| `gcweb--overlay` | `Gcweb::OverlayComponent` (opening, focus, closing) |
 | `gcweb--tabs` | `Gcweb::TabsComponent` (tab list, keyboard, accordion on small screens) |
 | `gcweb--toggle` | `Gcweb::AccordionComponent`, and any element with GCWeb's `data-toggle` options |
 
@@ -149,6 +151,18 @@ registerGcwebControllers(application)
   Expand all
 <% end %>
 ```
+
+`Gcweb::OverlayComponent` renders GCWeb's overlays (`variant:` `:panel_left`, `:panel_right`, `:bar_top`, `:bar_bottom`, `:popup_mid` or `:popup_full`) with the close buttons wet-boew adds, and `gcweb_overlay_link_to` renders the links that open them:
+
+```erb
+<%= gcweb_overlay_link_to "Left panel", "left-panel" %>
+
+<%= render Gcweb::OverlayComponent.new(id: "left-panel", title: "Left panel", variant: :panel_left) do %>
+  <ul class="list-unstyled">…</ul>
+<% end %>
+```
+
+The `gcweb--overlay` controller is a port of wet-boew's `wb-overlay`: it opens the overlay as a dialog and focuses it, keeps Tab inside, and closes it on Escape, on its close buttons, or on a click or focus outside it (`close_outside: false` for GCWeb's `outside-off`), returning focus to the link. Open or close one from your own code by dispatching `gcweb--overlay:open` or `gcweb--overlay:close` on it. Without JavaScript the overlays are shown in the page, as with GCWeb's noscript styles. wet-boew's Lightbox popups (`wb-lbx`) aren't included yet.
 
 `Gcweb::AccordionComponent` renders GCWeb's accordion markup with it. As with tabs, the accordion keeps native `<details>` semantics (the sections share a `name`, so one stays open even without JavaScript) rather than wet-boew's tablist roles.
 

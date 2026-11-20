@@ -1,0 +1,10 @@
+<ul>
+  <li><p><%= gcweb_overlay_link_to t("previews.overlay.full_screen"), "full-screen" %></p></li>
+  <li><p><%= gcweb_overlay_link_to t("previews.overlay.hidden_header"), "hidden-header" %></p></li>
+</ul>
+<%= render Gcweb::OverlayComponent.new(id: "full-screen", title: t("previews.overlay.full_screen"), variant: :popup_full) do %>
+  <%= render "gcweb/overlay_component_preview/ordered_list" %>
+<% end %>
+<%= render Gcweb::OverlayComponent.new(id: "hidden-header", title: t("previews.overlay.hidden_header"), variant: :popup_full, hidden_header: true) do %>
+  <%= render "gcweb/overlay_component_preview/ordered_list" %>
+<% end %>

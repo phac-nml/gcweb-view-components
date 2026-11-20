@@ -1,0 +1,10 @@
+<%= tag.section(**section_attributes) do %>
+  <%= header_tag %>
+  <% if bar? %>
+    <%= content %>
+  <% else %>
+    <div class="modal-body"><%= content %></div>
+  <% end %>
+  <%= footer_tag %>
+  <%= corner_close_button %>
+<% end %>
