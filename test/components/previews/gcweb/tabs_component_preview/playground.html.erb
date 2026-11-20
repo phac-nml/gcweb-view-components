@@ -1,0 +1,7 @@
+<%= render Gcweb::TabsComponent.new(ignore_session: ignore_session) do |tabs| %>
+  <% (1..count).each do |number| %>
+    <% tabs.with_panel(id: "playground-panel#{number}", title: t("previews.tabs.example", number: number), open: number == open_tab) do %>
+      <p><%= t("previews.tabs.panel_2") %></p>
+    <% end %>
+  <% end %>
+<% end %>

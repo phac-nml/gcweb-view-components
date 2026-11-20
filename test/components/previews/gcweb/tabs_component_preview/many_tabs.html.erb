@@ -1,0 +1,7 @@
+<%= render Gcweb::TabsComponent.new do |tabs| %>
+  <% (1..14).each do |number| %>
+    <% tabs.with_panel(id: "details-panel#{number}00", title: t("previews.tabs.example", number: number)) do %>
+      <p><%= t(number == 1 ? "previews.tabs.panel_3" : "previews.tabs.panel_2") %></p>
+    <% end %>
+  <% end %>
+<% end %>

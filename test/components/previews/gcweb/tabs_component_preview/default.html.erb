@@ -1,0 +1,12 @@
+<%= render Gcweb::TabsComponent.new do |tabs| %>
+  <% tabs.with_panel(id: "details-panel1", title: t("previews.tabs.example", number: 1)) do %>
+    <p><%= t("previews.tabs.panel_1_before") %> <a href="#details-panel3"><%= t("previews.tabs.example_3_html") %></a> <%= t("previews.tabs.panel_1_after") %></p>
+  <% end %>
+  <% tabs.with_panel(id: "details-panel2", title: t("previews.tabs.example", number: 2), open: true) do %>
+    <p><%= t("previews.tabs.panel_2") %></p>
+  <% end %>
+  <% tabs.with_panel(id: "details-panel3", title: t("previews.tabs.example_3_html")) do %>
+    <p><%= t("previews.tabs.panel_3") %></p>
+  <% end %>
+<% end %>
+<p><a href="#details-panel3" class="wb-tabs-ext"><%= t("previews.tabs.show_third") %></a></p>

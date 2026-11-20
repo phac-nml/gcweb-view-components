@@ -1,0 +1,15 @@
+# Example text from GCWeb v20.0.1's tabbed interface demo
+# (wetboew-demos/tabs/tabs-en.html), shortened.
+en:
+  previews:
+    tabs:
+      example: "Example %{number}"
+      example_3_html: "Example 3<br>(line 2)"
+      show_third: "Show the third panel"
+      test: "Test"
+      test_numbered: "Test %{number}"
+      panel_1_before: "From time immemorial the Norsemen"
+      panel_1_after: "were among the most daring and skilful mariners ever known. They built great wooden boats with tall, sweeping bows and sterns. These ships, though open and without decks, were yet stout and seaworthy."
+      panel_2: "It is needless, however, to prove that the Norsemen could have reached America in their ships. The voyages from Iceland to Greenland which we know they made continually for four hundred years were just as arduous as a further voyage from Greenland to the coast of Canada."
+      panel_3: "The story of the Norsemen runs thus. Towards the end of the ninth century, or nearly two hundred years before the Norman conquest, there was a great exodus or outswarming of the Norsemen from their original home in Norway."
+      lorem: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellendus, sapiente. Repellendus vitae odio fugiat commodi?"

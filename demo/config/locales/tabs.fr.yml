@@ -1,0 +1,15 @@
+# Texte d'exemple de la démo de l'interface à onglets de GCWeb v20.0.1
+# (wetboew-demos/tabs/tabs-fr.html), abrégé.
+fr:
+  previews:
+    tabs:
+      example: "Exemple %{number}"
+      example_3_html: "Exemple 3<br>(ligne 2)"
+      show_third: "Voir le troisième panneau"
+      test: "Test"
+      test_numbered: "Test %{number}"
+      panel_1_before: "Texte d'exemple. Autre texte d'exemple. Texte d'exemple différent."
+      panel_1_after: "Texte d'exemple. Autre texte d'exemple. Texte d'exemple. Autre texte d'exemple. Texte d'exemple différent. Texte d'exemple. Autre texte d'exemple. Texte d'exemple différent."
+      panel_2: "Texte d'exemple. Autre texte d'exemple. Texte d'exemple différent. Texte d'exemple. Autre texte d'exemple. Texte d'exemple différent. Texte d'exemple. Autre texte d'exemple. Texte d'exemple différent."
+      panel_3: "Texte d'exemple. Autre texte d'exemple. Texte d'exemple différent. Texte d'exemple. Autre texte d'exemple. Texte d'exemple différent. Texte d'exemple. Autre texte d'exemple. Texte d'exemple différent. Texte d'exemple. Autre texte d'exemple."
+      lorem: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellendus, sapiente. Repellendus vitae odio fugiat commodi?"
