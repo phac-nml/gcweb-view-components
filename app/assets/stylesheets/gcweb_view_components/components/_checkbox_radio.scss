@@ -1,0 +1,235 @@
+// Checkboxes and radio buttons — GCWeb gc-chckbxrdio
+// (components/gc-chckbxrdio): the native input is hidden and the label's
+// ::before draws a 36px box (24px for the single "tickbox"), ::after the
+// check mark. Values are GCWeb v20.0.1's cascaded rules, including the
+// Bootstrap 3 .checkbox/.radio and fieldset/legend rules underneath.
+
+$choice-hover-gradient: linear-gradient(to bottom, #e5e5e5, #fff 50%);
+$choice-ring: 0 0 0 2px var(--gcweb-color-text-strong);
+
+// Bootstrap 3 fieldset/legend, then WET-BOEW's and gc-chckbxrdio's overrides.
+fieldset.gc-chckbxrdio {
+  border: 0;
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+}
+
+.gc-chckbxrdio {
+  legend {
+    border: 0;
+    color: var(--gcweb-color-text);
+    display: block;
+    float: none;
+    font-size: 22px;
+    font-weight: var(--gcweb-font-weight-bold);
+    line-height: 1.65em;
+    margin-bottom: 15px;
+    margin-top: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  label {
+    cursor: pointer;
+    display: block;
+    font-size: 20px;
+    max-width: 100%;
+  }
+}
+
+// Bootstrap 3 .checkbox / .radio containers.
+.gc-chckbxrdio .checkbox,
+.gc-chckbxrdio .radio,
+.checkbox.gc-chckbxrdio {
+  display: block;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  position: relative;
+
+  label {
+    font-weight: var(--gcweb-font-weight-normal);
+    margin-bottom: 0;
+    min-height: 23px;
+    padding-left: 20px;
+  }
+}
+
+.gc-chckbxrdio .checkbox + .checkbox,
+.gc-chckbxrdio .radio + .radio {
+  margin-top: -5px;
+}
+
+// WET-BOEW .lst-spcd-2 spacing beats the Bootstrap margins above.
+.gc-chckbxrdio ul.lst-spcd-2 > li {
+  margin-bottom: 20px;
+}
+
+.gc-chckbxrdio {
+  input[type="checkbox"],
+  input[type="radio"] {
+    // normalize.css + Bootstrap + GCWeb
+    box-sizing: border-box;
+    color: inherit;
+    font: inherit;
+    line-height: normal;
+    margin: 9px 0 0 10px;
+    opacity: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 2;
+
+    &:focus {
+      outline: 5px auto -webkit-focus-ring-color;
+      outline-offset: -2px;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    + label {
+      display: inline-block;
+      line-height: 2;
+      margin-left: 36px;
+      width: auto;
+
+      &::before {
+        border: 4px solid #fff;
+        box-shadow: $choice-ring;
+        box-sizing: border-box;
+        content: "";
+        display: inline-block;
+        height: 36px;
+        left: 0;
+        position: absolute;
+        top: 2px;
+        width: 36px;
+      }
+
+      &:hover::before {
+        background-image: $choice-hover-gradient;
+      }
+    }
+
+    &:hover + label::before {
+      background-image: $choice-hover-gradient;
+    }
+
+    &:focus + label::before {
+      box-shadow: $choice-ring, 0 0 8px 4px #3b99fc;
+    }
+
+    &[disabled] {
+      cursor: not-allowed;
+
+      + label {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+    }
+  }
+
+  input[type="radio"] {
+    + label::before {
+      border-radius: 50%;
+    }
+
+    &:checked + label::before {
+      background: #444;
+    }
+  }
+
+  input[type="checkbox"]:checked + label::after {
+    border-color: #333;
+    border-style: solid;
+    border-width: 0 5px 5px 0;
+    box-sizing: border-box;
+    content: "";
+    display: inline-block;
+    height: 26px;
+    left: 12px;
+    position: absolute;
+    top: 4px;
+    transform: rotate(45deg);
+    width: 13px;
+  }
+}
+
+// Tickbox: a single, smaller checkbox.
+.gc-chckbxrdio.checkbox input[type="checkbox"] {
+  + label {
+    font-size: 17px;
+    min-height: 23px;
+
+    &::before {
+      height: 24px;
+      left: 6px;
+      top: 4px;
+      width: 24px;
+    }
+  }
+
+  &:checked + label::after {
+    border-width: 0 3px 3px 0;
+    height: 16px;
+    left: 14px;
+    top: 6px;
+    width: 9px;
+  }
+}
+
+// Inline variant: fieldset.gc-chckbxrdio.form-inline > .label-inline
+.gc-chckbxrdio.form-inline {
+  .label-inline {
+    padding-right: 20px;
+    position: relative;
+    vertical-align: middle;
+
+    label {
+      font-weight: var(--gcweb-font-weight-normal);
+      margin-bottom: 0;
+      padding-left: 10px;
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    .label-inline {
+      margin-bottom: 20px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .checkbox,
+    .radio {
+      display: inline-block;
+      margin-bottom: 0;
+      margin-top: 0;
+      vertical-align: middle;
+    }
+
+    .checkbox input[type="checkbox"],
+    .radio input[type="radio"] {
+      margin-left: 0;
+    }
+
+    // WET-BOEW's rule comes after gc-chckbxrdio's 20px (both media).
+    .label-inline:last-child {
+      padding-right: 0;
+    }
+  }
+}
+
+@media (prefers-contrast: more) {
+  .gc-chckbxrdio {
+    input[type="checkbox"]:focus + label::before,
+    input[type="radio"]:focus + label::before {
+      border: 5px double #000;
+    }
+
+    input[type="radio"]:checked + label::before {
+      outline: 10px solid #444;
+      outline-offset: -20px;
+    }
+  }
+}

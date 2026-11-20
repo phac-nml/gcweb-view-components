@@ -8,6 +8,43 @@ module Gcweb
       end
     end
 
+    def render_survey(model, &fields)
+      render_in_view_context(model, fields) do |m, f_block|
+        gcweb_form_with(model: m, scope: :preference_survey, url: "#") { |f| f_block.call(f) }
+      end
+    end
+
+    test "radio and checkbox groups take name, ids, value and required from the model" do
+      render_survey(PreferenceSurvey.new(pet: "cat", condiments: %w[relish])) do |f|
+        f.radio_buttons_group(:pet, PreferenceSurvey::PETS) + f.check_boxes_group(:condiments, PreferenceSurvey::CONDIMENTS)
+      end
+
+      assert_selector "legend.required > span.field-name", text: "Which is your favorite pet?"
+      assert_selector "input[type='radio']#preference_survey_pet_cat[name='preference_survey[pet]'][required][checked]"
+      assert_selector "input[type='checkbox']#preference_survey_condiments_relish[name='preference_survey[condiments][]'][checked]"
+      assert_no_selector "input#preference_survey_condiments_ketchup[checked]"
+    end
+
+    test "check_box_group ticks from a boolean and is required by an acceptance validator" do
+      render_survey(PreferenceSurvey.new(terms: true)) { |f| f.check_box_group(:terms) }
+
+      assert_selector "input[type='hidden'][name='preference_survey[terms]'][value='0']", visible: :hidden
+      assert_selector "input[type='checkbox']#preference_survey_terms[value='1'][required][checked]"
+      assert_selector "div.checkbox.required > label[for='preference_survey_terms'] > span.field-name", text: "I agree to the terms and conditions"
+    end
+
+    test "radio and checkbox errors are numbered with the other fields" do
+      render_survey(PreferenceSurvey.with_errors) do |f|
+        f.radio_buttons_group(:pet, PreferenceSurvey::PETS) +
+          f.check_boxes_group(:condiments, PreferenceSurvey::CONDIMENTS) +
+          f.check_box_group(:terms)
+      end
+
+      assert_selector "legend #preference_survey_pet-error", text: "Error\u00A01: This field is required."
+      assert_selector "legend #preference_survey_condiments-error", text: "Error\u00A02: This field is required."
+      assert_selector "label #preference_survey_terms-error", text: "Error\u00A03: This field is required."
+    end
+
     test "gcweb_form_with uses Gcweb::FormBuilder" do
       builder = nil
       render_form(ContactInformation.new) { |f| builder = f; "" }

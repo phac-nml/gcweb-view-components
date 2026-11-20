@@ -10,11 +10,14 @@ module Gcweb
   #   <%= f.text_area_group :post_nominals, rows: 4 %>
   #   <%= f.select_group :preferred_language, choices, prompt: true %>
   #   <%= f.text_field_group :email, type: :email %>
+  #   <%= f.radio_buttons_group :pet, pet_choices %>
+  #   <%= f.check_boxes_group :condiments, condiment_choices %>
+  #   <%= f.check_box_group :terms %>
   # <% end %>
   # ```
   #
   # Labels come from `human_attribute_name`, the required marker from
-  # presence validators, and errors from `model.errors`, numbered like
+  # presence (or acceptance) validators, and errors from `model.errors`, numbered like
   # wet-boew's "Error 1: …".
   #
   # The example is the "Contact Information" section of GCWeb's
@@ -31,6 +34,23 @@ module Gcweb
     # rendered server-side with the markup wet-boew's validation uses.
     def contact_information_with_errors
       render_with_template(template: "gcweb/form_builder_preview/contact_information", locals: { contact: ContactInformation.with_errors })
+    end
+
+    # @label Checkboxes and radio buttons
+    #
+    # `radio_buttons_group`, `check_boxes_group` and `check_box_group`. The
+    # questions are from GCWeb's
+    # [checkboxes and radio buttons examples](https://wet-boew.github.io/GCWeb/components/gc-chckbxrdio/gc-chckbxrdio-en.html).
+    def preferences
+      render_with_template(template: "gcweb/form_builder_preview/preferences", locals: { survey: PreferenceSurvey.new })
+    end
+
+    # @label Checkboxes and radio buttons with errors
+    #
+    # Submitted with nothing chosen. Each group's error is in its legend,
+    # the tickbox's in its label.
+    def preferences_with_errors
+      render_with_template(template: "gcweb/form_builder_preview/preferences", locals: { survey: PreferenceSurvey.with_errors })
     end
   end
 end

@@ -48,6 +48,38 @@ const FORM_PROPS = [
   "max-width", "vertical-align", "white-space", "text-align", "font-style", "text-transform"
 ];
 
+// Checkboxes and radio buttons (gc-chckbxrdio) also compare cursor and
+// stacking; their drawn boxes (label ::before/::after) have fixed sizes and
+// offsets, so those checks compare geometry too.
+const CHOICE_PROPS = [...FORM_PROPS, "cursor", "z-index", "float", "outline-offset", "border-top-right-radius"];
+const BOX_PROPS = [...CHOICE_PROPS, "width", "height", "top", "left", "transform"];
+
+const GCWEB_CHOICES = "/components/gc-chckbxrdio/gc-chckbxrdio-en.html";
+const CHOICES_PREVIEW = "/rails/view_components/gcweb/form";
+
+// Tick or select inputs without clicking (GCWeb hides them with opacity: 0).
+const check = (...selectors) => (page) =>
+  page.evaluate((list) => list.forEach((s) => { document.querySelector(s).checked = true; }), selectors);
+
+// GCWeb has no validated checkbox or radio example, so the error checks add
+// gc-chckbxrdio groups (GCWeb's documented markup) to the validated form
+// demo, submit it, and let wb-frmvld add its error markup. GCWeb's own CSS
+// and JavaScript render the result.
+const addGcwebChoices = (page) =>
+  page.evaluate(() => {
+    const options = (type, name, values, required) =>
+      values.map((v, i) => `<li class="${type}"><input type="${type}" name="${name}" id="${name}-${i + 1}" value="${v}"${required && (type === "radio" || i === 0) ? " required" : ""}><label for="${name}-${i + 1}">${v}</label></li>`).join("");
+    const group = (type, name, legend, values) => `
+      <fieldset class="gc-chckbxrdio">
+        <legend class="required"><span class="field-name">${legend}</span> <strong class="required">(required)</strong></legend>
+        <ul class="list-unstyled lst-spcd-2">${options(type, name, values, true)}</ul>
+      </fieldset>`;
+    document.querySelector(".wb-frmvld form [type=submit]").insertAdjacentHTML("beforebegin",
+      group("radio", "animal", "Which is your favorite pet?", ["Dog", "Cat", "Rat"]) +
+      group("checkbox", "cond", "Choose your condiments:", ["Ketchup", "Relish", "Mustard"]) +
+      `<div class="checkbox gc-chckbxrdio required"><input id="terms" name="terms" type="checkbox" value="1" required><label for="terms"><span class="field-name">I agree</span> <strong class="required" aria-hidden="true">(required)</strong></label></div>`);
+  });
+
 // GCWeb's form demo (common/form/complex-structure-form-en.html) lays fields
 // out with .form-horizontal and the Bootstrap grid. The components render
 // GCWeb's stacked layout (as in wet-boew's form validation demo), so before
@@ -227,6 +259,167 @@ const CHECKS = [
     previewSetup: (page) => focus(page, ours("first_name")),
     props: FORM_PROPS,
     pairs: [fieldPair("first_name")]
+  },
+  {
+    name: "checkboxes / group",
+    gcweb: GCWEB_CHOICES,
+    preview: `${CHOICES_PREVIEW}/checkboxes_component/default`,
+    props: CHOICE_PROPS,
+    pairs: [
+      ["fieldset.gc-chckbxrdio:has(#cond1)", "fieldset.gc-chckbxrdio"],
+      ["fieldset:has(#cond1) > legend", "fieldset.gc-chckbxrdio > legend"],
+      ["fieldset:has(#cond1) > ul", "fieldset.gc-chckbxrdio > ul"],
+      ["li:has(> #cond1)", "li:has(> #condiments_ketchup)"],
+      ["li:has(> #cond2)", "li:has(> #condiments_relish)"],
+      ["#cond1", "#condiments_ketchup"],
+      ["label[for=cond1]", "label[for=condiments_ketchup]"]
+    ]
+  },
+  {
+    name: "checkboxes / boxes",
+    gcweb: GCWEB_CHOICES,
+    gcwebSetup: check("#cond1"),
+    preview: `${CHOICES_PREVIEW}/checkboxes_component/default`,
+    previewSetup: check("#condiments_ketchup"),
+    props: BOX_PROPS,
+    pairs: [
+      ["label[for=cond1]::before", "label[for=condiments_ketchup]::before"],
+      ["label[for=cond1]::after", "label[for=condiments_ketchup]::after"],
+      ["label[for=cond2]::before", "label[for=condiments_relish]::before"],
+      ["label[for=cond2]::after", "label[for=condiments_relish]::after"]
+    ]
+  },
+  {
+    name: "checkboxes / focus",
+    gcweb: GCWEB_CHOICES,
+    gcwebSetup: (page) => focus(page, "#cond2"),
+    preview: `${CHOICES_PREVIEW}/checkboxes_component/default`,
+    previewSetup: (page) => focus(page, "#condiments_relish"),
+    props: BOX_PROPS,
+    pairs: [["label[for=cond2]::before", "label[for=condiments_relish]::before"]]
+  },
+  {
+    name: "checkboxes / disabled",
+    gcweb: GCWEB_CHOICES,
+    preview: `${CHOICES_PREVIEW}/checkboxes_component/disabled`,
+    props: BOX_PROPS,
+    pairs: [["label[for=cond5]::before", "label[for=condiments_relish]::before"]]
+  },
+  {
+    name: "checkboxes / disabled label",
+    gcweb: GCWEB_CHOICES,
+    preview: `${CHOICES_PREVIEW}/checkboxes_component/disabled`,
+    props: CHOICE_PROPS,
+    pairs: [
+      ["#cond5", "#condiments_relish"],
+      ["label[for=cond5]", "label[for=condiments_relish]"]
+    ]
+  },
+  {
+    name: "checkboxes / inline",
+    gcweb: GCWEB_CHOICES,
+    preview: `${CHOICES_PREVIEW}/checkboxes_component/inline`,
+    props: CHOICE_PROPS,
+    pairs: [
+      ["fieldset.form-inline:has(#inlineCheckbox1)", "fieldset.gc-chckbxrdio.form-inline"],
+      ["fieldset.form-inline:has(#inlineCheckbox1) > legend", "fieldset.gc-chckbxrdio.form-inline > legend"],
+      [".label-inline:has(> #inlineCheckbox1)", ".label-inline:has(> #condiments_ketchup)"],
+      [".label-inline:has(> #inlineCheckbox3)", ".label-inline:has(> #condiments_mustard)"],
+      ["#inlineCheckbox1", "#condiments_ketchup"],
+      ["label[for=inlineCheckbox1]", "label[for=condiments_ketchup]"]
+    ]
+  },
+  {
+    name: "radios / boxes",
+    gcweb: GCWEB_CHOICES,
+    gcwebSetup: check("#animal-1"),
+    preview: `${CHOICES_PREVIEW}/radios_component/default`,
+    previewSetup: check("#pet_dog"),
+    props: BOX_PROPS,
+    pairs: [
+      ["label[for=animal-1]::before", "label[for=pet_dog]::before"],
+      ["label[for=animal-2]::before", "label[for=pet_cat]::before"]
+    ]
+  },
+  {
+    name: "radios / group",
+    gcweb: GCWEB_CHOICES,
+    preview: `${CHOICES_PREVIEW}/radios_component/default`,
+    props: CHOICE_PROPS,
+    pairs: [
+      ["fieldset:has(#animal-1) > legend", "fieldset.gc-chckbxrdio > legend"],
+      ["li:has(> #animal-2)", "li:has(> #pet_cat)"],
+      ["#animal-1", "#pet_dog"]
+    ]
+  },
+  {
+    name: "radios / inline",
+    gcweb: GCWEB_CHOICES,
+    preview: `${CHOICES_PREVIEW}/radios_component/inline`,
+    props: CHOICE_PROPS,
+    pairs: [
+      [".label-inline:has(> #inlineRadio1)", ".label-inline:has(> #option_1)"],
+      [".label-inline:has(> #inlineRadio3)", ".label-inline:has(> #option_3)"],
+      ["#inlineRadio1", "#option_1"],
+      ["label[for=inlineRadio1]", "label[for=option_1]"]
+    ]
+  },
+  // GCWeb's standalone tickbox (#remember2) sits in a .form-inline that
+  // changes its padding, so compare the one in its filter box. That one is
+  // in a ul.list-unstyled, hence no list-style-type (inherited, invisible
+  // on these elements).
+  {
+    name: "checkbox / tickbox",
+    gcweb: GCWEB_CHOICES,
+    gcwebSetup: check("#dt_audience1"),
+    preview: `${CHOICES_PREVIEW}/checkbox_component/default`,
+    previewSetup: check("#remember_me"),
+    props: CHOICE_PROPS.filter((p) => p !== "list-style-type"),
+    pairs: [
+      ["#dt_audience1", "#remember_me"],
+      ["label[for=dt_audience1]", "label[for=remember_me]"]
+    ]
+  },
+  {
+    name: "checkbox / tickbox box",
+    gcweb: GCWEB_CHOICES,
+    gcwebSetup: check("#dt_audience1"),
+    preview: `${CHOICES_PREVIEW}/checkbox_component/default`,
+    previewSetup: check("#remember_me"),
+    props: BOX_PROPS.filter((p) => p !== "list-style-type"),
+    pairs: [
+      ["label[for=dt_audience1]::before", "label[for=remember_me]::before"],
+      ["label[for=dt_audience1]::after", "label[for=remember_me]::after"]
+    ]
+  },
+  {
+    name: "checkboxes and radios / errors",
+    gcweb: GCWEB_FORM,
+    gcwebSetup: async (page) => {
+      await stackGcwebForm(page);
+      await addGcwebChoices(page);
+      await submitGcwebForm(page);
+    },
+    preview: "/rails/view_components/gcweb/form_builder/preferences_with_errors",
+    props: CHOICE_PROPS,
+    pairs: [
+      ["fieldset:has(#animal-1)", "fieldset:has(#preference_survey_pet_dog)"],
+      ["fieldset:has(#animal-1) > legend", "fieldset:has(#preference_survey_pet_dog) > legend"],
+      ["fieldset:has(#animal-1) > legend::before", "fieldset:has(#preference_survey_pet_dog) > legend::before"],
+      ["fieldset:has(#animal-1) > legend > strong.required", "fieldset:has(#preference_survey_pet_dog) > legend > strong.required"],
+      ["#animal-error", "#preference_survey_pet-error"],
+      ["#animal-error .label-danger", "#preference_survey_pet-error .label-danger"],
+      ["#animal-error .prefix", "#preference_survey_pet-error .prefix"],
+      ["#animal-1", "#preference_survey_pet_dog"],
+      ["#cond-error .label-danger", "#preference_survey_condiments-error .label-danger"],
+      ["#cond-1", "#preference_survey_condiments_ketchup"],
+      ["div.checkbox:has(#terms)", "div.checkbox:has(#preference_survey_terms)"],
+      ["div.checkbox:has(#terms)::before", "div.checkbox:has(#preference_survey_terms)::before"],
+      ["label[for=terms]", "label[for=preference_survey_terms]"],
+      ["label[for=terms]::before", "label[for=preference_survey_terms]::before"],
+      ["label[for=terms] > strong.required", "label[for=preference_survey_terms] > strong.required"],
+      ["#terms-error .label-danger", "#preference_survey_terms-error .label-danger"]
+    ]
   }
 ];
 

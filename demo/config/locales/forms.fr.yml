@@ -1,5 +1,6 @@
 # Libellés et messages copiés de GCWeb v20.0.1
-# (common/form/complex-structure-form-fr.html et ses erreurs wb-frmvld).
+# (common/form/complex-structure-form-fr.html et ses erreurs wb-frmvld,
+# components/gc-chckbxrdio/gc-chckbxrdio-fr.html).
 fr:
   activemodel:
     attributes:
@@ -11,12 +12,20 @@ fr:
         last_name: "Nom de famille"
         preferred_language: "Langue préférée"
         email: "Courriel"
+      preference_survey:
+        pet: "Quel est votre animal favori?"
+        condiments: "Choisissez vos condiments\u00A0:"
+        terms: "J'accepte les conditions générales"
     errors:
       models:
         contact_information:
           attributes:
             email:
               invalid: "Veuillez fournir une adresse électronique valide."
+        preference_survey:
+          attributes:
+            terms:
+              accepted: "Ce champ est obligatoire."
       messages:
         blank: "Ce champ est obligatoire."
   previews:
@@ -30,3 +39,15 @@ fr:
       participation_choices:
         In-person: "En personne"
         Virtual: "Virtuel"
+      pets:
+        dog: "Le chien"
+        cat: "Le chat"
+        rat: "Le rat"
+      condiments:
+        ketchup: "Ketchup"
+        relish: "Relish"
+        mustard: "Moutarde"
+      option_legend: "Veuillez choisir une option\u00A0:"
+      option: "Option %{number}"
+      remember_me: "Se souvenir de moi"
+      survey_heading: "Vos préférences"
