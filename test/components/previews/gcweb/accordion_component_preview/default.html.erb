@@ -1,0 +1,7 @@
+<%= render Gcweb::AccordionComponent.new(id: "accordion") do |accordion| %>
+  <% (1..3).each do |number| %>
+    <% accordion.with_section(title: t("previews.toggle.example", number: number)) do %>
+      <p><%= t("previews.toggle.content") %></p>
+    <% end %>
+  <% end %>
+<% end %>

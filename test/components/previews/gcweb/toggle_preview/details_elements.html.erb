@@ -1,0 +1,13 @@
+<div id="details-elements">
+  <p>
+    <%= render Gcweb::ButtonComponent.new(variant: :primary, class: "wb-toggle", data: gcweb_toggle_data(selector: "details", parent: "#details-elements", print: :on)).with_content(t("previews.toggle.toggle")) %>
+    <%= render Gcweb::ButtonComponent.new(class: "wb-toggle", data: gcweb_toggle_data(selector: "details", parent: "#details-elements", type: :on)).with_content(t("previews.toggle.on")) %>
+    <%= render Gcweb::ButtonComponent.new(class: "wb-toggle", data: gcweb_toggle_data(selector: "details", parent: "#details-elements", type: :off)).with_content(t("previews.toggle.off")) %>
+  </p>
+  <% (1..3).each do |number| %>
+    <details>
+      <summary><%= t("previews.toggle.example", number: number) %></summary>
+      <p><%= t("previews.toggle.content") %></p>
+    </details>
+  <% end %>
+</div>

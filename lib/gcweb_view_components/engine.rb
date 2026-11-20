@@ -7,10 +7,14 @@ module GcwebViewComponents
     # engine's app/components to the host's autoload paths, and config/locales
     # to the I18n load path, automatically.
 
-    # gcweb_form_with in every view. The helper lives in lib (not app/helpers)
-    # so including it at boot does not autoload a reloadable constant.
-    initializer "gcweb_view_components.form_helper" do
-      ActiveSupport.on_load(:action_view) { include GcwebViewComponents::FormHelper }
+    # gcweb_form_with and gcweb_toggle_data in every view. The helpers live
+    # in lib (not app/helpers) so including them at boot does not autoload a
+    # reloadable constant.
+    initializer "gcweb_view_components.helpers" do
+      ActiveSupport.on_load(:action_view) do
+        include GcwebViewComponents::FormHelper
+        include GcwebViewComponents::ToggleHelper
+      end
     end
 
     # Propshaft / Sprockets hosts: serve the prebuilt CSS and its fonts only.

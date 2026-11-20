@@ -230,6 +230,18 @@ details[open] > summary {
   margin-bottom: 0.25em;
 }
 
+// Inline code (Bootstrap 3 / normalize)
+
+code {
+  background-color: var(--gcweb-color-code-bg);
+  border-radius: 4px;
+  color: var(--gcweb-color-code);
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 90%;
+  padding: 2px 4px;
+  white-space: normal;
+}
+
 // Bootstrap 3 container (used inside full-width components such as
 // gc-featured-link).
 

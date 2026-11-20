@@ -302,6 +302,20 @@ const clickTab = (id) => async (page) => {
 };
 const focusTab = (id) => (page) => page.focus(`[id='${id}-lnk']`);
 
+// Toggle (wb-toggle). wet-boew wraps each accordion <details> in a
+// div.tgl-tab[role=tab]; the gem keeps the <details> as the accordion's
+// children, so the selectors differ by that level.
+const GCWEB_TOGGLE = "https://wet-boew.github.io/gcweb-compiled-demos/wetboew-demos/toggle/toggle-en.html";
+const GCWEB_SECTION = (n) => `.accordion > div:nth-child(${n}) > details`;
+const OUR_SECTION = (n) => `#accordion > details:nth-child(${n})`;
+const clickSummary = (selector) => async (page) => {
+  await page.click(`${selector} > summary`);
+  await page.waitForTimeout(300);
+};
+const focusSummary = (selector) => (page) => page.focus(`${selector} > summary`);
+const GCWEB_PERSISTED = "section:has(> #persist) > details";
+const GCWEB_PRINT_ON = "section:has(> #print) li:first-child > details";
+
 const CHECKS = [
   {
     name: "alert / with headings",
@@ -708,6 +722,56 @@ const CHECKS = [
       " > .tabpanels > [id='details-panel3']",
       " > .tabpanels > [id='details-panel3'] > summary"
     ])
+  },
+  {
+    name: "accordion / open section",
+    gcweb: GCWEB_TOGGLE,
+    gcwebSetup: clickSummary(GCWEB_SECTION(2)),
+    preview: "/rails/view_components/gcweb/accordion_component/default",
+    previewSetup: clickSummary(OUR_SECTION(2)),
+    props: TABS_PROPS,
+    pairs: [
+      [".accordion", "#accordion"],
+      [GCWEB_SECTION(1), OUR_SECTION(1)],
+      [`${GCWEB_SECTION(1)} > summary`, `${OUR_SECTION(1)} > summary`],
+      [GCWEB_SECTION(2), OUR_SECTION(2)],
+      [`${GCWEB_SECTION(2)} > summary`, `${OUR_SECTION(2)} > summary`],
+      [`${GCWEB_SECTION(2)} > .tgl-panel`, `${OUR_SECTION(2)} > .tgl-panel`],
+      [`${GCWEB_SECTION(2)} > .tgl-panel > p`, `${OUR_SECTION(2)} > .tgl-panel > p`]
+    ]
+  },
+  {
+    name: "accordion / focused summary",
+    gcweb: GCWEB_TOGGLE,
+    gcwebSetup: focusSummary(GCWEB_SECTION(1)),
+    preview: "/rails/view_components/gcweb/accordion_component/default",
+    previewSetup: focusSummary(OUR_SECTION(1)),
+    props: TABS_PROPS,
+    pairs: [[`${GCWEB_SECTION(1)} > summary`, `${OUR_SECTION(1)} > summary`]]
+  },
+  {
+    name: "toggle / print states",
+    gcweb: GCWEB_TOGGLE,
+    preview: "/rails/view_components/gcweb/toggle/print_states",
+    props: TABS_PROPS,
+    pairs: [
+      [GCWEB_PRINT_ON, "ul.list-unstyled li:first-child > details"],
+      [`${GCWEB_PRINT_ON} > summary`, "ul.list-unstyled li:first-child > details > summary"],
+      [`${GCWEB_PRINT_ON} > summary > code`, "ul.list-unstyled li:first-child > details > summary > code"]
+    ]
+  },
+  {
+    name: "toggle / persisted details, opened",
+    gcweb: GCWEB_TOGGLE,
+    gcwebSetup: clickSummary(GCWEB_PERSISTED),
+    preview: "/rails/view_components/gcweb/toggle/persist",
+    previewSetup: clickSummary("details:has(> #persisted-summary)"),
+    props: TABS_PROPS,
+    pairs: [
+      [GCWEB_PERSISTED, "details:has(> #persisted-summary)"],
+      [`${GCWEB_PERSISTED} > summary`, "#persisted-summary"],
+      [`${GCWEB_PERSISTED} > p`, "details:has(> #persisted-summary) > p"]
+    ]
   }
 ];
 

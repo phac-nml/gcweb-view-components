@@ -13,11 +13,13 @@
 import FeaturedLinkController from "./controllers/featured_link_controller.js"
 import FormValidationController from "./controllers/form_validation_controller.js"
 import TabsController from "./controllers/tabs_controller.js"
+import ToggleController from "./controllers/toggle_controller.js"
 
 export const controllers = {
   "gcweb--featured-link": FeaturedLinkController,
   "gcweb--form-validation": FormValidationController,
-  "gcweb--tabs": TabsController
+  "gcweb--tabs": TabsController,
+  "gcweb--toggle": ToggleController
 }
 
 export function registerGcwebControllers(application) {
@@ -26,4 +28,4 @@ export function registerGcwebControllers(application) {
   }
 }
 
-export { FeaturedLinkController, FormValidationController, TabsController }
+export { FeaturedLinkController, FormValidationController, TabsController, ToggleController }

@@ -5,6 +5,8 @@ const SCENARIOS = {
   "gcweb/button_component": ["default", "colours", "call_to_action", "sizing", "full_width", "states"],
   "gcweb/featured_link_component": ["default", "custom_background", "with_description"],
   "gcweb/tabs_component": ["default", "ignore_session", "many_tabs"],
+  "gcweb/accordion_component": ["default", "persist"],
+  "gcweb/toggle": ["details_elements", "print_states", "grouped", "persist"],
   "gcweb/form/text_field_component": ["optional_and_required", "with_hint", "with_error"],
   "gcweb/form/text_area_component": ["default"],
   "gcweb/form/select_component": ["default"],
