@@ -15,6 +15,7 @@ Rails components that render [GCWeb](https://github.com/wet-boew/GCWeb) / [WET-B
 | `Gcweb::AlertComponent` | [Alert](https://wet-boew.github.io/GCWeb/common/alert/alert-docs-en.html) | – |
 | `Gcweb::ButtonComponent` | [Buttons](https://wet-boew.github.io/GCWeb/common/button/button-en.html) | – |
 | `Gcweb::FeaturedLinkComponent` | [Featured link](https://wet-boew.github.io/GCWeb/components/gc-featured-link/gc-featured-link-doc-en.html) | `gcweb--featured-link` |
+| `Gcweb::AccordionComponent` | [Toggle (accordion)](https://wet-boew.github.io/gcweb-compiled-demos/wetboew-demos/toggle/toggle-en.html#accordion) | `gcweb--toggle` |
 | `Gcweb::TabsComponent` | [Tabbed interface](https://wet-boew.github.io/gcweb-compiled-demos/wetboew-demos/tabs/tabs-en.html) | `gcweb--tabs` |
 | `Gcweb::Form::TextFieldComponent` | [Forms](https://wet-boew.github.io/GCWeb/common/form/complex-structure-form-en.html) | – |
 | `Gcweb::Form::TextAreaComponent` | [Forms](https://wet-boew.github.io/GCWeb/common/form/complex-structure-form-en.html) | – |
@@ -136,8 +137,20 @@ registerGcwebControllers(application)
 | `gcweb--featured-link` | `Gcweb::FeaturedLinkComponent` (background and text colours) |
 | `gcweb--form-validation` | forms from `gcweb_form_with` (client-side validation) |
 | `gcweb--tabs` | `Gcweb::TabsComponent` (tab list, keyboard, accordion on small screens) |
+| `gcweb--toggle` | `Gcweb::AccordionComponent`, and any element with GCWeb's `data-toggle` options |
 
 `Gcweb::TabsComponent` renders the `<details>` panels GCWeb authors write, so without JavaScript they're expand/collapse sections. The `gcweb--tabs` controller (a port of wet-boew's `wb-tabs`) adds the tab list from 992px up and makes the panels an accordion below that, with wb-tabs' keyboard support (arrow keys, Enter/Space into the panel, Ctrl+Up back to the tab), session memory of the last tab (`ignore_session: true` to turn it off), URL hash support and `wb-tabs-ext` links. In the accordion the panels stay native `<details>` grouped with `name`, rather than wb-tabs' tab roles. The carousel variant isn't included yet.
+
+`gcweb--toggle` is a port of wet-boew's `wb-toggle`. Put it on the element people click, with the same `data-toggle` JSON GCWeb uses (`selector`, `parent`, `group`, `type`, `state`, `stateOn`/`stateOff`, `persist`, `print`), so GCWeb markup works once `data-controller="gcweb--toggle"` is added. The `gcweb_toggle_data` view helper builds those attributes, for example for "Expand all" buttons:
+
+```erb
+<%= render Gcweb::ButtonComponent.new(class: "wb-toggle",
+      data: gcweb_toggle_data(selector: "details", parent: "#faq", type: :on)) do %>
+  Expand all
+<% end %>
+```
+
+`Gcweb::AccordionComponent` renders GCWeb's accordion markup with it. As with tabs, the accordion keeps native `<details>` semantics (the sections share a `name`, so one stays open even without JavaScript) rather than wet-boew's tablist roles.
 
 ## Developing
 

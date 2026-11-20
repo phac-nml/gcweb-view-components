@@ -1,0 +1,12 @@
+# Example text from GCWeb v20.0.1's toggle demo
+# (wetboew-demos/toggle/toggle-en.html).
+en:
+  previews:
+    toggle:
+      example: "Example %{number}"
+      content: "Example content that provides more details."
+      toggle: "Toggle"
+      "on": "On"
+      "off": "Off"
+      print_on_html: "Always open when printing (<code>\"print\": \"on\"</code>)"
+      print_off_html: "Always closed when printing (<code>\"print\": \"off\"</code>) (not recommended)"

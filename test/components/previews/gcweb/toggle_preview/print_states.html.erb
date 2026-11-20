@@ -1,0 +1,10 @@
+<ul class="list-unstyled">
+  <% { on: "print_on_html", off: "print_off_html" }.each do |state, label| %>
+    <li>
+      <details>
+        <%= tag.summary(t("previews.toggle.#{label}"), class: "wb-toggle", data: gcweb_toggle_data(print: state)) %>
+        <p><%= t("previews.toggle.content") %></p>
+      </details>
+    </li>
+  <% end %>
+</ul>

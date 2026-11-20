@@ -1,0 +1,11 @@
+<p>
+  <% (1..3).each do |number| %>
+    <%= render Gcweb::ButtonComponent.new(class: "wb-toggle", data: gcweb_toggle_data(selector: "#toggle#{number}", group: ".grouped", type: :on)).with_content(t("previews.toggle.example", number: number)) %>
+  <% end %>
+</p>
+<% (1..3).each do |number| %>
+  <details id="toggle<%= number %>" class="grouped">
+    <summary><%= t("previews.toggle.example", number: number) %></summary>
+    <p><%= t("previews.toggle.content") %></p>
+  </details>
+<% end %>

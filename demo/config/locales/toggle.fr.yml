@@ -1,0 +1,12 @@
+# Texte d'exemple de la démo de basculement de GCWeb v20.0.1
+# (wetboew-demos/toggle/toggle-fr.html).
+fr:
+  previews:
+    toggle:
+      example: "Exemple %{number}"
+      content: "Le contenu d'exemple qui fournit plus de détails."
+      toggle: "Basculer"
+      "on": "Activer"
+      "off": "Désactiver"
+      print_on_html: "Toujours ouvert lors de l’impression (<code>\"print\": \"on\"</code>)"
+      print_off_html: "Toujours fermé lors de l’impression (<code>\"print\": \"off\"</code>) (non recommandé)"
