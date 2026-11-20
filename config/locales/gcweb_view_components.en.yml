@@ -2,6 +2,12 @@ en:
   gcweb:
     featured_link:
       heading: "Spotlight on"
+    # wet-boew's overlay close buttons on GCWeb v20.0.1 (i18n close, colon,
+    # esc-key and overlay-close).
+    overlay:
+      close: "Close"
+      overlay: "overlay"
+      close_title: "Close: %{title} (escape key)"
     # Strings wet-boew's form validation uses on GCWeb v20.0.1 (common/form).
     form:
       required: "(required)"

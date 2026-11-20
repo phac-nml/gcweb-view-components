@@ -1,0 +1,25 @@
+# Example text from GCWeb v20.0.1's overlay demo
+# (wetboew-demos/overlay/overlay-fr.html).
+fr:
+  previews:
+    overlay:
+      left_panel_link: "Panneau à gauche"
+      left_panel: "Panneau à gauche"
+      right_panel_link: "Panneau à droit"
+      right_panel: "Panneau à droit"
+      top_bar: "Barre en haut"
+      bottom_bar: "Barre en bas"
+      mid_screen: "Contenu superposé mi-écran"
+      mid_screen_hidden_link: "Contenu superposé mi-écran - Commençant par un lien caché"
+      mid_screen_bg: "Contenu superposé mi-écran avec arrière plan"
+      full_screen: "Contenu superposé plein écran"
+      hidden_header: "Contenu superposé plein écran - En-tête caché"
+      link: "Lien %{number}"
+      hidden_link: "Lien caché"
+      button: "Bouton %{number}"
+      list_html: "liste ordonnée (<code>ol</code>) %{level} niveau - apparence par défaut"
+      first: "premier"
+      second: "deuxième"
+      third: "troisième"
+      # GCWeb's French page keeps this example in English.
+      custom_close: "Fermer la fenêtre superposée"

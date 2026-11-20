@@ -41,3 +41,25 @@ ul.lst-spcd-2 {
     margin-top: 20px;
   }
 }
+
+// Inline list (Bootstrap), as in GCWeb's overlay bars.
+.list-inline {
+  list-style: none;
+  margin-left: -5px;
+  padding-left: 0;
+
+  > li {
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+
+// Floats (Bootstrap), as on the overlays' close buttons.
+.pull-left {
+  float: left !important;
+}
+
+.pull-right {
+  float: right !important;
+}

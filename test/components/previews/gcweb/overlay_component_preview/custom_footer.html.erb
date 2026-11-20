@@ -1,0 +1,7 @@
+<p><%= gcweb_overlay_link_to t("previews.overlay.mid_screen"), "custom-footer" %></p>
+<%= render Gcweb::OverlayComponent.new(id: "custom-footer", title: t("previews.overlay.mid_screen"), variant: :popup_mid) do |overlay| %>
+  <% overlay.with_footer do %>
+    <button class="btn btn-primary overlay-close" type="button"><%= t("previews.overlay.custom_close") %></button>
+  <% end %>
+  <%= render "gcweb/overlay_component_preview/ordered_list" %>
+<% end %>

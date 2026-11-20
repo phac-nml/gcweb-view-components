@@ -2,6 +2,12 @@ fr:
   gcweb:
     featured_link:
       heading: "Pleins feux sur"
+    # wet-boew's overlay close buttons on GCWeb v20.0.1 (i18n close, colon,
+    # esc-key and overlay-close).
+    overlay:
+      close: "Fermer"
+      overlay: "la fenêtre superposée"
+      close_title: "Fermer\u00A0: %{title} (touche d'échappement)"
     # Strings wet-boew's form validation uses on GCWeb v20.0.1 (common/form).
     form:
       required: "(obligatoire)"

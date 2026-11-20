@@ -1,0 +1,15 @@
+<ul>
+  <li><p><%= gcweb_overlay_link_to t("previews.overlay.mid_screen"), "mid-screen" %></p></li>
+  <li><p><%= gcweb_overlay_link_to t("previews.overlay.mid_screen_hidden_link"), "mid-screen-hidden-link" %></p></li>
+  <li><p><%= gcweb_overlay_link_to t("previews.overlay.mid_screen_bg"), "mid-screen-bg" %></p></li>
+</ul>
+<%= render Gcweb::OverlayComponent.new(id: "mid-screen", title: t("previews.overlay.mid_screen"), variant: :popup_mid) do %>
+  <%= render "gcweb/overlay_component_preview/ordered_list" %>
+<% end %>
+<%= render Gcweb::OverlayComponent.new(id: "mid-screen-hidden-link", title: t("previews.overlay.mid_screen_hidden_link"), variant: :popup_mid) do %>
+  <p hidden><a href="#"><%= t("previews.overlay.hidden_link") %></a></p>
+  <%= render "gcweb/overlay_component_preview/ordered_list" %>
+<% end %>
+<%= render Gcweb::OverlayComponent.new(id: "mid-screen-bg", title: t("previews.overlay.mid_screen_bg"), variant: :popup_mid, background: true) do %>
+  <%= render "gcweb/overlay_component_preview/ordered_list" %>
+<% end %>

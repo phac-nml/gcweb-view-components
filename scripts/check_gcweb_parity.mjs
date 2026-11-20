@@ -7,6 +7,8 @@
 //                         (do this when bumping GcwebViewComponents::GCWEB_VERSION)
 //   pnpm parity:live      compare previews with the live GCWeb demo site
 //
+// PARITY_ONLY=<text> runs only the checks whose names contain it (not with
+// --capture, which rewrites the whole reference).
 // PREVIEW_BASE_URL defaults to http://127.0.0.1:3100 (the demo server).
 import fs from "node:fs";
 import path from "node:path";
@@ -315,6 +317,48 @@ const clickSummary = (selector) => async (page) => {
 const focusSummary = (selector) => (page) => page.focus(`${selector} > summary`);
 const GCWEB_PERSISTED = "section:has(> #persist) > details";
 const GCWEB_PRINT_ON = "section:has(> #print) li:first-child > details";
+
+// Overlay (wb-overlay). The previews use GCWeb's ids and markup, so the
+// selectors are the same on both sides. Each check opens an overlay from
+// the keyboard (Enter on its link), as GCWeb's script then focuses it the
+// same way ours does, and the mouse stays off it.
+const GCWEB_OVERLAY = "https://wet-boew.github.io/gcweb-compiled-demos/wetboew-demos/overlay/overlay-en.html";
+const OVERLAY_PREVIEW = "/rails/view_components/gcweb/overlay_component";
+// Like the other checks, no width, height, top or left: they follow the
+// rendered text, which differs between macOS and Linux.
+const OVERLAY_PROPS = [
+  ...FORM_PROPS, "cursor", "z-index", "float", "outline-offset", "transform", "overflow-y", "max-height",
+  "border-top-right-radius", "border-bottom-left-radius", "user-select"
+];
+const openOverlay = (id) => async (page) => {
+  await page.focus(`a.overlay-lnk[href='#${id}']`);
+  await page.keyboard.press("Enter");
+  await page.waitForTimeout(400);
+};
+const focusOverlayClose = (id) => async (page) => {
+  await openOverlay(id)(page);
+  await page.keyboard.press("Shift+Tab");
+  await page.waitForTimeout(100);
+};
+const overlayParts = (id, parts) => parts.map((part) => `#${id}${part}`).map((s) => [s, s]);
+const PANEL_PARTS = [
+  "", " > header", " .modal-title", " > .modal-body", " .modal-body li:first-child > a",
+  " > .modal-footer", " > .modal-footer > .overlay-close", " > .mfp-close"
+];
+const BAR_PARTS = ["", " > header", " .modal-title", " > .list-inline", " > .list-inline > li:first-child", " .btn", " > .mfp-close"];
+const POPUP_PARTS = [
+  "", " > header", " .modal-title", " > .modal-body", " .modal-body > ol", " .modal-body > ol > li:first-child",
+  " .modal-body code", " > .modal-footer", " > .modal-footer > .overlay-close", " > .mfp-close"
+];
+const overlayCheck = (name, id, parts, scenario, setup = openOverlay) => ({
+  name: `overlay / ${name}`,
+  gcweb: GCWEB_OVERLAY,
+  gcwebSetup: setup(id),
+  preview: `${OVERLAY_PREVIEW}/${scenario}`,
+  previewSetup: setup(id),
+  props: OVERLAY_PROPS,
+  pairs: overlayParts(id, parts)
+});
 
 const CHECKS = [
   {
@@ -772,6 +816,22 @@ const CHECKS = [
       [`${GCWEB_PERSISTED} > summary`, "#persisted-summary"],
       [`${GCWEB_PERSISTED} > p`, "details:has(> #persisted-summary) > p"]
     ]
+  },
+  overlayCheck("left panel", "left-panel", PANEL_PARTS, "panels"),
+  overlayCheck("right panel", "right-panel", PANEL_PARTS, "panels"),
+  overlayCheck("top bar", "top-bar", BAR_PARTS, "bars"),
+  overlayCheck("bottom bar", "bottom-bar", BAR_PARTS, "bars"),
+  overlayCheck("middle screen", "mid-screen", POPUP_PARTS, "popups"),
+  overlayCheck("middle screen with background", "mid-screen-bg", POPUP_PARTS, "popups"),
+  overlayCheck("full screen", "full-screen", POPUP_PARTS, "full_screen"),
+  overlayCheck("full screen, hidden header", "hidden-header", [...POPUP_PARTS.filter((part) => part !== " .modal-title"), " > header > h2"], "full_screen"),
+  overlayCheck("focused close button", "left-panel", [" > .mfp-close"], "panels", focusOverlayClose),
+  {
+    name: "overlay / closed",
+    gcweb: GCWEB_OVERLAY,
+    preview: `${OVERLAY_PREVIEW}/panels`,
+    props: OVERLAY_PROPS,
+    pairs: [["#left-panel", "#left-panel"], ["a.overlay-lnk[href='#left-panel']", "a.overlay-lnk[href='#left-panel']"]]
   }
 ];
 
@@ -819,8 +879,9 @@ if (mode === "reference") {
 
 let mismatches = 0;
 let compared = 0;
+const only = process.env.PARITY_ONLY;
 
-for (const check of CHECKS) {
+for (const check of CHECKS.filter((c) => !only || c.name.includes(only))) {
   const expectedStyles = reference ? reference.checks[check.name] || {} : await readGcweb(check);
   await load(previewBase + check.preview, check.viewport);
   if (check.previewSetup) await check.previewSetup(page);

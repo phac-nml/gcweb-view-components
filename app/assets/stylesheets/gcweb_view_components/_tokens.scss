@@ -151,6 +151,17 @@
   --gcweb-color-tab-hover: rgba(204, 204, 204, 0.9);
   --gcweb-color-tab-active-border: #666;
 
+  // Overlays (wet-boew wb-overlay) and Bootstrap modal parts
+  --gcweb-color-overlay-bg: #fff; // $overlay-background-color
+  --gcweb-color-overlay-text: #fff; // $overlay-header-color
+  --gcweb-color-overlay-header-bg: #26374a; // .overlay-def header
+  --gcweb-color-overlay-modal-header-bg: #2e5274; // .overlay-def .modal-header
+  --gcweb-color-overlay-bar-bg: #000; // $overlay-bar-background-color
+  --gcweb-color-modal-border: #e5e5e5; // Bootstrap $modal-header-border-color
+  --gcweb-color-modal-content-border: rgba(0, 0, 0, 0.2);
+  --gcweb-shadow-modal: 0 3px 9px rgba(0, 0, 0, 0.5);
+  --gcweb-shadow-modal-md: 0 5px 15px rgba(0, 0, 0, 0.5); // from 768px
+
   // Spacing ($spacer and Bootstrap rhythm)
   --gcweb-space-md: 15px; // $space-md
   --gcweb-spacer: 20px; // $spacer
