@@ -1,0 +1,8 @@
+<dl>
+  <% Gcweb::LabelComponent::VARIANTS.each do |variant| %>
+    <dt><%= t("previews.labels.variants.#{variant}") %></dt>
+    <dd><p><%= t("previews.labels.some_text") %> <%= render Gcweb::LabelComponent.new(variant: variant).with_content(t("previews.labels.label_info")) %></p></dd>
+  <% end %>
+  <dt><%= t("previews.labels.link") %></dt>
+  <dd><p><%= t("previews.labels.some_text") %> <%= render Gcweb::LabelComponent.new(href: "#").with_content(t("previews.labels.label_info")) %></p></dd>
+</dl>

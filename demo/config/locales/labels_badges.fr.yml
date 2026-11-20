@@ -1,0 +1,21 @@
+# Example text from GCWeb v20.0.1's labels and badges demos
+# (components/labels/labels-fr.html, components/badges/badges-fr.html).
+fr:
+  previews:
+    labels:
+      some_text: "Du texte ici"
+      label_info: "(Information sur l'étiquette)"
+      link: "Étiquette par défaut sous forme de lien"
+      variants:
+        default: "Étiquette par défaut"
+        primary: "Étiquette primaire"
+        success: "Étiquette de succès"
+        info: "Étiquette de renseignements"
+        warning: "Étiquette d'avertissement"
+        danger: "Étiquette de danger"
+    badges:
+      inbox: "Boîte de réception"
+      unread: "courriels non lus"
+      grey: "Badge gris :"
+      button: "Badge bleu sous forme de bouton :"
+      empty: "Aucun contenu à l'intérieur du badge :"

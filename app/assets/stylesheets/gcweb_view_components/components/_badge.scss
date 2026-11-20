@@ -1,0 +1,58 @@
+// Badges (GCWeb components/badges), Gcweb::BadgeComponent: Bootstrap 3
+// .badge. An empty badge hides itself. Inside a button it takes the
+// button's colours, inverted.
+
+@use "sass:list";
+
+.badge {
+  background-color: var(--gcweb-color-badge-bg);
+  border-radius: 10px;
+  color: var(--gcweb-color-badge-text);
+  display: inline-block;
+  font-size: 14px;
+  font-weight: var(--gcweb-font-weight-bold);
+  line-height: 1;
+  min-width: 10px;
+  padding: 3px 7px;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  &:empty {
+    display: none;
+  }
+
+  .btn & {
+    position: relative;
+    top: -1px;
+  }
+
+  .btn-xs & {
+    padding: 1px 5px;
+    top: 0;
+  }
+}
+
+a.badge:focus,
+a.badge:hover {
+  color: var(--gcweb-color-badge-text);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+$badge-in-buttons: (
+  "default": (var(--gcweb-btn-default-bg), var(--gcweb-btn-default-text)),
+  "primary": (var(--gcweb-color-badge-primary), #fff),
+  "success": (var(--gcweb-color-badge-success), #fff),
+  "info": (var(--gcweb-color-badge-info), #fff),
+  "warning": (var(--gcweb-color-badge-warning), #000),
+  "danger": (var(--gcweb-color-badge-danger), #fff),
+  "call-to-action": (var(--gcweb-color-badge-call-to-action), #fff)
+);
+
+@each $variant, $colors in $badge-in-buttons {
+  .btn-#{$variant} .badge {
+    background-color: list.nth($colors, 2);
+    color: list.nth($colors, 1);
+  }
+}

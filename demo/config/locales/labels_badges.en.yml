@@ -1,0 +1,21 @@
+# Example text from GCWeb v20.0.1's labels and badges demos
+# (components/labels/labels-en.html, components/badges/badges-en.html).
+en:
+  previews:
+    labels:
+      some_text: "Some text here"
+      label_info: "(Label info)"
+      link: "Default label as link"
+      variants:
+        default: "Default label"
+        primary: "Primary label"
+        success: "Success label"
+        info: "Info label"
+        warning: "Warning label"
+        danger: "Danger label"
+    badges:
+      inbox: "Inbox"
+      unread: "unread emails"
+      grey: "Grey badge:"
+      button: "Blue button-like badge:"
+      empty: "No content inside badge:"

@@ -113,6 +113,21 @@
   --gcweb-color-tab-border: #ccc;
   --gcweb-color-tab-hover: rgba(204, 204, 204, 0.9);
   --gcweb-color-tab-active-border: #666;
+  --gcweb-color-label-default-bg: #eee;
+  --gcweb-color-label-default-border: #acacac;
+  --gcweb-color-label-primary-bg: #e8f2f4;
+  --gcweb-color-label-primary-border: #083c6c;
+  --gcweb-color-label-success-bg: #d8eeca;
+  --gcweb-color-label-info-bg: #d7faff;
+  --gcweb-color-label-warning-bg: #f9f4d4;
+  --gcweb-color-badge-bg: #6f6f6f;
+  --gcweb-color-badge-text: #fff;
+  --gcweb-color-badge-primary: #2572b4;
+  --gcweb-color-badge-success: #1b6c1c;
+  --gcweb-color-badge-info: #4d4d4d;
+  --gcweb-color-badge-warning: #f2d40d;
+  --gcweb-color-badge-danger: #bc3331;
+  --gcweb-color-badge-call-to-action: #318000;
   --gcweb-color-overlay-bg: #fff;
   --gcweb-color-overlay-text: #fff;
   --gcweb-color-overlay-header-bg: #26374a;
@@ -757,11 +772,137 @@ ul.lst-spcd-2 ul {
   vertical-align: baseline;
   white-space: nowrap;
 }
+.label:empty {
+  display: none;
+}
 
-.label-danger {
+a.label:focus,
+a.label:hover {
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.label-default, .label-default[href]:active, .label-default[href]:focus, .label-default[href]:hover {
+  background: var(--gcweb-color-label-default-bg);
+  border-color: var(--gcweb-color-label-default-border);
+  color: var(--gcweb-color-text-strong);
+}
+.label-default[href]:active, .label-default[href]:focus, .label-default[href]:hover {
+  text-decoration: underline;
+}
+
+.label-primary, .label-primary[href]:active, .label-primary[href]:focus, .label-primary[href]:hover {
+  background: var(--gcweb-color-label-primary-bg);
+  border-color: var(--gcweb-color-label-primary-border);
+  color: var(--gcweb-color-text-strong);
+}
+.label-primary[href]:active, .label-primary[href]:focus, .label-primary[href]:hover {
+  text-decoration: underline;
+}
+
+.label-success, .label-success[href]:active, .label-success[href]:focus, .label-success[href]:hover {
+  background: var(--gcweb-color-label-success-bg);
+  border-color: var(--gcweb-color-success);
+  color: var(--gcweb-color-text-strong);
+}
+.label-success[href]:active, .label-success[href]:focus, .label-success[href]:hover {
+  text-decoration: underline;
+}
+
+.label-info, .label-info[href]:active, .label-info[href]:focus, .label-info[href]:hover {
+  background: var(--gcweb-color-label-info-bg);
+  border-color: var(--gcweb-color-info);
+  color: var(--gcweb-color-text-strong);
+}
+.label-info[href]:active, .label-info[href]:focus, .label-info[href]:hover {
+  text-decoration: underline;
+}
+
+.label-warning, .label-warning[href]:active, .label-warning[href]:focus, .label-warning[href]:hover {
+  background: var(--gcweb-color-label-warning-bg);
+  border-color: var(--gcweb-color-warning-details);
+  color: var(--gcweb-color-text-strong);
+}
+.label-warning[href]:active, .label-warning[href]:focus, .label-warning[href]:hover {
+  text-decoration: underline;
+}
+
+.label-danger, .label-danger[href]:active, .label-danger[href]:focus, .label-danger[href]:hover {
   background: var(--gcweb-color-danger-bg);
   border-color: var(--gcweb-color-danger);
   color: var(--gcweb-color-text-strong);
+}
+.label-danger[href]:active, .label-danger[href]:focus, .label-danger[href]:hover {
+  text-decoration: underline;
+}
+
+.badge {
+  background-color: var(--gcweb-color-badge-bg);
+  border-radius: 10px;
+  color: var(--gcweb-color-badge-text);
+  display: inline-block;
+  font-size: 14px;
+  font-weight: var(--gcweb-font-weight-bold);
+  line-height: 1;
+  min-width: 10px;
+  padding: 3px 7px;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.badge:empty {
+  display: none;
+}
+.btn .badge {
+  position: relative;
+  top: -1px;
+}
+.btn-xs .badge {
+  padding: 1px 5px;
+  top: 0;
+}
+
+a.badge:focus,
+a.badge:hover {
+  color: var(--gcweb-color-badge-text);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-default .badge {
+  background-color: var(--gcweb-btn-default-text);
+  color: var(--gcweb-btn-default-bg);
+}
+
+.btn-primary .badge {
+  background-color: #fff;
+  color: var(--gcweb-color-badge-primary);
+}
+
+.btn-success .badge {
+  background-color: #fff;
+  color: var(--gcweb-color-badge-success);
+}
+
+.btn-info .badge {
+  background-color: #fff;
+  color: var(--gcweb-color-badge-info);
+}
+
+.btn-warning .badge {
+  background-color: #000;
+  color: var(--gcweb-color-badge-warning);
+}
+
+.btn-danger .badge {
+  background-color: #fff;
+  color: var(--gcweb-color-badge-danger);
+}
+
+.btn-call-to-action .badge {
+  background-color: #fff;
+  color: var(--gcweb-color-badge-call-to-action);
 }
 
 .form-group {

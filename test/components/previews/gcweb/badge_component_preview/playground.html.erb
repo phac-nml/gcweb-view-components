@@ -1,0 +1,1 @@
+<p><%= link_to "#", class: in_button ? "btn btn-primary" : nil do %><%= t("previews.badges.inbox") %> <%= render Gcweb::BadgeComponent.new(description: description).with_content(count.presence) %><% end %></p>

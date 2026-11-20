@@ -360,6 +360,20 @@ const overlayCheck = (name, id, parts, scenario, setup = openOverlay) => ({
   pairs: overlayParts(id, parts)
 });
 
+// Labels and badges (components/labels, components/badges). The previews
+// use GCWeb's demo markup (a <dl> of examples), so the selectors are the
+// same on both sides. GCWeb's "label as a link" has no href (so it isn't a
+// link); the checks give it one, as the component renders.
+const LABEL_PROPS = [...FORM_PROPS, "cursor", "border-image-width"];
+const LABEL = (n) => `dl:has(.label) > dd:nth-of-type(${n}) .label`;
+const addLabelHref = (page) => page.evaluate(() => document.querySelector("dl:has(.label) > dd:nth-of-type(7) a.label").setAttribute("href", "#"));
+const hoverLabelLink = async (page) => {
+  await page.hover("dl:has(.label) > dd:nth-of-type(7) a.label");
+  await page.waitForTimeout(100);
+};
+const BADGE_GREY = "a:not(.btn) > .badge:not(:empty)";
+const BADGE_BUTTON = "a.btn-primary > .badge";
+
 const CHECKS = [
   {
     name: "alert / with headings",
@@ -816,6 +830,37 @@ const CHECKS = [
       [`${GCWEB_PERSISTED} > summary`, "#persisted-summary"],
       [`${GCWEB_PERSISTED} > p`, "details:has(> #persisted-summary) > p"]
     ]
+  },
+  {
+    name: "labels / with text",
+    gcweb: "/components/labels/labels-en.html",
+    gcwebSetup: addLabelHref,
+    preview: "/rails/view_components/gcweb/label_component/default",
+    props: LABEL_PROPS,
+    pairs: [1, 2, 3, 4, 5, 6, 7].map((n) => [LABEL(n), LABEL(n)])
+  },
+  {
+    name: "labels / link, hovered",
+    gcweb: "/components/labels/labels-en.html",
+    gcwebSetup: async (page) => { await addLabelHref(page); await hoverLabelLink(page); },
+    preview: "/rails/view_components/gcweb/label_component/default",
+    previewSetup: hoverLabelLink,
+    props: LABEL_PROPS,
+    pairs: [[LABEL(7), LABEL(7)]]
+  },
+  {
+    name: "badges / default",
+    gcweb: "/components/badges/badges-en.html",
+    preview: "/rails/view_components/gcweb/badge_component/default",
+    props: [...FORM_PROPS, "top", "min-width", "border-bottom-left-radius"],
+    pairs: [[BADGE_GREY, BADGE_GREY], [BADGE_BUTTON, BADGE_BUTTON]]
+  },
+  {
+    name: "badges / self collapsing",
+    gcweb: "/components/badges/badges-en.html",
+    preview: "/rails/view_components/gcweb/badge_component/self_collapsing",
+    props: FORM_PROPS,
+    pairs: [["a > .badge:empty", "a > .badge:empty"]]
   },
   overlayCheck("left panel", "left-panel", PANEL_PARTS, "panels"),
   overlayCheck("right panel", "right-panel", PANEL_PARTS, "panels"),

@@ -151,6 +151,27 @@
   --gcweb-color-tab-hover: rgba(204, 204, 204, 0.9);
   --gcweb-color-tab-active-border: #666;
 
+  // Labels (components/labels): tinted background, variant-coloured left
+  // border. Success, info, warning and danger borders are the alert colours.
+  --gcweb-color-label-default-bg: #eee;
+  --gcweb-color-label-default-border: #acacac;
+  --gcweb-color-label-primary-bg: #e8f2f4;
+  --gcweb-color-label-primary-border: #083c6c;
+  --gcweb-color-label-success-bg: #d8eeca;
+  --gcweb-color-label-info-bg: #d7faff;
+  --gcweb-color-label-warning-bg: #f9f4d4;
+
+  // Badges (components/badges; Bootstrap 3 .badge with GCWeb's button
+  // colours). Inside a button the badge inverts the button's colours.
+  --gcweb-color-badge-bg: #6f6f6f; // $badge-bg
+  --gcweb-color-badge-text: #fff;
+  --gcweb-color-badge-primary: #2572b4; // Bootstrap $brand-primary
+  --gcweb-color-badge-success: #1b6c1c;
+  --gcweb-color-badge-info: #4d4d4d;
+  --gcweb-color-badge-warning: #f2d40d;
+  --gcweb-color-badge-danger: #bc3331;
+  --gcweb-color-badge-call-to-action: #318000;
+
   // Overlays (wet-boew wb-overlay) and Bootstrap modal parts
   --gcweb-color-overlay-bg: #fff; // $overlay-background-color
   --gcweb-color-overlay-text: #fff; // $overlay-header-color
