@@ -79,6 +79,53 @@ module Gcweb
       assert_selector "legend.required > span.field-name", exact_text: "Born"
     end
 
+    test "gcweb_form_with puts an error summary first, matching the fields' numbers" do
+      render_form(ContactInformation.with_errors) do |f|
+        f.text_field_group(:rank) + f.text_field_group(:first_name) + f.text_field_group(:email, type: :email)
+      end
+
+      # 2 shown by the fields, then last name and language, which have none.
+      assert_selector "form > section#errors-default:first-child h2", text: "because 4 errors were found."
+      assert_selector "section li:nth-child(1) > a[href='#contact_information_first_name']", exact_text: "Error\u00A01: First Name - This field is required."
+      assert_selector "section li:nth-child(2) > a[href='#contact_information_email']", text: "Error\u00A02: Email - Please enter"
+      assert_selector "#contact_information_first_name-error", text: "Error\u00A01:"
+    end
+
+    test "errors the form didn't show are listed last without links" do
+      model = ContactInformation.with_errors
+      model.errors.add(:base, "Already submitted.")
+      render_form(model) { |f| f.text_field_group(:first_name) }
+
+      assert_selector "section li", count: 5
+      assert_selector "section li:nth-child(2) > a:not([href])", exact_text: "Error\u00A02: Last Name - This field is required."
+      assert_selector "section li:last-child > a:not([href])", exact_text: "Error\u00A05: Already submitted."
+    end
+
+    test "the summary links groups to their first option and fieldsets to their legend" do
+      render_survey(PreferenceSurvey.with_errors) { |f| f.radio_buttons_group(:pet, PreferenceSurvey::PETS) + f.check_box_group(:terms) }
+      assert_selector "section a[href='#preference_survey_pet_dog']", text: "Which is your favorite pet? - This field is required."
+      assert_selector "section a[href='#preference_survey_terms']"
+
+      render_details(PersonalDetails.with_errors) { |f| f.fieldset_group(:date_of_birth) { f.text_field_group(:birth_year) } }
+      assert_selector "legend#personal_details_date_of_birth.required"
+      assert_selector "section a[href='#personal_details_date_of_birth']", text: "Date of birth - This field is required."
+    end
+
+    test "the summary is named after the form and can be left out" do
+      render_in_view_context { gcweb_form_with(model: ContactInformation.with_errors, scope: :contact_information, url: "#", id: "contact") { |f| f.text_field_group(:first_name) } }
+      assert_selector "form#contact > section#errors-contact"
+
+      render_in_view_context { gcweb_form_with(model: ContactInformation.with_errors, scope: :contact_information, url: "#", error_summary: false) { |f| f.text_field_group(:first_name) } }
+      assert_no_selector "section"
+      assert_selector "#contact_information_first_name-error"
+    end
+
+    test "no summary without errors" do
+      render_form(ContactInformation.new) { |f| f.text_field_group(:first_name) }
+
+      assert_no_selector "section"
+    end
+
     test "gcweb_form_with uses Gcweb::FormBuilder" do
       builder = nil
       render_form(ContactInformation.new) { |f| builder = f; "" }

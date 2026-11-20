@@ -10,6 +10,7 @@ const SCENARIOS = {
   "gcweb/form/checkboxes_component": ["default", "disabled", "inline", "with_error"],
   "gcweb/form/checkbox_component": ["default", "required_with_error"],
   "gcweb/form/fieldset_component": ["default", "heading", "border_bottom", "with_error"],
+  "gcweb/form/error_summary_component": ["default", "one_error", "without_links"],
   "gcweb/form_builder": [
     "contact_information", "contact_information_with_errors",
     "preferences", "preferences_with_errors",

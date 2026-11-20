@@ -103,6 +103,17 @@ const submitGcwebForm = async (page) => {
   await page.waitForTimeout(400);
 };
 
+// Submit from the keyboard instead, so the summary wb-frmvld focuses gets
+// the same :focus-visible ring as ours, which autofocus focuses on load
+// (Chrome shows no ring for script focus after a mouse click).
+const submitGcwebFormByKeyboard = async (page) => {
+  await page.focus(".wb-frmvld form [type=submit]");
+  await page.keyboard.press("Enter");
+  await page.waitForSelector(".wb-frmvld section[id^='errors-']");
+  await page.waitForFunction(() => document.activeElement?.matches("section[id^='errors-']"));
+  await page.waitForTimeout(400);
+};
+
 // Focus a control and let the 0.15s border/box-shadow transition finish.
 const focus = async (page, selector) => {
   await page.focus(selector);
@@ -251,6 +262,27 @@ const CHECKS = [
       fieldPair("preferred_language"),
       labelPair("email", " .label-danger"),
       fieldPair("email")
+    ]
+  },
+  {
+    // wb-frmvld focuses its summary after the submit; ours has autofocus.
+    name: "form / error summary",
+    gcweb: GCWEB_FORM,
+    gcwebSetup: async (page) => {
+      await stackGcwebForm(page);
+      await submitGcwebFormByKeyboard(page);
+    },
+    preview: `${FORM_PREVIEW}_with_errors`,
+    props: FORM_PROPS,
+    pairs: [
+      ["section#errors-default", "section#errors-default"],
+      ["section#errors-default::before", "section#errors-default::before"],
+      ["section#errors-default > h2", "section#errors-default > h2"],
+      ["section#errors-default > ul", "section#errors-default > ul"],
+      ["section#errors-default li:first-child", "section#errors-default li:first-child"],
+      ["section#errors-default li:first-child > a", "section#errors-default li:first-child > a"],
+      ["section#errors-default li:first-child .prefix", "section#errors-default li:first-child .prefix"],
+      ["section#errors-default li:last-child", "section#errors-default li:last-child"]
     ]
   },
   {

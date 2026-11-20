@@ -743,6 +743,10 @@ legend strong.error .label {
   white-space: normal;
 }
 
+section.alert[id^=errors-] h2 {
+  font-size: 1.75em;
+}
+
 fieldset.gc-chckbxrdio {
   border: 0;
   margin: 0;

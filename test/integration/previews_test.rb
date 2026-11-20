@@ -13,6 +13,7 @@ class PreviewsTest < ActionDispatch::IntegrationTest
     "gcweb/form/checkboxes_component" => %w[playground default disabled inline with_error],
     "gcweb/form/checkbox_component" => %w[playground default required_with_error],
     "gcweb/form/fieldset_component" => %w[playground default heading border_bottom with_error],
+    "gcweb/form/error_summary_component" => %w[default one_error without_links],
     "gcweb/form_builder" => %w[
       contact_information contact_information_with_errors
       preferences preferences_with_errors
@@ -59,6 +60,7 @@ class PreviewsTest < ActionDispatch::IntegrationTest
     assert_select ".form-group.has-error", 4
     assert_select "#contact_information_first_name-error .label-danger", "Erreur\u00A01\u00A0: Ce champ est obligatoire."
     assert_select ".field_with_errors", 0
+    assert_select "form > section#errors-default[autofocus] > h2", "Le formulaire n'a pu être soumis car 4 erreurs ont été trouvées."
 
     get "/rails/view_components/gcweb/form_builder/preferences_with_errors", params: { locale: "fr" }
     assert_select "fieldset.gc-chckbxrdio legend strong.error", 2

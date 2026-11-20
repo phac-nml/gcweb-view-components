@@ -107,3 +107,10 @@ legend strong.error {
     white-space: normal;
   }
 }
+
+// Error summary (Gcweb::Form::ErrorSummaryComponent): an .alert-danger
+// that wb-frmvld prepends to the form. GCWeb scopes the heading size to
+// .wb-frmvld; here it applies wherever the summary is rendered.
+section.alert[id^="errors-"] h2 {
+  font-size: 1.75em;
+}
