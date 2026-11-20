@@ -174,9 +174,13 @@ const addGcwebFieldset = (page) =>
 // Bootstrap 3 buttons have no transitions, so states apply at once.
 const GCWEB_BUTTONS = "/common/button/button-en.html";
 const BUTTON_PREVIEW = "/rails/view_components/gcweb/button_component";
+// No outline-color: both sides draw the focus ring with
+// -webkit-focus-ring-color, which Chrome resolves per OS (blue on macOS,
+// near-black on Linux), so a reference captured on one fails on the other.
+// Outside focus it is currentColor, which color already covers.
 const BUTTON_PROPS = [
   ...FORM_PROPS,
-  "cursor", "min-width", "text-shadow", "outline-color", "outline-offset",
+  "cursor", "min-width", "text-shadow", "outline-offset",
   "border-top-right-radius", "border-bottom-left-radius", "touch-action", "user-select"
 ];
 const BUTTON_COLOURS = ["default", "primary", "success", "info", "warning", "danger", "link"];
