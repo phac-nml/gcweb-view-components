@@ -20,6 +20,7 @@ Rails components that render [GCWeb](https://github.com/wet-boew/GCWeb) / [WET-B
 | `Gcweb::Form::RadiosComponent` | [Checkboxes and radio buttons](https://wet-boew.github.io/GCWeb/components/gc-chckbxrdio/gc-chckbxrdio-doc-en.html) | – |
 | `Gcweb::Form::CheckboxesComponent` | [Checkboxes and radio buttons](https://wet-boew.github.io/GCWeb/components/gc-chckbxrdio/gc-chckbxrdio-doc-en.html) | – |
 | `Gcweb::Form::CheckboxComponent` (tickbox) | [Checkboxes and radio buttons](https://wet-boew.github.io/GCWeb/components/gc-chckbxrdio/gc-chckbxrdio-doc-en.html) | – |
+| `Gcweb::Form::FieldsetComponent` | [Forms](https://wet-boew.github.io/GCWeb/common/form/complex-structure-form-en.html) | – |
 
 Every component has Lookbook previews (one scenario per GCWeb example, EN/FR toggle in the toolbar).
 
@@ -55,6 +56,13 @@ gem "gcweb_view_components", github: "phac-nml/gcweb-view-components"
   <%= f.radio_buttons_group :contact_method, [ [ "Email", "email" ], [ "Phone", "phone" ] ] %>
   <%= f.check_boxes_group :topics, [ [ "Health", "health" ], [ "Science", "science" ] ] %>
   <%= f.check_box_group :terms %>
+  <%= f.fieldset_group legend: "Contact Address", heading: :h2 do %>
+    <%= f.text_field_group :city %>
+  <% end %>
+  <%= f.fieldset_group :date_of_birth do %>
+    <%= f.text_field_group :birth_year, size: 4 %>
+    <%# … month and day %>
+  <% end %>
   <%= f.text_field :internal_ref %>  <%# Rails' own methods are unchanged %>
 <% end %>
 ```
@@ -62,6 +70,8 @@ gem "gcweb_view_components", github: "phac-nml/gcweb-view-components"
 `gcweb_form_with` is `form_with(builder: Gcweb::FormBuilder)`. The builder reads the label from `human_attribute_name`, marks a field required when it has an unconditional presence (or, for `check_box_group`, acceptance) validator, and shows `model.errors` with the markup wet-boew's form validation uses ("Error 1: …"), so server-side errors look like GCWeb's client-side ones. Every inferred value can be overridden (`label:`, `required:`, `hint:`, `error:`, `id:`, …), and other options become attributes on the control.
 
 Radio buttons and checkboxes use GCWeb's large `gc-chckbxrdio` style in a fieldset, with the question, required marker and error in the legend. `inline: true` puts the options in a row and `disabled: [values]` disables some of them. Checkbox groups submit an array (`name[]`), and both send an empty value when nothing is chosen, as Rails' collection helpers do.
+
+`fieldset_group` wraps its block's fields in a fieldset. Without an attribute it is a section of the form, with a plain legend (`heading: :h2` puts the text in a heading, as GCWeb's sections do, and `border: :bottom` is GCWeb's `legend-brdr-bttm`). With an attribute, the legend, required marker and error come from it, for an answer split over several fields but validated as one, such as a date. The `fieldset` and `legend` styles are global element styles, like `label`, so they are in `gcweb.css` only. Apps using `gcweb-components.css` get the required marker and error styles but keep their own fieldset and legend look.
 
 The components work without a model too:
 

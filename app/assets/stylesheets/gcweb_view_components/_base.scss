@@ -104,6 +104,43 @@ strong {
   font-weight: var(--gcweb-font-weight-bold);
 }
 
+// Bootstrap 3 fieldset and legend, with WET-BOEW's overrides: a rule above
+// each fieldset (except a first child) and a floated 1.2em legend.
+// fieldset.legend-brdr-bttm moves the rule under the legend.
+fieldset {
+  border: 0;
+  border-top: 1px solid var(--gcweb-color-legend-border);
+  margin: 0;
+  min-width: 0;
+  padding: 10px 0 0;
+
+  &:first-child {
+    border-top: 0;
+  }
+
+  &.legend-brdr-bttm {
+    border-top: 0;
+
+    legend {
+      border-bottom: 1px solid var(--gcweb-color-legend-border);
+      float: none;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+legend {
+  border: 0;
+  color: var(--gcweb-color-text);
+  display: block;
+  float: left;
+  font-size: 1.2em;
+  line-height: 1.65em;
+  margin-bottom: 23px;
+  padding: 0;
+  width: 100%;
+}
+
 // Bootstrap 3 label
 label {
   display: inline-block;

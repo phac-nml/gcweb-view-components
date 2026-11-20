@@ -1,6 +1,8 @@
 # Field labels and messages copied from GCWeb v20.0.1
 # (common/form/complex-structure-form-en.html and its wb-frmvld errors,
-# components/gc-chckbxrdio/gc-chckbxrdio-en.html).
+# components/gc-chckbxrdio/gc-chckbxrdio-en.html, and the "Contact information"
+# legend of wet-boew's formvalid demo). The date of birth labels are ours:
+# GCWeb has no split-date example.
 en:
   activemodel:
     attributes:
@@ -16,6 +18,14 @@ en:
         pet: "Which is your favorite pet?"
         condiments: "Choose your condiments:"
         terms: "I agree to the terms and conditions"
+      personal_details:
+        address: "Address"
+        city: "City/Town"
+        postal_code: "Postal Code"
+        date_of_birth: "Date of birth"
+        birth_year: "Year"
+        birth_month: "Month"
+        birth_day: "Day"
     errors:
       models:
         contact_information:
@@ -51,3 +61,6 @@ en:
       option: "Option %{number}"
       remember_me: "Remember me"
       survey_heading: "Your preferences"
+      contact_legend: "Contact information"
+      address_heading: "Contact Address"
+      date_hint: "(for example, 1990 07 25)"

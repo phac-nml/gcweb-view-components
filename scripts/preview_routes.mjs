@@ -9,7 +9,12 @@ const SCENARIOS = {
   "gcweb/form/radios_component": ["default", "inline", "with_error"],
   "gcweb/form/checkboxes_component": ["default", "disabled", "inline", "with_error"],
   "gcweb/form/checkbox_component": ["default", "required_with_error"],
-  "gcweb/form_builder": ["contact_information", "contact_information_with_errors", "preferences", "preferences_with_errors"]
+  "gcweb/form/fieldset_component": ["default", "heading", "border_bottom", "with_error"],
+  "gcweb/form_builder": [
+    "contact_information", "contact_information_with_errors",
+    "preferences", "preferences_with_errors",
+    "personal_details", "personal_details_with_errors"
+  ]
 };
 
 export const previewRoutes = Object.entries(SCENARIOS).flatMap(([preview, scenarios]) =>

@@ -1,0 +1,5 @@
+<%= render Gcweb::Form::FieldsetComponent.new(**fieldset) do %>
+  <% fields.each do |name, label, attributes| %>
+    <%= render Gcweb::Form::TextFieldComponent.new(name: name, label: label, **attributes) %>
+  <% end %>
+<% end %>
