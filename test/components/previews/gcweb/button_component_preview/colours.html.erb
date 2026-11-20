@@ -1,0 +1,4 @@
+<% variants.each do |variant| %>
+  <%= render Gcweb::ButtonComponent.new(variant: variant).with_content(t("previews.button.variants.#{variant}")) %>
+<% end %>
+<%= render Gcweb::ButtonComponent.new(href: "#") do %><%= t("previews.button.anchor_html") %><% end %>

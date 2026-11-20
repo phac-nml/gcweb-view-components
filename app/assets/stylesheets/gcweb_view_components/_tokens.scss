@@ -70,6 +70,77 @@
   --gcweb-input-min-height: 37px;
   --gcweb-input-radius: 4px;
 
+  // Buttons (Bootstrap 3 .btn-* with GCWeb overrides, common/button).
+  // Bootstrap derives each state from the base colour: hover/focus/active
+  // background darken(bg, 10%), hover border darken(border, 12%), focus
+  // border darken(border, 25%), active-and-hovered background
+  // darken(bg, 17%). These are the compiled results.
+  --gcweb-btn-default-text: #335075;
+  --gcweb-btn-default-bg: #eaebed;
+  --gcweb-btn-default-border: #dcdee1;
+  --gcweb-btn-default-hover-bg: #cfd1d5;
+  --gcweb-btn-default-hover-border: #bbbfc5;
+  --gcweb-btn-default-focus-border: #989da6;
+  --gcweb-btn-default-active-hover-bg: #bbbfc5;
+
+  // GCWeb paints the resting primary button $accent-blue
+  // (body .btn-primary); every other state keeps Bootstrap's #2572b4 family.
+  --gcweb-btn-primary-text: #fff;
+  --gcweb-btn-primary-bg: #26374a;
+  --gcweb-btn-primary-border: #26374a;
+  --gcweb-btn-primary-hover-bg: #1c578a;
+  --gcweb-btn-primary-hover-border: #091c2d;
+  --gcweb-btn-primary-focus-border: #000;
+  --gcweb-btn-primary-active-hover-bg: #16446c;
+  --gcweb-btn-primary-disabled-bg: #2572b4; // disabled + hover/focus
+  --gcweb-btn-primary-disabled-border: #143c5f;
+
+  --gcweb-btn-success-text: #fff;
+  --gcweb-btn-success-bg: #1b6c1c;
+  --gcweb-btn-success-border: #071a07;
+  --gcweb-btn-success-hover-bg: #114311;
+  --gcweb-btn-success-hover-border: #000;
+  --gcweb-btn-success-focus-border: #000;
+  --gcweb-btn-success-active-hover-bg: #0a270a;
+
+  --gcweb-btn-info-text: #fff;
+  --gcweb-btn-info-bg: #4d4d4d;
+  --gcweb-btn-info-border: #1a1a1a;
+  --gcweb-btn-info-hover-bg: #343434;
+  --gcweb-btn-info-hover-border: #000;
+  --gcweb-btn-info-focus-border: #000;
+  --gcweb-btn-info-active-hover-bg: #222;
+
+  --gcweb-btn-warning-text: #000;
+  --gcweb-btn-warning-bg: #f2d40d;
+  --gcweb-btn-warning-border: #917f08;
+  --gcweb-btn-warning-hover-bg: #c2aa0a;
+  --gcweb-btn-warning-hover-border: #574c05;
+  --gcweb-btn-warning-focus-border: #181501;
+  --gcweb-btn-warning-active-hover-bg: #a08c09;
+
+  --gcweb-btn-danger-text: #fff;
+  --gcweb-btn-danger-bg: #bc3331;
+  --gcweb-btn-danger-border: #6b1d1c;
+  --gcweb-btn-danger-hover-bg: #942826;
+  --gcweb-btn-danger-hover-border: #3b100f;
+  --gcweb-btn-danger-focus-border: #060202;
+  --gcweb-btn-danger-active-hover-bg: #77201f;
+
+  // Supertask (call to action)
+  --gcweb-btn-call-to-action-text: #fff;
+  --gcweb-btn-call-to-action-bg: #318000;
+  --gcweb-btn-call-to-action-border: #458259;
+  --gcweb-btn-call-to-action-hover-bg: #1d4d00;
+  --gcweb-btn-call-to-action-hover-border: #305a3e;
+  --gcweb-btn-call-to-action-focus-border: #192f20;
+  --gcweb-btn-call-to-action-active-hover-bg: #102900;
+  --gcweb-btn-call-to-action-text-shadow: #333;
+
+  --gcweb-btn-link-color: #295376; // Bootstrap $link-color
+  --gcweb-btn-min-size: 36px;
+  --gcweb-btn-input-min-height: 37px; // input[type=submit] etc.
+
   // Spacing ($spacer and Bootstrap rhythm)
   --gcweb-space-md: 15px; // $space-md
   --gcweb-spacer: 20px; // $spacer

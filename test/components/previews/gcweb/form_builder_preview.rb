@@ -54,7 +54,7 @@ module Gcweb
     # invalid email address: the `gcweb--form-validation` controller checks
     # the fields in the browser and shows the same errors and summary the
     # server renders, without a round trip. Fix a field and its error and
-    # the summary update. (Button styles aren't part of the gem yet.)
+    # the summary update.
     def client_validation
       render_with_template(template: "gcweb/form_builder_preview/contact_information", locals: { contact: ContactInformation.new, submit: true })
     end

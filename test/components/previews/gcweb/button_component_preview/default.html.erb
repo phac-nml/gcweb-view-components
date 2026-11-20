@@ -1,0 +1,4 @@
+<%= render Gcweb::ButtonComponent.new(type: :submit).with_content(t("previews.button.button")) %>
+<input class="btn btn-default" type="button" value="<%= t("previews.button.input") %>">
+<input class="btn btn-default" type="submit" value="<%= t("previews.button.submit") %>">
+<%= render Gcweb::ButtonComponent.new(href: "#").with_content(t("previews.button.link")) %>

@@ -11,6 +11,6 @@
         prompt: true %>
   <%= f.text_field_group :email, type: :email, maxlength: 80, size: 50 %>
   <% if local_assigns[:submit] %>
-    <button type="submit" class="btn btn-primary"><%= t("previews.form.submit") %></button>
+    <%= render Gcweb::ButtonComponent.new(variant: :primary, type: :submit).with_content(t("previews.form.submit")) %>
   <% end %>
 <% end %>

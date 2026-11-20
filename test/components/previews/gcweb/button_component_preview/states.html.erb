@@ -1,0 +1,7 @@
+<h2><%= t("previews.button.active_heading") %></h2>
+<%= render Gcweb::ButtonComponent.new(active: true).with_content(t("previews.button.button")) %>
+<%= render Gcweb::ButtonComponent.new(href: "#", active: true).with_content(t("previews.button.link")) %>
+
+<h2><%= t("previews.button.disabled_heading") %></h2>
+<%= render Gcweb::ButtonComponent.new(disabled: true).with_content(t("previews.button.button")) %>
+<%= render Gcweb::ButtonComponent.new(href: "#", disabled: true).with_content(t("previews.button.link")) %>
