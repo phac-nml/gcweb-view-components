@@ -1,0 +1,10 @@
+# Example text from GCWeb v20.0.1's table of contents demo
+# (components/gc-toc/toc-fr.html).
+fr:
+  previews:
+    toc:
+      sections:
+        1: "Première titre de section"
+        2: "Deuxième titre de section"
+        3: "Troisième titre de section"
+      text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam delectus iusto repellat assumenda nobis, modi accusamus, rerum praesentium ad dignissimos ipsam? Facilis repellat, quibusdam qui? Et dolore ipsa ut repellendus."

@@ -11,6 +11,7 @@ const SCENARIOS = {
   "gcweb/badge_component": ["default", "self_collapsing"],
   "gcweb/panel_component": ["stacking", "appearances"],
   "gcweb/well_component": ["default"],
+  "gcweb/table_of_contents_component": ["default"],
   "gcweb/overlay_component": ["panels", "bars", "popups", "full_screen", "custom_footer", "open_on_load"],
   "gcweb/form/text_field_component": ["optional_and_required", "with_hint", "with_error"],
   "gcweb/form/text_area_component": ["default"],
