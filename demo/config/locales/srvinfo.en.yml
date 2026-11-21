@@ -1,0 +1,19 @@
+# Example text from GCWeb v20.0.1's services and information demos
+# (components/gc-srvinfo/gc-srvinfo-en.html, -labels-en.html and
+# -more-info-en.html).
+en:
+  previews:
+    srvinfo:
+      link: "[Hyperlink text]"
+      description: "Use action verbs, or simply list keywords to summarize the information or tasks that can be accomplished on the page it links to"
+      in_canada: "Services for Canadians in Canada"
+      abroad: "Services for Canadians abroad"
+      labels:
+        default: "(Default label)"
+        primary: "(Primary label)"
+        success: "(Success label)"
+        info: "(Information label)"
+        warning: "(Warning label)"
+        danger: "(Danger label)"
+      more_info_title: "[More information title]"
+      more_info_text: "[More information text lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, aliquam.]"

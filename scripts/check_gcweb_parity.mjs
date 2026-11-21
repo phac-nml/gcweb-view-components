@@ -407,6 +407,40 @@ const TOC_PARTS = [
   "section:has(> #section1) > h2", "section:has(> #section1) > p"
 ];
 
+// Services and information (components/gc-srvinfo). GCWeb's demos keep
+// the columns equal in height with the wb-eqht plugin, which writes inline
+// min-heights that depend on the viewport; the gem uses wet-boew's CSS-only
+// .wb-eqht-grd. The GCWeb side swaps the plugin for that class (which
+// GCWeb's CSS has) before comparing, so both sides lay out the same grid.
+// GCWeb's demo pages also limit the content width (body.cnt-wdth-lmtd,
+// which caps heading and paragraph widths); the gem doesn't have that page
+// option yet, and widths aren't compared (as everywhere).
+const GCWEB_SRVINFO = "/components/gc-srvinfo/gc-srvinfo-en.html";
+const SRVINFO_PREVIEW = "/rails/view_components/gcweb/services_and_information_component";
+const SRVINFO_PROPS = [...PROPS, "float", "flex-direction", "align-items", "flex-wrap", "vertical-align"];
+const useEqhtGrid = (page) =>
+  page.evaluate(() => {
+    for (const row of document.querySelectorAll(".gc-srvinfo .wb-eqht")) {
+      row.classList.remove("wb-eqht", "wb-init", "wb-eqht-inited");
+      row.classList.add("wb-eqht-grd");
+      for (const column of row.children) column.removeAttribute("style");
+    }
+  });
+const COLUMN_PARTS = (n) => [` > .row > div:nth-child(${n})`, ` > .row > div:nth-child(${n}) > h3`, ` > .row > div:nth-child(${n}) > h3 > a`, ` > .row > div:nth-child(${n}) > p`];
+const srvinfoPairs = (gcwebSection, ourSection, parts) => parts.map((part) => [`${gcwebSection}${part}`, `${ourSection}${part}`]);
+// `~`: some examples have a note between their heading and the section.
+const SRVINFO = (example) => `#${example} ~ section.gc-srvinfo`;
+const srvinfoCheck = (name, example, preview, parts, extra = {}) => ({
+  name: `services and information / ${name}`,
+  gcweb: GCWEB_SRVINFO,
+  gcwebSetup: useEqhtGrid,
+  preview: `${SRVINFO_PREVIEW}/${preview}`,
+  props: SRVINFO_PROPS,
+  pairs: srvinfoPairs(SRVINFO(example), "main section.gc-srvinfo", ["", " > h2", ...parts]),
+  ...extra
+});
+const THREE_COLUMN_PARTS = [" > .row", ...COLUMN_PARTS(1), ...COLUMN_PARTS(4)];
+
 const CHECKS = [
   {
     name: "alert / with headings",
@@ -925,6 +959,44 @@ const CHECKS = [
     gcweb: "/components/gc-toc/toc-en.html",
     preview: "/rails/view_components/gcweb/table_of_contents_component/default",
     pairs: TOC_PARTS.map((part) => [part, part])
+  },
+  srvinfoCheck("three columns", "eg1", "three_columns", THREE_COLUMN_PARTS),
+  srvinfoCheck("three columns, medium screens", "eg1", "three_columns", THREE_COLUMN_PARTS, { viewport: { width: 1000, height: 900 } }),
+  srvinfoCheck("three columns, small screens", "eg1", "three_columns", THREE_COLUMN_PARTS, { viewport: { width: 375, height: 812 } }),
+  srvinfoCheck("two columns", "eg2", "two_columns", [" > .row", ...COLUMN_PARTS(1), ...COLUMN_PARTS(3)]),
+  srvinfoCheck("single column", "eg3", "single_column", [" > h3:nth-of-type(1)", " > h3:nth-of-type(1) > a", " > p:nth-of-type(1)", " > h3:nth-of-type(3)", " > p:nth-of-type(3)"]),
+  srvinfoCheck("sequential", "eg4", "sequential", [" > ol", " > ol > li:nth-child(1)", " > ol > li:nth-child(1) > h3", " > ol > li:nth-child(1) > h3 > a", " > ol > li:nth-child(1) > p", " > ol > li:nth-child(3)"]),
+  {
+    name: "services and information / grouped with headings",
+    gcweb: GCWEB_SRVINFO,
+    gcwebSetup: useEqhtGrid,
+    preview: `${SRVINFO_PREVIEW}/grouped`,
+    props: SRVINFO_PROPS,
+    pairs: [
+      ...srvinfoPairs(SRVINFO("eg5"), "main section.gc-srvinfo:nth-of-type(1)", ["", " > h2", " > .row", ...COLUMN_PARTS(1)]),
+      ...srvinfoPairs(`${SRVINFO("eg5")} + section.gc-srvinfo`, "main section.gc-srvinfo:nth-of-type(2)", ["", " > h2", " > .row", ...COLUMN_PARTS(3)])
+    ]
+  },
+  {
+    name: "services and information / with labels",
+    gcweb: "/components/gc-srvinfo/gc-srvinfo-labels-en.html",
+    gcwebSetup: useEqhtGrid,
+    preview: `${SRVINFO_PREVIEW}/with_labels`,
+    props: SRVINFO_PROPS,
+    pairs: srvinfoPairs("main section.gc-srvinfo", "main section.gc-srvinfo", [
+      "", " > h2", " > .row", ...COLUMN_PARTS(1),
+      ...[1, 2, 3, 4, 5, 6].map((n) => ` > .row > div:nth-child(${n}) > h3 > .label`)
+    ])
+  },
+  {
+    name: "services and information / with more information",
+    gcweb: "/components/gc-srvinfo/gc-srvinfo-more-info-en.html",
+    gcwebSetup: useEqhtGrid,
+    preview: `${SRVINFO_PREVIEW}/more_information`,
+    props: SRVINFO_PROPS,
+    pairs: srvinfoPairs("main section.gc-srvinfo", "main section.gc-srvinfo", [
+      "", " > h2", " > .row", ...COLUMN_PARTS(1), " > .well", " > .well > h3", " > .well > p"
+    ])
   },
   overlayCheck("left panel", "left-panel", PANEL_PARTS, "panels"),
   overlayCheck("right panel", "right-panel", PANEL_PARTS, "panels"),

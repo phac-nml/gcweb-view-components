@@ -1,8 +1,9 @@
 // gcweb_view_components — full stylesheet: tokens, fonts, GCWeb base layer,
-// utilities and every component. Compiled to gcweb.css in this folder.
+// utilities, grid and every component. Compiled to gcweb.css in this folder.
 @use "tokens";
 @use "fonts";
 @use "base";
 @use "utilities";
+@use "grid";
 @use "components";
 @use "spacing";

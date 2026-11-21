@@ -1,0 +1,7 @@
+<% %w[in_canada abroad].each do |group| %>
+  <%= render Gcweb::ServicesAndInformationComponent.new(title: t("previews.srvinfo.#{group}")) do |srvinfo| %>
+    <% 3.times do %>
+      <% srvinfo.with_item(title: t("previews.srvinfo.link"), href: "#", description: t("previews.srvinfo.description")) %>
+    <% end %>
+  <% end %>
+<% end %>
