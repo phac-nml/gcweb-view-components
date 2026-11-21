@@ -449,16 +449,25 @@ const THREE_COLUMN_PARTS = [" > .row", ...COLUMN_PARTS(1), ...COLUMN_PARTS(4)];
 const GCWEB_MOST_REQUESTED = "/components/gc-most-requested/gc-most-requested";
 const MOST_REQUESTED_PREVIEW = "/rails/view_components/gcweb/most_requested_component";
 const MOST_REQUESTED_PROPS = [...PROPS, "float", "clear", "width", "column-count", "column-gap", "vertical-align"];
+// The drawn bullet (li::before) is sized by its glyph, whose width Chromium
+// rounds to whole pixels on Linux (8px) but not on macOS (8.36px), so its
+// width isn't compared. A part is a selector suffix or [suffix, props].
+const BULLET_PROPS = MOST_REQUESTED_PROPS.filter((prop) => prop !== "width");
 const MOST_REQUESTED_PARTS = (items) => [
   "", " > .container", " > .container::after", " > .container > h2", " > .container > ul",
-  ...items.flatMap((n) => [` li:nth-child(${n})`, ` li:nth-child(${n}) > a`, ` li:nth-child(${n})::before`])
+  ...items.flatMap((n) => [` li:nth-child(${n})`, ` li:nth-child(${n}) > a`, [` li:nth-child(${n})::before`, BULLET_PROPS]])
 ];
 const mostRequestedCheck = (name, page, preview, sections, extra = {}) => ({
   name: `most requested / ${name}`,
   gcweb: `${GCWEB_MOST_REQUESTED}${page}-en.html`,
   preview: `${MOST_REQUESTED_PREVIEW}/${preview}`,
   props: MOST_REQUESTED_PROPS,
-  pairs: sections.flatMap(([section, parts]) => parts.map((part) => [`${section}${part}`, `${section}${part}`])),
+  pairs: sections.flatMap(([section, parts]) =>
+    parts.map((part) => {
+      const [suffix, props] = Array.isArray(part) ? part : [part];
+      return [`${section}${suffix}`, `${section}${suffix}`, props];
+    })
+  ),
   ...extra
 });
 const MOST_REQUESTED = "main section.gc-most-requested";
@@ -1103,7 +1112,8 @@ for (const check of CHECKS.filter((c) => !only || c.name.includes(only))) {
   const actualStyles = await computedStyles(page, check.pairs.map(([, mine]) => mine), propsFor(check));
   const problems = [];
 
-  for (const [ref, mine] of check.pairs) {
+  // A pair's optional third element narrows the properties compared for it.
+  for (const [ref, mine, pairProps] of check.pairs) {
     const expected = expectedStyles[ref];
     const actual = actualStyles[mine];
     if (!expected) {
@@ -1114,7 +1124,7 @@ for (const check of CHECKS.filter((c) => !only || c.name.includes(only))) {
       problems.push(`  ✗ ${mine}: not found in preview`);
       continue;
     }
-    for (const prop of propsFor(check)) {
+    for (const prop of pairProps || propsFor(check)) {
       compared++;
       if (expected[prop] !== actual[prop]) {
         problems.push(`  ✗ ${mine} { ${prop} } gcweb=${expected[prop]} ours=${actual[prop]}`);
