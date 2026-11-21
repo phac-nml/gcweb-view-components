@@ -1,0 +1,24 @@
+// Shared mixins. They emit nothing until a rule includes them.
+
+// Bootstrap 3's .container: centred, with the container gutter, fixed
+// widths from 768px. The base layer's .container uses it, and full-width
+// components (featured link, most requested) repeat it on their own inner
+// .container so they also work with gcweb-components.css (no base layer).
+@mixin container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--gcweb-container-gutter);
+  padding-right: var(--gcweb-container-gutter);
+
+  @media (min-width: 768px) {
+    width: 750px;
+  }
+
+  @media (min-width: 992px) {
+    width: 970px;
+  }
+
+  @media (min-width: 1200px) {
+    width: 1170px;
+  }
+}

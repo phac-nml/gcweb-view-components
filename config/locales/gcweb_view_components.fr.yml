@@ -5,6 +5,9 @@ fr:
     # The services and information heading (GCWeb components/gc-srvinfo).
     services_and_information:
       title: "Services et renseignements"
+    # The most requested heading (GCWeb components/gc-most-requested).
+    most_requested:
+      title: "En demande"
     # The in-page table of contents heading (GCWeb components/gc-toc).
     table_of_contents:
       title: "Sur cette page"

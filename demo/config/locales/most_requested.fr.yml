@@ -1,0 +1,9 @@
+# Example text from GCWeb v20.0.1's most requested demos
+# (components/gc-most-requested/gc-most-requested-*-fr.html).
+fr:
+  previews:
+    most_requested:
+      link: "[Lien vers une tâche principale %{number}]"
+      long_link: "[Lien vers une tâche principale avec un nom de tâche très long qui s'étend sur deux lignes %{number}]"
+      title: "[Titre]"
+      label: "(Info étiquette)"
