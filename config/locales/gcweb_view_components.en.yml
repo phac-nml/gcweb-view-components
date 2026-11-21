@@ -2,6 +2,9 @@ en:
   gcweb:
     featured_link:
       heading: "Spotlight on"
+    # The services and information heading (GCWeb components/gc-srvinfo).
+    services_and_information:
+      title: "Services and information"
     # The in-page table of contents heading (GCWeb components/gc-toc).
     table_of_contents:
       title: "On this page"

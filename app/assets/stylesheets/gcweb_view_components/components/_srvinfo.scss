@@ -1,0 +1,39 @@
+// Services and information (GCWeb components/gc-srvinfo): a heading, then
+// doormat links (a linked h3 and a short description) in columns, a single
+// column or a numbered list, and an optional "more information" well.
+// The columns use the grid layer (.row, .col-*) and .wb-eqht-grd.
+//
+// Not included: GCWeb's download link (a.gc-dwnld) and search field
+// (.input-group) rules, which the gem has no components for yet.
+
+.gc-srvinfo {
+  h2 {
+    font-size: var(--gcweb-font-size-srvinfo-title);
+  }
+
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: var(--gcweb-font-size-srvinfo-link);
+    margin-bottom: 5px;
+    margin-top: var(--gcweb-line-gap-lg);
+  }
+
+  p {
+    font-size: var(--gcweb-font-size-srvinfo-text);
+    line-height: 1.5;
+  }
+
+  .well {
+    margin-top: 1rem;
+
+    h3 {
+      margin-top: 0;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

@@ -12,6 +12,7 @@ const SCENARIOS = {
   "gcweb/panel_component": ["stacking", "appearances"],
   "gcweb/well_component": ["default"],
   "gcweb/table_of_contents_component": ["default"],
+  "gcweb/services_and_information_component": ["three_columns", "two_columns", "single_column", "sequential", "grouped", "with_labels", "more_information"],
   "gcweb/overlay_component": ["panels", "bars", "popups", "full_screen", "custom_footer", "open_on_load"],
   "gcweb/form/text_field_component": ["optional_and_required", "with_hint", "with_error"],
   "gcweb/form/text_area_component": ["default"],

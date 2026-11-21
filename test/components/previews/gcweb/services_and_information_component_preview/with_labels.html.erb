@@ -1,0 +1,7 @@
+<%= render Gcweb::ServicesAndInformationComponent.new do |srvinfo| %>
+  <% %i[default primary success info warning danger].each do |variant| %>
+    <% srvinfo.with_item(title: t("previews.srvinfo.link"), href: "#", description: t("previews.srvinfo.description")) do |item| %>
+      <% item.with_label(variant: variant) { t("previews.srvinfo.labels.#{variant}") } %>
+    <% end %>
+  <% end %>
+<% end %>

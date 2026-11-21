@@ -1,0 +1,153 @@
+@use "sass:math";
+@use "sass:list";
+
+// Bootstrap 3 grid as GCWeb v20.0.1 compiles it: .row, the .col-{xs,sm,
+// md,lg}-{1..12} columns with their offset, push and pull classes, and
+// GCWeb's .col-*-auto. Columns float, with the container gutter on each
+// side; xs columns float at every width, the others from their breakpoint.
+//
+// Also wet-boew's CSS-only equal-height grid (.wb-eqht-grd): a flex row
+// whose columns stretch to the tallest one. The gem uses it instead of the
+// wb-eqht JavaScript plugin.
+
+$columns: 12;
+$sizes: (xs: null, sm: 768px, md: 992px, lg: 1200px);
+
+@function percent($n) {
+  @return math.percentage(math.div($n, $columns));
+}
+
+// Offsets of 0 reset to auto (push, pull) or 0 (margin).
+@function offset($n, $zero) {
+  @if $n == 0 {
+    @return $zero;
+  }
+
+  @return percent($n);
+}
+
+.row {
+  margin-left: calc(-1 * var(--gcweb-container-gutter));
+  margin-right: calc(-1 * var(--gcweb-container-gutter));
+
+  &::before,
+  &::after {
+    content: " ";
+    display: table;
+  }
+
+  &::after {
+    clear: both;
+  }
+}
+
+$all-columns: ();
+@each $size, $min in $sizes {
+  @for $n from 1 through $columns {
+    $all-columns: list.append($all-columns, ".col-#{$size}-#{$n}", $separator: comma);
+  }
+}
+
+#{$all-columns} {
+  min-height: 1px;
+  padding-left: var(--gcweb-container-gutter);
+  padding-right: var(--gcweb-container-gutter);
+  position: relative;
+}
+
+@mixin columns($size) {
+  $floated: ();
+  @for $n from 1 through $columns {
+    $floated: list.append($floated, ".col-#{$size}-#{$n}", $separator: comma);
+  }
+
+  #{$floated} {
+    float: left;
+  }
+
+  @for $n from 1 through $columns {
+    .col-#{$size}-#{$n} {
+      width: percent($n);
+    }
+  }
+
+  @for $n from 0 through $columns {
+    .col-#{$size}-pull-#{$n} {
+      right: offset($n, auto);
+    }
+  }
+
+  @for $n from 0 through $columns {
+    .col-#{$size}-push-#{$n} {
+      left: offset($n, auto);
+    }
+  }
+
+  @for $n from 0 through $columns {
+    .col-#{$size}-offset-#{$n} {
+      margin-left: offset($n, 0);
+    }
+  }
+}
+
+@each $size, $min in $sizes {
+  @if $min {
+    @media (min-width: $min) {
+      @include columns($size);
+    }
+  } @else {
+    @include columns($size);
+  }
+}
+
+// GCWeb's columns sized by their content.
+.col-xs-auto,
+.col-sm-auto,
+.col-md-auto,
+.col-lg-auto {
+  min-height: 1px;
+  padding-left: var(--gcweb-container-gutter);
+  padding-right: var(--gcweb-container-gutter);
+}
+
+@each $size, $min in $sizes {
+  @if $min {
+    @media (min-width: $min) {
+      .col-#{$size}-auto {
+        width: auto;
+      }
+    }
+  } @else {
+    .col-#{$size}-auto {
+      width: auto;
+    }
+  }
+}
+
+// wet-boew equal-height grid (.wb-eqht-grd).
+.wb-eqht-grd {
+  align-items: stretch;
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+
+  > [class*="col-"] {
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width: 767px) {
+      width: 100%;
+    }
+  }
+
+  > [class*="col-"] .hght-inhrt,
+  > [class*="col-"] > section {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+  }
+
+  &.grow > [class*="col-"] {
+    flex-grow: 1;
+  }
+}

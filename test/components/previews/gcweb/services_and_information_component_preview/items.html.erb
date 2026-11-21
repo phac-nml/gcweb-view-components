@@ -1,0 +1,11 @@
+<%= render Gcweb::ServicesAndInformationComponent.new(layout: layout, title: local_assigns[:title], hidden_title: local_assigns.fetch(:hidden_title, false)) do |srvinfo| %>
+  <% count.times do %>
+    <% srvinfo.with_item(title: t("previews.srvinfo.link"), href: "#", description: t("previews.srvinfo.description")) %>
+  <% end %>
+  <% if local_assigns[:more_info] %>
+    <% srvinfo.with_more_info do %>
+      <h3><%= t("previews.srvinfo.more_info_title") %></h3>
+      <p><%= t("previews.srvinfo.more_info_text") %></p>
+    <% end %>
+  <% end %>
+<% end %>

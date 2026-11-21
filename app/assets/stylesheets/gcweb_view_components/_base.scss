@@ -87,6 +87,40 @@ h6, .h6 {
   margin-top: 21px;
 }
 
+// Smaller headings under 992px (GCWeb's mobile-first heading sizes).
+@media screen and (max-width: 991px) {
+  h1, .h1 {
+    font-size: var(--gcweb-font-size-h1-sm);
+    line-height: 1.19;
+    margin-top: 1.265rem;
+  }
+
+  h2, .h2 {
+    font-size: var(--gcweb-font-size-h2-sm);
+    line-height: 1.25;
+  }
+
+  h3, .h3 {
+    font-size: var(--gcweb-font-size-h3-sm);
+    line-height: 1.23;
+  }
+
+  h4, .h4 {
+    font-size: var(--gcweb-font-size-h4-sm);
+    line-height: 1.33;
+  }
+
+  h5, .h5 {
+    font-size: var(--gcweb-font-size-h5-sm);
+    line-height: 1.27;
+  }
+
+  h6, .h6 {
+    font-size: var(--gcweb-font-size-h6-sm);
+    line-height: 1.4;
+  }
+}
+
 // Text
 
 p {
