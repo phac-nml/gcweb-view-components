@@ -4,6 +4,7 @@ const SCENARIOS = {
   "gcweb/alert_component": ["with_headings", "with_links", "without_headings", "expand_collapse"],
   "gcweb/button_component": ["default", "colours", "call_to_action", "sizing", "full_width", "states"],
   "gcweb/featured_link_component": ["default", "custom_background", "with_description"],
+  "gcweb/most_requested_component": ["default", "two_items", "highlight", "with_labels"],
   "gcweb/tabs_component": ["default", "ignore_session", "many_tabs"],
   "gcweb/accordion_component": ["default", "persist"],
   "gcweb/toggle": ["details_elements", "print_states", "grouped", "persist"],

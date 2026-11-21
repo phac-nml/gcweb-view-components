@@ -8,6 +8,12 @@
         "value": "lato",
         "createdAt": "2026-11-19T03:27:52.822Z",
         "reason": "Domain requirement: GCWeb v20.0.1 (Canada.ca) mandates Lato for headings and gc-featured-link; user asked for components that look exactly like GCWeb"
+      },
+      {
+        "rule": "overused-font",
+        "value": "arial",
+        "createdAt": "2026-11-21T02:25:57.494Z",
+        "reason": "Claude: GCWeb parity — wet-boew Magnific Popup .mfp-close uses font-family Arial, Baskerville, monospace (components/_overlay.scss:88), checked by the overlay parity checks; predates this session"
       }
     ]
   }

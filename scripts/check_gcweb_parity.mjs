@@ -441,6 +441,29 @@ const srvinfoCheck = (name, example, preview, parts, extra = {}) => ({
 });
 const THREE_COLUMN_PARTS = [" > .row", ...COLUMN_PARTS(1), ...COLUMN_PARTS(4)];
 
+// Most requested (components/gc-most-requested): a full-width band, so the
+// previews use the full-width layout like GCWeb's "no-container" demos.
+// From 992px the heading floats beside a two-column list, so the checks
+// also compare floats, columns and widths (both sides have the same fixed
+// container width at each viewport).
+const GCWEB_MOST_REQUESTED = "/components/gc-most-requested/gc-most-requested";
+const MOST_REQUESTED_PREVIEW = "/rails/view_components/gcweb/most_requested_component";
+const MOST_REQUESTED_PROPS = [...PROPS, "float", "clear", "width", "column-count", "column-gap", "vertical-align"];
+const MOST_REQUESTED_PARTS = (items) => [
+  "", " > .container", " > .container::after", " > .container > h2", " > .container > ul",
+  ...items.flatMap((n) => [` li:nth-child(${n})`, ` li:nth-child(${n}) > a`, ` li:nth-child(${n})::before`])
+];
+const mostRequestedCheck = (name, page, preview, sections, extra = {}) => ({
+  name: `most requested / ${name}`,
+  gcweb: `${GCWEB_MOST_REQUESTED}${page}-en.html`,
+  preview: `${MOST_REQUESTED_PREVIEW}/${preview}`,
+  props: MOST_REQUESTED_PROPS,
+  pairs: sections.flatMap(([section, parts]) => parts.map((part) => [`${section}${part}`, `${section}${part}`])),
+  ...extra
+});
+const MOST_REQUESTED = "main section.gc-most-requested";
+const SIX_ITEMS = [[MOST_REQUESTED, MOST_REQUESTED_PARTS([1, 2, 6])]];
+
 const CHECKS = [
   {
     name: "alert / with headings",
@@ -497,6 +520,17 @@ const CHECKS = [
       [`section[data-bg-color='${c}'] a`, `section[data-bg-color='${c}'] a`]
     ])
   },
+  mostRequestedCheck("default", "", "default", SIX_ITEMS),
+  mostRequestedCheck("medium screens", "", "default", SIX_ITEMS, { viewport: { width: 1000, height: 900 } }),
+  mostRequestedCheck("small screens", "", "default", SIX_ITEMS, { viewport: { width: 375, height: 812 } }),
+  mostRequestedCheck("two items", "-two-items", "two_items", [[MOST_REQUESTED, MOST_REQUESTED_PARTS([1, 2])]]),
+  mostRequestedCheck("highlight", "-highlight", "highlight", [
+    [`${MOST_REQUESTED}:has(~ .gc-most-requested)`, MOST_REQUESTED_PARTS([1])],
+    [`${MOST_REQUESTED} ~ section.gc-most-requested`, MOST_REQUESTED_PARTS([1])]
+  ]),
+  mostRequestedCheck("with labels", "-labels", "with_labels", [
+    [MOST_REQUESTED, [...MOST_REQUESTED_PARTS([1]), ...[1, 2, 3, 4, 5, 6].map((n) => ` li:nth-child(${n}) > .label`)]]
+  ]),
   {
     name: "form / fields",
     gcweb: GCWEB_FORM,

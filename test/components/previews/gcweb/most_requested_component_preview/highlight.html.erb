@@ -1,0 +1,8 @@
+<%# Two in a row: GCWeb highlights the first with a blue background. %>
+<% [t("previews.most_requested.title"), nil].each do |title| %>
+  <%= render Gcweb::MostRequestedComponent.new(title: title) do |most_requested| %>
+    <% (1..6).each do |number| %>
+      <% most_requested.with_link(t("previews.most_requested.#{[1, 6].include?(number) ? 'long_link' : 'link'}", number: number), href: "#") %>
+    <% end %>
+  <% end %>
+<% end %>

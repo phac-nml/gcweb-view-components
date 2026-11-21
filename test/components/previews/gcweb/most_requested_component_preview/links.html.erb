@@ -1,0 +1,7 @@
+<%# Links 1 to `count`, as in GCWeb's demos: the first and sixth have long names. %>
+<%= render Gcweb::MostRequestedComponent.new(title: local_assigns[:title]) do |most_requested| %>
+  <% (1..count).each do |number| %>
+    <% key = (local_assigns.fetch(:long, true) && [1, 6].include?(number)) ? "long_link" : "link" %>
+    <% most_requested.with_link(t("previews.most_requested.#{key}", number: number), href: "#") %>
+  <% end %>
+<% end %>

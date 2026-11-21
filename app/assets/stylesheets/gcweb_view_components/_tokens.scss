@@ -213,6 +213,12 @@
   --gcweb-font-size-srvinfo-link: 20px;
   --gcweb-font-size-srvinfo-text: 18px;
 
+  // Most requested (components/gc-most-requested)
+  --gcweb-color-most-requested-bg: #f5f5f5;
+  --gcweb-color-most-requested-highlight-bg: #d9edf7; // $state-info-bg
+  --gcweb-font-size-most-requested-title: 22px;
+  --gcweb-font-size-most-requested-link: 18px;
+
   // Overlays (wet-boew wb-overlay) and Bootstrap modal parts
   --gcweb-color-overlay-bg: #fff; // $overlay-background-color
   --gcweb-color-overlay-text: #fff; // $overlay-header-color

@@ -1,5 +1,7 @@
 // Featured link — GCWeb components/gc-featured-link.
 
+@use "../mixins";
+
 .gc-featured-link {
   background-color: var(--gcweb-color-theme);
   color: #fff;
@@ -9,25 +11,9 @@
   padding-top: var(--gcweb-space-md);
   position: relative;
 
-  // Same as the Bootstrap .container in the base layer, repeated here so the
-  // component also works with gcweb-components.css (no base layer).
+  // Repeated so the component also works without the base layer.
   > .container {
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: var(--gcweb-container-gutter);
-    padding-right: var(--gcweb-container-gutter);
-
-    @media (min-width: 768px) {
-      width: 750px;
-    }
-
-    @media (min-width: 992px) {
-      width: 970px;
-    }
-
-    @media (min-width: 1200px) {
-      width: 1170px;
-    }
+    @include mixins.container;
   }
 
   .stretched-link {

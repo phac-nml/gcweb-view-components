@@ -7,6 +7,7 @@ class PreviewsTest < ActionDispatch::IntegrationTest
     "gcweb/alert_component" => %w[playground with_headings with_links without_headings expand_collapse],
     "gcweb/button_component" => %w[playground default colours call_to_action sizing full_width states],
     "gcweb/featured_link_component" => %w[playground default custom_background with_description],
+    "gcweb/most_requested_component" => %w[playground default two_items highlight with_labels],
     "gcweb/label_component" => %w[playground default],
     "gcweb/badge_component" => %w[playground default self_collapsing],
     "gcweb/panel_component" => %w[playground stacking appearances],

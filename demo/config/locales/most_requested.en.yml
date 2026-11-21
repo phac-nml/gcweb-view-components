@@ -1,0 +1,9 @@
+# Example text from GCWeb v20.0.1's most requested demos
+# (components/gc-most-requested/gc-most-requested-*-en.html).
+en:
+  previews:
+    most_requested:
+      link: "[Top task hyperlink %{number}]"
+      long_link: "[Top task hyperlink with a very long task name that spans over two lines %{number}]"
+      title: "[Title]"
+      label: "(Label info)"

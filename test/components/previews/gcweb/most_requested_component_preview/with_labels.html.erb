@@ -1,0 +1,7 @@
+<%= render Gcweb::MostRequestedComponent.new do |most_requested| %>
+  <% Gcweb::LabelComponent::VARIANTS.each.with_index(1) do |variant, number| %>
+    <% most_requested.with_link(t("previews.most_requested.link", number: number), href: "#") do |link| %>
+      <% link.with_label(variant: variant) { t("previews.most_requested.label") } %>
+    <% end %>
+  <% end %>
+<% end %>
