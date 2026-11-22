@@ -5,8 +5,7 @@ module Gcweb
   # optional heading, the content (padded in a `panel-body`), and an
   # optional footer.
   #
-  # GCWeb's full-width table panels aren't shown: the gem doesn't have
-  # GCWeb's table styles yet.
+  # For tables in panels, see the Table component's "Tables in panels".
   #
   # - GCWeb working examples: https://wet-boew.github.io/GCWeb/components/panels/panels-en.html
   # - WET style guide: https://wet-boew.github.io/wet-boew-styleguide/design/panels-en

@@ -1,0 +1,16 @@
+<%= render Gcweb::TableComponent.new(responsive: true) do %>
+  <thead>
+    <tr>
+      <th scope="col"><%= t("previews.tables.number") %></th>
+      <% 6.times do %><th scope="col"><%= t("previews.tables.table_heading") %></th><% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% (1..3).each do |n| %>
+      <tr>
+        <th scope="row"><%= n %></th>
+        <% 6.times do %><td><%= t("previews.tables.table_cell") %></td><% end %>
+      </tr>
+    <% end %>
+  </tbody>
+<% end %>

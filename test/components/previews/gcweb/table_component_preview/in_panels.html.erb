@@ -1,0 +1,14 @@
+<% two_columns = ->(table) do
+     2.times { table.with_column(t("previews.tables.table_header")) { t("previews.tables.table_data") } }
+   end %>
+<%= render Gcweb::PanelComponent.new(title: t("previews.tables.panel_title")) do |panel| %>
+  <% panel.with_footer { tag.p(t("previews.tables.panel_footer")) } %>
+  <p><%= t("previews.tables.panel_description") %></p>
+  <p>Lorem ipsum...</p>
+  <%= render(Gcweb::TableComponent.new(caption: t("previews.tables.table_caption"), rows: [ 1, 2 ]), &two_columns) %>
+<% end %>
+
+<%= render Gcweb::PanelComponent.new(title: t("previews.tables.panel_title"), body: false) do |panel| %>
+  <% panel.with_footer { tag.p(t("previews.tables.panel_footer")) } %>
+  <%= render(Gcweb::TableComponent.new(caption: t("previews.tables.table_caption"), rows: [ 1, 2 ]), &two_columns) %>
+<% end %>

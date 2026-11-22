@@ -1,0 +1,6 @@
+<%= render Gcweb::TableComponent.new(rows: Gcweb::TableComponentPreview::PEOPLE, **options) do |table| %>
+  <% table.with_column(t("previews.tables.number"), :number, row_header: true) %>
+  <% table.with_column(t("previews.tables.first_name"), :first_name) %>
+  <% table.with_column(t("previews.tables.last_name"), :last_name) %>
+  <% table.with_column(t("previews.tables.username"), :username) %>
+<% end %>

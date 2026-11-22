@@ -17,6 +17,7 @@ Rails components that render [GCWeb](https://github.com/wet-boew/GCWeb) / [WET-B
 | `Gcweb::LabelComponent` | [Labels](https://wet-boew.github.io/GCWeb/components/labels/labels-en.html) | – |
 | `Gcweb::BadgeComponent` | [Badges](https://wet-boew.github.io/GCWeb/components/badges/badges-en.html) | – |
 | `Gcweb::PanelComponent` | [Panels](https://wet-boew.github.io/GCWeb/components/panels/panels-en.html) | – |
+| `Gcweb::TableComponent` | [Tables](https://wet-boew.github.io/GCWeb/common/tables/table-en.html) | – |
 | `Gcweb::WellComponent` | [Panels](https://wet-boew.github.io/GCWeb/components/panels/panels-en.html) (wells) | – |
 | `Gcweb::TableOfContentsComponent` | [In-page table of contents](https://wet-boew.github.io/GCWeb/components/gc-toc/toc-en.html) | – |
 | `Gcweb::ServicesAndInformationComponent` | [Services and information](https://wet-boew.github.io/GCWeb/components/gc-srvinfo/gc-srvinfo-en.html) | – |

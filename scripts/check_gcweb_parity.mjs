@@ -473,6 +473,47 @@ const mostRequestedCheck = (name, page, preview, sections, extra = {}) => ({
 const MOST_REQUESTED = "main section.gc-most-requested";
 const SIX_ITEMS = [[MOST_REQUESTED, MOST_REQUESTED_PARTS([1, 2, 6])]];
 
+// Tables (common/tables). GCWeb's demo has one table per section, mostly
+// straight in <main>; each preview has one table. GCWeb has no full-width
+// table in a panel: that check adds one to the tables page (GCWeb's
+// documented .panel > .table markup) and lets GCWeb's CSS render it.
+const GCWEB_TABLES = "/common/tables/table-en.html";
+const TABLES_PREVIEW = "/rails/view_components/gcweb/table_component";
+const TABLE_PROPS = [...FORM_PROPS, "border-collapse", "border-spacing", "border-right-style", "border-bottom-style", "border-right-width", "caption-side"];
+const TABLE_PARTS = [
+  "",
+  " > thead > tr > th:first-child", " > thead > tr > th:last-child",
+  " > tbody > tr:first-child", " > tbody > tr:first-child > th", " > tbody > tr:first-child > td:last-child",
+  " > tbody > tr:nth-child(2)", " > tbody > tr:nth-child(2) > td:nth-child(2)",
+  " > tbody > tr:last-child > th", " > tbody > tr:last-child > td:last-child"
+];
+const tablePairs = (gcwebTable, ourTable, parts = TABLE_PARTS) => parts.map((part) => [`${gcwebTable}${part}`, `${ourTable}${part}`]);
+const OUR_TABLE = "main table.table";
+const tableCheck = (name, gcwebTable, preview, extra = {}) => ({
+  name: `tables / ${name}`,
+  gcweb: GCWEB_TABLES,
+  preview: `${TABLES_PREVIEW}/${preview}`,
+  props: TABLE_PROPS,
+  pairs: tablePairs(gcwebTable, OUR_TABLE, extra.parts),
+  ...extra
+});
+const CONTEXT_ROWS = [1, 3, 5, 7, 9].flatMap((n) => [` > tbody:first-of-type > tr:nth-child(${n}) > th`, ` > tbody:first-of-type > tr:nth-child(${n}) > td:last-child`]);
+const CONTEXT_CELLS = [1, 2, 3, 5, 7, 9].map((n) => ` > tbody:last-of-type > tr:nth-child(${n}) > td:nth-child(2)`);
+const addGcwebPanelTable = (page) =>
+  page.evaluate(() => {
+    document.querySelector("main h1").insertAdjacentHTML("afterend", `
+      <section class="panel panel-default parity-panel-table">
+        <header class="panel-heading"><h3 class="panel-title">Panel title</h3></header>
+        <table class="table">
+          <caption>Table caption text</caption>
+          <thead><tr><th scope="col">Table header</th><th scope="col">Table header</th></tr></thead>
+          <tbody><tr><td>Table data</td><td>Table data</td></tr><tr><td>Table data</td><td>Table data</td></tr></tbody>
+        </table>
+        <footer class="panel-footer"><p>Panel footer</p></footer>
+      </section>`);
+  });
+const PANEL_TABLE_PARTS = ["", " > caption", " > thead > tr > th:first-child", " > tbody > tr:first-child > td:first-child", " > tbody > tr:last-child > td:last-child"];
+
 const CHECKS = [
   {
     name: "alert / with headings",
@@ -989,6 +1030,46 @@ const CHECKS = [
     props: PANEL_PROPS,
     pairs: [1, 2, 3, 4, 5, 6].flatMap((n) => panelPairs(APPEARANCE(n), APPEARANCE(n), PANEL_BOX_PARTS))
   },
+  tableCheck("basic", "main > table.table:has(> caption)", "basic", { parts: [...TABLE_PARTS, " > caption"] }),
+  tableCheck("striped", "main > table.table-striped", "striped"),
+  tableCheck("bordered", "main > table.table-bordered", "bordered"),
+  tableCheck("hover", "main > table.table-hover", "hover", {
+    gcwebSetup: hover("main > table.table-hover > tbody > tr:nth-child(2) > td:nth-child(2)"),
+    previewSetup: hover("main table.table-hover > tbody > tr:nth-child(2) > td:nth-child(2)")
+  }),
+  tableCheck("condensed", "main > table.table-condensed", "condensed", {
+    parts: [...TABLE_PARTS, " > tbody > tr:last-child > td[colspan]"]
+  }),
+  tableCheck("contextual", "main > dl + table.table", "contextual", { parts: ["", ...CONTEXT_ROWS, ...CONTEXT_CELLS] }),
+  tableCheck("contextual on hover", "main > dl + table.table", "contextual", {
+    // GCWeb's contextual table isn't a hover table: add the class to both.
+    gcwebSetup: async (page) => {
+      await page.evaluate(() => document.querySelector("main > dl + table").classList.add("table-hover"));
+      await hover("main > dl + table > tbody:first-of-type > tr:nth-child(3) > td:last-child")(page);
+    },
+    previewSetup: async (page) => {
+      await page.evaluate(() => document.querySelector("main table.table").classList.add("table-hover"));
+      await hover("main table.table > tbody:first-of-type > tr:nth-child(3) > td:last-child")(page);
+    },
+    parts: [" > tbody:first-of-type > tr:nth-child(3) > th", " > tbody:first-of-type > tr:nth-child(3) > td:last-child"]
+  }),
+  tableCheck("responsive", "main > .table-responsive > table.table", "responsive", {
+    pairs: [["main > .table-responsive", "main > .table-responsive"], ...tablePairs("main > .table-responsive > table.table", "main > .table-responsive > table.table")]
+  }),
+  tableCheck("responsive, small screens", "main > .table-responsive > table.table", "responsive", {
+    viewport: { width: 375, height: 812 },
+    pairs: [["main > .table-responsive", "main > .table-responsive"], ...tablePairs("main > .table-responsive > table.table", "main > .table-responsive > table.table")]
+  }),
+  tableCheck("table grid", "main > table.tbl-gridify", "gridify", {
+    parts: ["", " > thead", " > tbody", " > tbody > tr:first-child", " > tbody > tr:first-child > th", " > tbody > tr:first-child > td:last-child", " > tbody > tr:last-child > td:last-child"]
+  }),
+  tableCheck("in a panel body", "main > section.panel .panel-body > table.table", "in_panels", {
+    pairs: tablePairs("main > section.panel .panel-body > table.table", "main > .panel:first-of-type .panel-body > table.table", PANEL_TABLE_PARTS)
+  }),
+  tableCheck("full width in a panel", ".parity-panel-table > table.table", "in_panels", {
+    gcwebSetup: addGcwebPanelTable,
+    pairs: tablePairs(".parity-panel-table > table.table", "main > .panel:last-of-type > table.table", PANEL_TABLE_PARTS)
+  }),
   {
     name: "wells / sizes and bold",
     gcweb: GCWEB_PANELS,

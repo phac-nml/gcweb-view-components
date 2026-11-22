@@ -1,0 +1,32 @@
+<% contexts = Gcweb::TableComponent::CONTEXTS %>
+<%= render Gcweb::TableComponent.new do %>
+  <thead>
+    <tr>
+      <th scope="col"><%= t("previews.tables.number") %></th>
+      <% 3.times do %><th scope="col"><%= t("previews.tables.column_heading") %></th><% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% (1..9).each do |n| %>
+      <% context = contexts[(n - 1) / 2] if n.odd? %>
+      <tr<%= %( class="#{context}").html_safe if context %>>
+        <th scope="row"><%= context ? "#{t("previews.tables.contexts.#{context}")} - #{n}" : n %></th>
+        <% 3.times do %><td><%= t("previews.tables.column_content") %></td><% end %>
+      </tr>
+    <% end %>
+  </tbody>
+  <tbody>
+    <% (1..9).each do |n| %>
+      <% context = contexts[(n - 1) / 2] if n.odd? %>
+      <tr>
+        <th scope="row"><%= t("previews.tables.on_data_cell") %> - <%= n %></th>
+        <% if context %>
+          <td class="<%= context %>"><%= t("previews.tables.contexts.#{context}") %> - <%= t("previews.tables.column_content") %></td>
+        <% else %>
+          <td><%= t("previews.tables.column_content") %></td>
+        <% end %>
+        <% 2.times do %><td><%= t("previews.tables.column_content") %></td><% end %>
+      </tr>
+    <% end %>
+  </tbody>
+<% end %>

@@ -1,0 +1,290 @@
+// Tables (GCWeb common/tables), Gcweb::TableComponent: Bootstrap 3 .table
+// and its variants with GCWeb's caption, colours and table grids.
+//
+// The caption and th rules are GCWeb's element styles (caption, th and
+// `main table caption`), scoped to .table so they also apply where the
+// base layer isn't loaded (gcweb-components.css).
+//
+// Not included: Bootstrap's collapse classes (.collapse / .in), which
+// GCWeb's demo shows on table rows but are a general Bootstrap utility,
+// and the provisional gc-table responsive cards.
+
+.table {
+  background-color: transparent;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: var(--gcweb-line-gap-lg);
+  max-width: 100%;
+  width: 100%;
+
+  > caption {
+    color: var(--gcweb-color-text);
+    font-size: 1.1em;
+    font-weight: var(--gcweb-font-weight-bold);
+    padding-bottom: 8px;
+    padding-top: 8px;
+    text-align: left;
+  }
+
+  th {
+    text-align: left;
+  }
+
+  > thead,
+  > tbody,
+  > tfoot {
+    > tr > th,
+    > tr > td {
+      border-top: 1px solid var(--gcweb-color-table-border);
+      line-height: 1.4375;
+      padding: 8px;
+      vertical-align: top;
+    }
+  }
+
+  > thead > tr > th {
+    border-bottom: 2px solid var(--gcweb-color-table-border);
+    vertical-align: bottom;
+  }
+
+  > caption + thead,
+  > colgroup + thead,
+  > thead:first-child {
+    > tr:first-child > th,
+    > tr:first-child > td {
+      border-top: 0;
+    }
+  }
+
+  > tbody + tbody {
+    border-top: 2px solid var(--gcweb-color-table-border);
+  }
+
+  .table {
+    background-color: var(--gcweb-color-body-bg);
+  }
+}
+
+.table-condensed > thead,
+.table-condensed > tbody,
+.table-condensed > tfoot {
+  > tr > th,
+  > tr > td {
+    padding: 5px;
+  }
+}
+
+.table-bordered {
+  border: 1px solid var(--gcweb-color-table-border);
+
+  > thead,
+  > tbody,
+  > tfoot {
+    > tr > th,
+    > tr > td {
+      border: 1px solid var(--gcweb-color-table-border);
+    }
+  }
+
+  > thead > tr > th,
+  > thead > tr > td {
+    border-bottom-width: 2px;
+  }
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: var(--gcweb-color-table-stripe-bg);
+}
+
+.table-hover > tbody > tr:hover {
+  background-color: var(--gcweb-color-table-hover-bg);
+}
+
+// Contextual classes, on a row or on a single cell.
+@each $context in (active, success, info, warning, danger) {
+  .table > thead,
+  .table > tbody,
+  .table > tfoot {
+    > tr.#{$context} > td,
+    > tr.#{$context} > th,
+    > tr > td.#{$context},
+    > tr > th.#{$context} {
+      background-color: var(--gcweb-color-table-#{$context}-bg);
+    }
+  }
+
+  .table-hover > tbody {
+    > tr.#{$context}:hover > td,
+    > tr.#{$context}:hover > th,
+    > tr:hover > .#{$context},
+    > tr > td.#{$context}:hover,
+    > tr > th.#{$context}:hover {
+      background-color: var(--gcweb-color-table-#{$context}-hover-bg);
+    }
+  }
+}
+
+// Responsive tables: scroll sideways below 768px instead of overflowing.
+// GCWeb lets cell text wrap again (white-space: initial), overriding
+// Bootstrap's nowrap.
+.table-responsive {
+  min-height: 0.01%;
+  overflow-x: auto;
+
+  @media screen and (max-width: 767px) {
+    border: 1px solid var(--gcweb-color-table-border);
+    margin-bottom: 17.25px;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    overflow-y: hidden;
+    width: 100%;
+
+    > .table {
+      margin-bottom: 0;
+
+      > thead,
+      > tbody,
+      > tfoot {
+        > tr > th,
+        > tr > td {
+          white-space: initial;
+        }
+      }
+    }
+
+    > .table-bordered {
+      border: 0;
+
+      > thead,
+      > tbody,
+      > tfoot {
+        > tr > th:first-child,
+        > tr > td:first-child {
+          border-left: 0;
+        }
+
+        > tr > th:last-child,
+        > tr > td:last-child {
+          border-right: 0;
+        }
+      }
+
+      > tbody,
+      > tfoot {
+        > tr:last-child > th,
+        > tr:last-child > td {
+          border-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+// Table grids: every cell on its own line, headings hidden.
+.tbl-gridify {
+  thead,
+  tfoot {
+    display: none;
+  }
+
+  tbody,
+  td {
+    display: block;
+  }
+}
+
+// Full-width tables in a panel (Gcweb::PanelComponent with body: false).
+.panel {
+  > .table,
+  > .table-responsive > .table {
+    margin-bottom: 0;
+
+    > caption {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
+
+  > .table:first-child,
+  > .table-responsive:first-child > .table:first-child {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  }
+
+  > .table:last-child,
+  > .table-responsive:last-child > .table:last-child {
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+  }
+
+  > .panel-body + .table,
+  > .panel-body + .table-responsive,
+  > .table + .panel-body,
+  > .table-responsive + .panel-body {
+    border-top: 1px solid var(--gcweb-color-table-border);
+  }
+
+  > .table > tbody:first-child > tr:first-child {
+    > td,
+    > th {
+      border-top: 0;
+    }
+  }
+
+  > .table-bordered,
+  > .table-responsive > .table-bordered {
+    border: 0;
+
+    > thead,
+    > tbody,
+    > tfoot {
+      > tr > th:first-child,
+      > tr > td:first-child {
+        border-left: 0;
+      }
+
+      > tr > th:last-child,
+      > tr > td:last-child {
+        border-right: 0;
+      }
+    }
+
+    > thead,
+    > tbody {
+      > tr:first-child > th,
+      > tr:first-child > td {
+        border-bottom: 0;
+      }
+    }
+
+    > tbody,
+    > tfoot {
+      > tr:last-child > th,
+      > tr:last-child > td {
+        border-bottom: 0;
+      }
+    }
+  }
+
+  > .table-responsive {
+    border: 0;
+    margin-bottom: 0;
+  }
+}
+
+@media print {
+  .table {
+    border-collapse: collapse !important;
+
+    td,
+    th {
+      background-color: #fff !important;
+    }
+  }
+
+  .table-bordered {
+    td,
+    th {
+      border: 1px solid var(--gcweb-color-table-border) !important;
+    }
+  }
+}
