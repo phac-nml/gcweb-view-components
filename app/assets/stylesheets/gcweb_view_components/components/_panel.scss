@@ -2,8 +2,9 @@
 // Gcweb::WellComponent: Bootstrap 3 .panel and .well with GCWeb's colours
 // and heading size.
 //
-// Not included: the full-width table panels (.panel > .table), which need
-// GCWeb's table styles, and the hover shadow GCWeb gives panels and wells
+// The full-width table panels (.panel > .table) are in _table.scss.
+//
+// Not included: the hover shadow GCWeb gives panels and wells
 // that are cards (with a .stretched-link), which no GCWeb demo shows.
 
 .panel {

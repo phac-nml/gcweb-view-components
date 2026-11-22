@@ -1,0 +1,16 @@
+<%= render Gcweb::TableComponent.new(gridify: true) do %>
+  <thead>
+    <tr>
+      <th scope="col"><%= t("previews.tables.number") %></th>
+      <% 3.times do %><th scope="col"><%= t("previews.tables.column_heading") %></th><% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% (1..9).each do |n| %>
+      <tr>
+        <th scope="row"><%= n %></th>
+        <% 3.times do %><td><%= t("previews.tables.column_content") %></td><% end %>
+      </tr>
+    <% end %>
+  </tbody>
+<% end %>

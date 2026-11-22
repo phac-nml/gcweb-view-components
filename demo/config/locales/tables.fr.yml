@@ -1,0 +1,29 @@
+# Example text from GCWeb v20.0.1's tables demo (common/tables/table-fr.html).
+# GCWeb's French page keeps the English example text; this translation is
+# the gem's own.
+fr:
+  previews:
+    tables:
+      caption: "Titre facultatif du tableau."
+      number: "Numéro"
+      first_name: "Prénom"
+      last_name: "Nom"
+      username: "Nom d'utilisateur"
+      larry_the_bird: "Larry the Bird"
+      column_heading: "En-tête de colonne"
+      column_content: "Contenu de la colonne"
+      table_heading: "En-tête du tableau"
+      table_cell: "Cellule du tableau"
+      table_header: "En-tête du tableau"
+      table_data: "Données du tableau"
+      table_caption: "Texte du titre du tableau"
+      on_data_cell: "Sur une cellule de données"
+      panel_title: "Titre du panneau"
+      panel_description: "Description du sujet abordé dans ce panneau"
+      panel_footer: "Pied du panneau"
+      contexts:
+        active: "Actif"
+        success: "Succès"
+        info: "Information"
+        warning: "Avertissement"
+        danger: "Danger"

@@ -12,6 +12,7 @@ class PreviewsTest < ActionDispatch::IntegrationTest
     "gcweb/badge_component" => %w[playground default self_collapsing],
     "gcweb/panel_component" => %w[playground stacking appearances],
     "gcweb/well_component" => %w[playground default],
+    "gcweb/table_component" => %w[playground basic striped bordered hover condensed contextual responsive gridify in_panels],
     "gcweb/table_of_contents_component" => %w[playground default],
     "gcweb/services_and_information_component" => %w[playground three_columns two_columns single_column sequential grouped with_labels more_information],
     "gcweb/overlay_component" => %w[playground panels bars popups full_screen custom_footer open_on_load],

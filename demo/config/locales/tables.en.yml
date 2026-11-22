@@ -1,0 +1,27 @@
+# Example text from GCWeb v20.0.1's tables demo (common/tables/table-en.html).
+en:
+  previews:
+    tables:
+      caption: "Optional table caption."
+      number: "Number"
+      first_name: "First Name"
+      last_name: "Last Name"
+      username: "Username"
+      larry_the_bird: "Larry the Bird"
+      column_heading: "Column heading"
+      column_content: "Column content"
+      table_heading: "Table heading"
+      table_cell: "Table cell"
+      table_header: "Table header"
+      table_data: "Table data"
+      table_caption: "Table caption text"
+      on_data_cell: "On data cell"
+      panel_title: "Panel title"
+      panel_description: "Description of the topic discussed in this panel"
+      panel_footer: "Panel footer"
+      contexts:
+        active: "Active"
+        success: "Success"
+        info: "Info"
+        warning: "Warning"
+        danger: "Danger"

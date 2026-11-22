@@ -1,0 +1,15 @@
+<%= render Gcweb::TableComponent.new(condensed: true) do %>
+  <thead>
+    <tr>
+      <th scope="col"><%= t("previews.tables.number") %></th>
+      <th scope="col"><%= t("previews.tables.first_name") %></th>
+      <th scope="col"><%= t("previews.tables.last_name") %></th>
+      <th scope="col"><%= t("previews.tables.username") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><th scope="row">1</th><td>Mark</td><td>Otto</td><td>@mdo</td></tr>
+    <tr><th scope="row">2</th><td>Jacob</td><td>Thornton</td><td>@fat</td></tr>
+    <tr><th scope="row">3</th><td colspan="2"><%= t("previews.tables.larry_the_bird") %></td><td>@twitter</td></tr>
+  </tbody>
+<% end %>

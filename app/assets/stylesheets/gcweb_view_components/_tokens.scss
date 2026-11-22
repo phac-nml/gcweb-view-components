@@ -208,6 +208,22 @@
   --gcweb-color-well-border: #e3e3e3; // darken($well-bg, 7%)
   --gcweb-shadow-well: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 
+  // Tables (common/tables; Bootstrap 3 .table with GCWeb's colours)
+  --gcweb-color-table-border: #ddd; // $table-border-color
+  --gcweb-color-table-stripe-bg: #f5f5f5; // $table-bg-accent
+  --gcweb-color-table-hover-bg: #f0f0f0; // $table-bg-hover
+  --gcweb-color-table-active-bg: #f0f0f0; // $table-bg-active
+  --gcweb-color-table-success-bg: #dff0d8; // $state-success-bg
+  --gcweb-color-table-info-bg: #d9edf7; // $state-info-bg
+  --gcweb-color-table-warning-bg: #fcf8e3; // $state-warning-bg
+  --gcweb-color-table-danger-bg: #f2dede; // $state-danger-bg
+  // Hovered contextual rows and cells: darken(<bg>, 5%), as Sass prints it.
+  --gcweb-color-table-active-hover-bg: rgb(89.1176470588%, 89.1176470588%, 89.1176470588%);
+  --gcweb-color-table-success-hover-bg: rgb(81.5250544662%, 91.339869281%, 77.4836601307%);
+  --gcweb-color-table-info-hover-bg: rgb(76.8371696505%, 89.0281329923%, 95.1236146633%);
+  --gcweb-color-table-warning-hover-bg: rgb(97.8557874763%, 94.9968374447%, 79.9873497786%);
+  --gcweb-color-table-danger-hover-bg: rgb(92.0758738278%, 79.8849104859%, 79.8849104859%);
+
   // Services and information (components/gc-srvinfo)
   --gcweb-font-size-srvinfo-title: 1.8125rem; // 29px
   --gcweb-font-size-srvinfo-link: 20px;
