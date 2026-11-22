@@ -5,7 +5,7 @@ Rails components that render [GCWeb](https://github.com/wet-boew/GCWeb) / [WET-B
 - **Same markup as GCWeb.** Components output GCWeb's HTML and class names, so the [GCWeb documentation](https://wet-boew.github.io/GCWeb/) applies directly.
 - **Same look as GCWeb.** Styles are hand-written SCSS whose computed values are checked against GCWeb's own demo pages (currently **GCWeb v20.0.1**).
 - **No jQuery, no wet-boew.js.** Interactive behaviour is ported to Stimulus controllers.
-- **CSP-friendly.** Nothing renders inline `style=""` attributes; fonts are self-hosted.
+- **CSP-friendly.** Nothing renders inline `style=""` attributes; fonts are self-hosted. The header's Government of Canada signature is an inlined `data:` image (allowed by Rails' default `img-src`); pass `signature_src:` to serve the copies in `app/assets/images/gcweb_view_components` instead.
 - **Bilingual.** English and French strings ship with the gem.
 
 ## Components
@@ -17,6 +17,8 @@ Rails components that render [GCWeb](https://github.com/wet-boew/GCWeb) / [WET-B
 | `Gcweb::LabelComponent` | [Labels](https://wet-boew.github.io/GCWeb/components/labels/labels-en.html) | – |
 | `Gcweb::BadgeComponent` | [Badges](https://wet-boew.github.io/GCWeb/components/badges/badges-en.html) | – |
 | `Gcweb::PanelComponent` | [Panels](https://wet-boew.github.io/GCWeb/components/panels/panels-en.html) | – |
+| `Gcweb::HeaderComponent` | [Header](https://wet-boew.github.io/GCWeb/sites/header/header-docs-en.html), [Application template](https://wet-boew.github.io/GCWeb/templates/application/application-docs-en.html) | – |
+| `Gcweb::BreadcrumbsComponent` | [Breadcrumbs](https://wet-boew.github.io/GCWeb/sites/breadcrumbs/breadcrumbs-en.html) | – |
 | `Gcweb::TableComponent` | [Tables](https://wet-boew.github.io/GCWeb/common/tables/table-en.html) | – |
 | `Gcweb::WellComponent` | [Panels](https://wet-boew.github.io/GCWeb/components/panels/panels-en.html) (wells) | – |
 | `Gcweb::TableOfContentsComponent` | [In-page table of contents](https://wet-boew.github.io/GCWeb/components/gc-toc/toc-en.html) | – |

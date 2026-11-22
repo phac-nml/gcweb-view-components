@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<%# For page-shell components (header, footer): the preview renders straight
+    in <body>, around a GCWeb content page's <main>. %>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <%= render "layouts/preview_head" %>
+  </head>
+  <body vocab="http://schema.org/" typeof="WebPage">
+    <%= yield %>
+    <main property="mainContentOfPage" class="container">
+      <h1 property="name" id="wb-cont"><%= t("previews.page_shell.title") %></h1>
+      <p><%= t("previews.page_shell.content") %></p>
+    </main>
+  </body>
+</html>

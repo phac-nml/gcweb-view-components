@@ -224,6 +224,17 @@
   --gcweb-color-table-warning-hover-bg: rgb(97.8557874763%, 94.9968374447%, 79.9873497786%);
   --gcweb-color-table-danger-hover-bg: rgb(92.0758738278%, 79.8849104859%, 79.8849104859%);
 
+  // Page shell (sites/header, sites/breadcrumbs, templates/application)
+  --gcweb-color-header-rule: #38414d; // #wb-bnr + hr, .application-bar
+  --gcweb-color-header-button-bg: #26374a; // search button, skip links
+  --gcweb-color-header-button-hover-bg: #444;
+  --gcweb-color-search-border: #e0e0e0;
+  --gcweb-color-search-text: #555;
+  --gcweb-shadow-search-focus: inset 0 0 1px #000, 0 0 8px rgba(102, 175, 233, 0.6);
+  --gcweb-color-search-focus-outline: #66afe9;
+  --gcweb-font-size-application-bar: 1.6875rem; // 27px
+  --gcweb-font-size-application-bar-sm: 18px;
+
   // Services and information (components/gc-srvinfo)
   --gcweb-font-size-srvinfo-title: 1.8125rem; // 29px
   --gcweb-font-size-srvinfo-link: 20px;

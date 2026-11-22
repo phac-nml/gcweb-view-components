@@ -1,5 +1,16 @@
 fr:
   gcweb:
+    # The page header (GCWeb v20.0.1 sites/header, sites/skiplinks,
+    # sites/language and sites/search).
+    header:
+      skip_to_content: "Passer au contenu principal"
+      skip_to_about: "Passer à « À propos de ce site »"
+      language_selection: "Sélection de la langue"
+      search: "Recherche"
+      search_canada_ca: "Rechercher dans Canada.ca"
+    # The breadcrumb trail's hidden heading (sites/breadcrumbs).
+    breadcrumbs:
+      title: "Vous êtes ici :"
     featured_link:
       heading: "Pleins feux sur"
     # The services and information heading (GCWeb components/gc-srvinfo).

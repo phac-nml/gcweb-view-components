@@ -12,6 +12,7 @@ class PreviewsTest < ActionDispatch::IntegrationTest
     "gcweb/badge_component" => %w[playground default self_collapsing],
     "gcweb/panel_component" => %w[playground stacking appearances],
     "gcweb/well_component" => %w[playground default],
+    "gcweb/header_component" => %w[playground canada_ca application application_search],
     "gcweb/table_component" => %w[playground basic striped bordered hover condensed contextual responsive gridify in_panels],
     "gcweb/table_of_contents_component" => %w[playground default],
     "gcweb/services_and_information_component" => %w[playground three_columns two_columns single_column sequential grouped with_labels more_information],
@@ -39,7 +40,9 @@ class PreviewsTest < ActionDispatch::IntegrationTest
 
           assert_response :success
           assert_select "html[lang=?]", locale
-          assert_select "main#wb-cont"
+          assert_select "main"
+          # The skip link's target: <main> in most layouts, the <h1> in the page-shell one.
+          assert_select "#wb-cont"
         end
       end
     end

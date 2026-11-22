@@ -1,0 +1,40 @@
+<nav>
+  <ul id="wb-tphp">
+    <li class="wb-slc"><a class="wb-sl" href="#wb-cont"><%= t("gcweb.header.skip_to_content") %></a></li>
+    <% if skip_to_about? %>
+      <li class="wb-slc visible-sm visible-md visible-lg"><a class="wb-sl" href="#wb-info"><%= t("gcweb.header.skip_to_about") %></a></li>
+    <% end %>
+  </ul>
+</nav>
+<%= tag.header(**html_attributes) do %>
+  <div id="wb-bnr" class="container">
+    <div class="row">
+      <% if language_href %>
+        <section id="wb-lng" class="col-xs-3 col-sm-12 pull-right text-right">
+          <h2 class="wb-inv"><%= t("gcweb.header.language_selection") %></h2>
+          <ul class="list-inline mrgn-bttm-0">
+            <li>
+              <a lang="<%= other_language %>" hreflang="<%= other_language %>" href="<%= language_href %>">
+                <span class="hidden-xs" translate="no"><%= other_language_name %></span>
+                <abbr title="<%= other_language_name %>" translate="no" class="visible-xs h3 mrgn-tp-sm mrgn-bttm-0 text-uppercase"><%= other_language %></abbr>
+              </a>
+            </li>
+          </ul>
+        </section>
+      <% end %>
+      <div class="brand col-xs-9 col-sm-5 col-md-4" property="publisher" typeof="GovernmentOrganization">
+        <a href="<%= home_href %>" property="url">
+          <img src="<%= signature_src %>" alt="<%= government_of_canada(language) %>" property="logo"><span class="wb-inv"> / <span lang="<%= other_language %>"><%= government_of_canada(other_language) %></span></span>
+        </a>
+        <meta property="name" content="<%= government_of_canada(language) %>">
+        <meta property="areaServed" typeof="Country" content="Canada">
+      </div>
+      <%= search %>
+    </div>
+  </div>
+  <% if rule? %>
+    <hr>
+  <% end %>
+  <%= breadcrumbs %>
+<% end %>
+<%= application_bar %>
