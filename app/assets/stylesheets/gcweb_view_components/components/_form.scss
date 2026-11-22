@@ -74,6 +74,13 @@ legend.required strong.required,
     color: var(--gcweb-color-input-placeholder);
     opacity: 1;
   }
+
+  // GCWeb also gives the typed text of any field with a placeholder the
+  // placeholder's colour (`[placeholder] { color: … !important }`). Scoped
+  // to .form-control so it doesn't reach a host app's own fields.
+  &[placeholder] {
+    color: var(--gcweb-color-input-placeholder) !important;
+  }
 }
 
 select.form-control {

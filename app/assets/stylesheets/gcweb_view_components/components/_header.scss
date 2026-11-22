@@ -1,0 +1,309 @@
+// Page header (GCWeb sites/header, sites/skiplinks, sites/language,
+// sites/search and templates/application), Gcweb::HeaderComponent: the
+// skip links, the banner (#wb-bnr) with the language toggle (#wb-lng),
+// the Government of Canada signature (.brand) and the site search
+// (#wb-srch), the rule under the banner, and the application bar.
+//
+// Ids and selectors are GCWeb's: the header is a page-level landmark and
+// GCWeb's own JavaScript and analytics look for these ids. The banner's
+// columns come from the grid layer.
+//
+// Not included: right-to-left rules, wet-boew's basic HTML mode
+// (.wb-disable), the home page's lighter rule (.home), and the gcweb-menu
+// (a later component), which goes in the container after the rule.
+
+// Visually hidden headings and labels.
+#wb-lng h2,
+#wb-srch h2,
+#wb-srch label {
+  clip-path: inset(50%);
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  position: absolute;
+  width: 1px;
+}
+
+// Skip links: hidden until focused, then centred over the top of the page.
+#wb-tphp {
+  list-style-type: none;
+  margin-bottom: 0;
+}
+
+.wb-slc {
+  left: 0;
+  position: absolute;
+  text-align: center;
+  top: 10px;
+  width: 100%;
+  z-index: 3;
+}
+
+.wb-sl {
+  clip-path: inset(50%);
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  padding: 5px;
+  position: absolute;
+  width: 1px;
+  z-index: 501;
+
+  &:focus {
+    clip-path: none;
+    height: inherit;
+    margin: inherit;
+    overflow: inherit;
+    position: static;
+    width: inherit;
+  }
+
+  @media screen {
+    background: var(--gcweb-color-header-button-bg);
+    color: #fff;
+    font-weight: var(--gcweb-font-weight-bold);
+
+    &:focus {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    &:hover {
+      background-color: var(--gcweb-color-header-button-hover-bg);
+      color: #fff;
+    }
+  }
+}
+
+body > header,
+header:has(> #wb-bnr) {
+  display: block;
+  position: relative;
+}
+
+#wb-bnr:not(:has(#wb-lng)) {
+  margin-top: 1.2em;
+}
+
+// Language toggle.
+#wb-lng {
+  padding-top: 10px;
+
+  li {
+    padding-right: 0;
+  }
+
+  abbr {
+    cursor: help; // GCWeb's abbr[title]
+    font-family: var(--gcweb-font-family-base);
+    font-size: 1.125rem;
+    text-decoration: none;
+  }
+}
+
+// Government of Canada signature.
+header .brand {
+  margin-bottom: 10px;
+  padding-bottom: 0;
+  padding-top: 10px;
+
+  a {
+    display: block;
+    height: auto;
+    padding-bottom: 0;
+    position: relative;
+    text-decoration: none;
+    width: auto;
+
+    &::after {
+      bottom: 0;
+      content: "";
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+
+  img {
+    height: auto;
+    margin-bottom: 0.375em;
+    max-height: 40px;
+    vertical-align: middle; // GCWeb's img
+  }
+
+  // In GCWeb's order: the 991px rule comes after the 767px one, so phones
+  // get the 10px top margin too.
+  @media screen and (max-width: 767px) {
+    img {
+      margin-top: 15px;
+      max-height: 30px;
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    img {
+      margin-top: 10px;
+    }
+  }
+
+  @media screen and (max-width: 479px) {
+    img {
+      padding-right: 0;
+    }
+  }
+}
+
+// Site search.
+#wb-srch {
+  padding-top: 1em;
+
+  .submit {
+    position: absolute;
+    right: 15px;
+    top: 1em;
+  }
+
+  button,
+  input {
+    border-radius: 0;
+  }
+
+  button {
+    background-color: var(--gcweb-color-header-button-bg);
+    border: 0;
+    border-bottom: 1px solid var(--gcweb-color-header-button-bg);
+    font-size: 17px;
+
+    &:active,
+    &:focus,
+    &:hover {
+      background: var(--gcweb-color-header-button-hover-bg);
+    }
+  }
+
+  .glyphicon {
+    top: auto;
+    vertical-align: middle;
+  }
+
+  input {
+    border-color: var(--gcweb-color-search-border);
+    border-style: solid;
+    box-shadow: none;
+    color: var(--gcweb-color-search-text);
+    position: relative;
+
+    &:active,
+    &:focus {
+      box-shadow: var(--gcweb-shadow-search-focus);
+      outline: 1px solid var(--gcweb-color-search-focus-outline);
+      position: relative;
+    }
+  }
+
+  .wb-srch-qry {
+    width: 100%;
+
+    input {
+      max-width: inherit;
+      width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 479px) {
+    input {
+      max-width: inherit;
+    }
+  }
+
+  @media screen and (min-width: 480px) and (max-width: 767px) {
+    input {
+      max-width: 50%;
+    }
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 991px) {
+    margin-bottom: 15px;
+  }
+}
+
+#wb-srch-sub {
+  margin-left: 5px;
+}
+
+input#wb-srch-q {
+  width: 100%;
+}
+
+// The rule under the banner, and the menu's container after it.
+#wb-bnr + hr {
+  border: 0;
+  border-top: 3px solid var(--gcweb-color-header-rule);
+  box-sizing: content-box;
+  height: 0;
+  margin-bottom: 0;
+  margin-top: 5px;
+}
+
+#wb-bnr + hr + .container {
+  font-size: 1.25rem;
+}
+
+// Application bar (templates/application): the application's name in a
+// dark band under the header.
+.application-bar {
+  background-color: var(--gcweb-color-header-rule);
+  color: #fff;
+  margin-top: 15px;
+
+  // Bootstrap's .container clearfix, which keeps the heading's margins
+  // inside the band.
+  > .container::before,
+  > .container::after {
+    content: " ";
+    display: table;
+  }
+
+  > .container::after {
+    clear: both;
+  }
+
+  h2 {
+    border: none;
+    font-size: var(--gcweb-font-size-application-bar);
+    margin: 10px 0 8px;
+
+    a {
+      color: #fff;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    h2 {
+      font-size: var(--gcweb-font-size-application-bar-sm);
+      margin: 12px 0 9px;
+    }
+  }
+}
+
+@media print {
+  #wb-tphp,
+  #wb-lng,
+  #wb-srch {
+    display: none !important;
+  }
+
+  header .brand {
+    margin-bottom: 0;
+  }
+
+  .application-bar h2 {
+    font-size: 34px;
+  }
+}

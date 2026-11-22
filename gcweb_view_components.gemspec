@@ -25,6 +25,7 @@ Gem::Specification.new do |spec|
     "app/form_builders/**/*",
     "app/assets/javascripts/**/*",
     "app/assets/stylesheets/**/*",
+    "app/assets/images/**/*",
     "config/locales/**/*",
     "lib/**/*",
     "package.json",

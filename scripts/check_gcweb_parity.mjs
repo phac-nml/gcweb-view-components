@@ -514,6 +514,50 @@ const addGcwebPanelTable = (page) =>
   });
 const PANEL_TABLE_PARTS = ["", " > caption", " > thead > tr > th:first-child", " > tbody > tr:first-child > td:first-child", " > tbody > tr:last-child > td:last-child"];
 
+// Page header (sites/header) and the Application template. The previews
+// use GCWeb's ids, so selectors are the same on both sides. The banner's
+// columns are percentages of the same container, so their widths are
+// compared too; text-dependent widths (links, crumbs) are not. GCWeb's
+// pages also have the gcweb-menu under the rule, which the gem doesn't
+// render yet.
+const GCWEB_CONTENT_PAGE = "/templates/content-page/content-en.html";
+const GCWEB_APPLICATION = "/templates/application/default-application-en.html";
+const HEADER_PREVIEW = "/rails/view_components/gcweb/header_component";
+const HEADER_PROPS = [...FORM_PROPS, "float", "z-index", "top", "left", "right", "text-overflow", "max-height", "cursor"];
+const WIDTH = [...HEADER_PROPS, "width"];
+// Visually hidden headings and labels: their offsets depend on the page around them.
+const HIDDEN = HEADER_PROPS.filter((p) => !["top", "left", "right"].includes(p));
+const BANNER_PARTS = [
+  ["#wb-bnr", WIDTH], ["#wb-bnr > .row"],
+  ["#wb-lng", WIDTH], ["#wb-lng > h2", HIDDEN], ["#wb-lng ul"], ["#wb-lng li"], ["#wb-lng a"], ["#wb-lng a > span"], ["#wb-lng abbr"],
+  [".brand", WIDTH], [".brand > a"], [".brand > a::after"], [".brand img", WIDTH], [".brand .wb-inv", HIDDEN]
+];
+const SEARCH_PARTS = [
+  ["#wb-srch", WIDTH], ["#wb-srch > h2", HIDDEN], ["#wb-srch form"], ["#wb-srch .wb-srch-qry"], ["#wb-srch label", HIDDEN], ["#wb-srch-q", WIDTH],
+  ["#wb-srch .submit"], ["#wb-srch-sub"], ["#wb-srch-sub .glyphicon"], ["#wb-srch-sub .glyphicon::before"],
+  ["#wb-bnr + hr"]
+];
+const BREADCRUMB_PARTS = [
+  ["#wb-bc"], ["#wb-bc > h2", HIDDEN], ["#wb-bc > .container"], ["#wb-bc ol"],
+  ["#wb-bc li:first-child"], ["#wb-bc li:first-child::before"], ["#wb-bc li:first-child a"],
+  ["#wb-bc li:nth-child(2)"], ["#wb-bc li:nth-child(2)::before"], ["#wb-bc li:nth-child(2) a"]
+];
+const SKIP_PARTS = [["#wb-tphp"], ["#wb-tphp > li:first-child"], ["#wb-tphp > li:first-child > a"], ["header"]];
+const headerPairs = (parts) => parts.map(([selector, props]) => [selector, selector, props]);
+const headerCheck = (name, preview, gcweb, parts, extra = {}) => ({
+  name: `header / ${name}`,
+  gcweb,
+  preview: `${HEADER_PREVIEW}/${preview}`,
+  props: HEADER_PROPS,
+  pairs: headerPairs(parts),
+  ...extra
+});
+const CANADA_CA_PARTS = [...SKIP_PARTS, ...BANNER_PARTS, ...SEARCH_PARTS, ...BREADCRUMB_PARTS];
+const APPLICATION_PARTS = [
+  ...SKIP_PARTS, ...BANNER_PARTS,
+  [".application-bar", [...HEADER_PROPS, "height"]], [".application-bar > .container", WIDTH], [".application-bar > .container::before"], [".application-bar h2"], [".application-bar h2 a"]
+];
+
 const CHECKS = [
   {
     name: "alert / with headings",
@@ -1030,6 +1074,21 @@ const CHECKS = [
     props: PANEL_PROPS,
     pairs: [1, 2, 3, 4, 5, 6].flatMap((n) => panelPairs(APPEARANCE(n), APPEARANCE(n), PANEL_BOX_PARTS))
   },
+  headerCheck("Canada.ca page", "canada_ca", GCWEB_CONTENT_PAGE, CANADA_CA_PARTS),
+  headerCheck("Canada.ca page, medium screens", "canada_ca", GCWEB_CONTENT_PAGE, CANADA_CA_PARTS, { viewport: { width: 1000, height: 900 } }),
+  headerCheck("Canada.ca page, small screens", "canada_ca", GCWEB_CONTENT_PAGE, CANADA_CA_PARTS, { viewport: { width: 800, height: 900 } }),
+  headerCheck("Canada.ca page, phones", "canada_ca", GCWEB_CONTENT_PAGE, CANADA_CA_PARTS, { viewport: { width: 600, height: 900 } }),
+  headerCheck("Canada.ca page, narrow phones", "canada_ca", GCWEB_CONTENT_PAGE, CANADA_CA_PARTS, { viewport: { width: 375, height: 812 } }),
+  headerCheck("skip link focused", "canada_ca", GCWEB_CONTENT_PAGE, SKIP_PARTS, {
+    gcwebSetup: (page) => focus(page, "#wb-tphp > li:first-child > a"),
+    previewSetup: (page) => focus(page, "#wb-tphp > li:first-child > a")
+  }),
+  headerCheck("search focused", "canada_ca", GCWEB_CONTENT_PAGE, [["#wb-srch-q", WIDTH]], {
+    gcwebSetup: (page) => focus(page, "#wb-srch-q"),
+    previewSetup: (page) => focus(page, "#wb-srch-q")
+  }),
+  headerCheck("application", "application", GCWEB_APPLICATION, APPLICATION_PARTS),
+  headerCheck("application, phones", "application", GCWEB_APPLICATION, APPLICATION_PARTS, { viewport: { width: 375, height: 812 } }),
   tableCheck("basic", "main > table.table:has(> caption)", "basic", { parts: [...TABLE_PARTS, " > caption"] }),
   tableCheck("striped", "main > table.table-striped", "striped"),
   tableCheck("bordered", "main > table.table-bordered", "bordered"),
@@ -1182,6 +1241,13 @@ if (mode === "reference") {
   reference = JSON.parse(fs.readFileSync(referenceFile, "utf8"));
 }
 
+// Chrome lays boxes out on a 1/64px grid, so the same percentage can land
+// a grid step apart on two pages (389.984px vs 390px). Lengths compare to
+// a tenth of a pixel.
+const PX = /-?\d+(?:\.\d+)?px/g;
+const roundPx = (value) => (typeof value === "string" ? value.replace(PX, (n) => `${(Math.round(parseFloat(n) * 10) / 10) || 0}px`) : value);
+const same = (a, b) => a === b || roundPx(a) === roundPx(b);
+
 let mismatches = 0;
 let compared = 0;
 const only = process.env.PARITY_ONLY;
@@ -1207,7 +1273,7 @@ for (const check of CHECKS.filter((c) => !only || c.name.includes(only))) {
     }
     for (const prop of pairProps || propsFor(check)) {
       compared++;
-      if (expected[prop] !== actual[prop]) {
+      if (!same(expected[prop], actual[prop])) {
         problems.push(`  ✗ ${mine} { ${prop} } gcweb=${expected[prop]} ours=${actual[prop]}`);
       }
     }

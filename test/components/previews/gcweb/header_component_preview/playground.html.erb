@@ -1,0 +1,9 @@
+<%= render Gcweb::HeaderComponent.new(language_href: (language_toggle ? "#" : nil)) do |header| %>
+  <% header.with_search if search %>
+  <% if breadcrumbs %>
+    <% header.with_breadcrumbs do |trail| %>
+      <% trail.with_item(t("previews.page_shell.health"), "#") %>
+    <% end %>
+  <% end %>
+  <% header.with_application_bar(t("previews.page_shell.application"), href: "#") if application_bar %>
+<% end %>

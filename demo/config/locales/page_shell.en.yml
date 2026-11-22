@@ -1,0 +1,11 @@
+# Example text for the page-shell previews (the gem's own; GCWeb's demo
+# pages link to GCWeb itself).
+en:
+  previews:
+    page_shell:
+      title: "Content page"
+      content: "The page's content goes here."
+      health: "Health"
+      diseases: "Diseases and conditions"
+      application: "Lab results portal"
+      search_label: "Search the portal"

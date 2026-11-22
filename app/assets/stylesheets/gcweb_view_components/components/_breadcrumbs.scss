@@ -1,0 +1,76 @@
+// Breadcrumb trail (GCWeb sites/breadcrumbs), Gcweb::BreadcrumbsComponent:
+// Bootstrap 3 .breadcrumb in GCWeb's nav#wb-bc, with a chevron
+// (Glyphicons Halflings) before every link but the first.
+
+#wb-bc {
+  h2 {
+    clip-path: inset(50%);
+    height: 1px;
+    margin: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+  }
+
+  ol {
+    border-radius: 0;
+    margin-bottom: 0;
+    margin-top: 15px;
+    padding: 1px 0;
+  }
+
+  li {
+    max-width: 100%;
+    overflow: hidden;
+    padding: 7px 2px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &::before {
+      color: var(--gcweb-color-text);
+      content: "\e080";
+      font-family: "Glyphicons Halflings";
+      font-size: 0.7em;
+      padding: 0 4px 0 0;
+      position: relative;
+    }
+
+    &:first-child::before {
+      display: none;
+    }
+
+    &:first-child a {
+      padding-left: 0;
+    }
+  }
+
+  a {
+    padding: 5px 0;
+  }
+}
+
+.breadcrumb {
+  background-color: transparent;
+  border-radius: 4px;
+  list-style: none;
+  margin-bottom: 23px;
+  padding: 8px 15px;
+
+  > li {
+    display: inline-block;
+  }
+
+  > .active {
+    color: var(--gcweb-color-muted);
+  }
+}
+
+#wb-bc .breadcrumb {
+  margin-bottom: 0;
+}
+
+@media print {
+  #wb-bc a[href]::after {
+    content: "";
+  }
+}
