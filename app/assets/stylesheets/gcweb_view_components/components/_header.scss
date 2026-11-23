@@ -257,18 +257,6 @@ input#wb-srch-q {
   color: #fff;
   margin-top: 15px;
 
-  // Bootstrap's .container clearfix, which keeps the heading's margins
-  // inside the band.
-  > .container::before,
-  > .container::after {
-    content: " ";
-    display: table;
-  }
-
-  > .container::after {
-    clear: both;
-  }
-
   h2 {
     border: none;
     font-size: var(--gcweb-font-size-application-bar);
