@@ -19,20 +19,10 @@
     margin-bottom: 0;
   }
 
-  // Repeated so the component also works without the base layer, with
-  // Bootstrap's clearfix for the floated heading.
+  // Repeated so the component also works without the base layer. The
+  // mixin's clearfix contains the floated heading.
   > .container {
     @include mixins.container;
-
-    &::before,
-    &::after {
-      content: " ";
-      display: table;
-    }
-
-    &::after {
-      clear: both;
-    }
   }
 
   h2,

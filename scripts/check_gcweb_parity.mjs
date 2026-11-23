@@ -454,7 +454,7 @@ const MOST_REQUESTED_PROPS = [...PROPS, "float", "clear", "width", "column-count
 // width isn't compared. A part is a selector suffix or [suffix, props].
 const BULLET_PROPS = MOST_REQUESTED_PROPS.filter((prop) => prop !== "width");
 const MOST_REQUESTED_PARTS = (items) => [
-  "", " > .container", " > .container::after", " > .container > h2", " > .container > ul",
+  "", " > .container", " > .container::before", " > .container::after", " > .container > h2", " > .container > ul",
   ...items.flatMap((n) => [` li:nth-child(${n})`, ` li:nth-child(${n}) > a`, [` li:nth-child(${n})::before`, BULLET_PROPS]])
 ];
 const mostRequestedCheck = (name, page, preview, sections, extra = {}) => ({
@@ -559,6 +559,14 @@ const APPLICATION_PARTS = [
 ];
 
 const CHECKS = [
+  // <main> is a Bootstrap .container on content pages. Its clearfix keeps
+  // the h1's top margin (and the last child's bottom margin) inside it.
+  {
+    name: "page / main container",
+    gcweb: "/common/alert/alerts-en.html",
+    preview: "/rails/view_components/gcweb/alert_component/with_headings",
+    pairs: ["main.container", "main.container::before", "main.container::after"].map((s) => [s, s])
+  },
   {
     name: "alert / with headings",
     gcweb: "/common/alert/alerts-en.html",
@@ -599,6 +607,8 @@ const CHECKS = [
     pairs: [
       ["section.gc-featured-link:not([data-bg-color])", "section.gc-featured-link"],
       ["section.gc-featured-link:not([data-bg-color]) > .container", "section.gc-featured-link > .container"],
+      ["section.gc-featured-link:not([data-bg-color]) > .container::before", "section.gc-featured-link > .container::before"],
+      ["section.gc-featured-link:not([data-bg-color]) > .container::after", "section.gc-featured-link > .container::after"],
       ["section.gc-featured-link:not([data-bg-color]) h2.wb-inv", "section.gc-featured-link h2.wb-inv"],
       ["section.gc-featured-link:not([data-bg-color]) p", "section.gc-featured-link p"],
       ["section.gc-featured-link:not([data-bg-color]) a.stretched-link", "section.gc-featured-link a.stretched-link"],

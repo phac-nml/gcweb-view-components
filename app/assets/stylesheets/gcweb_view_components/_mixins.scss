@@ -10,6 +10,19 @@
   padding-left: var(--gcweb-container-gutter);
   padding-right: var(--gcweb-container-gutter);
 
+  // Bootstrap 3's clearfix. Besides containing floats, the table-display
+  // pseudo-elements stop a first or last child's vertical margins from
+  // collapsing out through the container.
+  &::before,
+  &::after {
+    content: " ";
+    display: table;
+  }
+
+  &::after {
+    clear: both;
+  }
+
   @media (min-width: 768px) {
     width: 750px;
   }
