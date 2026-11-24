@@ -1,6 +1,6 @@
 // Data tables (wet-boew tables / wb-tables), Gcweb::DataTableComponent:
-// GCWeb's DataTables theme for sortable headings, the filter box and the
-// "Showing 1 to 10 of 57 entries" line. The table itself is a .table
+// GCWeb's DataTables theme for sortable headings, the filter box, the
+// "Showing 1 to 10 of 57 entries" line and the page size. The table itself is a .table
 // (_table.scss); these rules sit on top, as GCWeb's do.
 //
 // The component sorts and filters on the server, so its sort controls are
@@ -66,6 +66,35 @@
   .dataTables_length {
     display: inline-block;
     margin-top: 5px;
+
+    select {
+      color: inherit;
+      font: inherit;
+      line-height: inherit;
+      margin: 0;
+    }
+
+    // Submits the page size without JavaScript (GCWeb has none: DataTables
+    // redraws the table).
+    .btn {
+      margin-left: 0.5em;
+    }
+  }
+
+  .dataTables_paginate {
+    padding-top: 1.25em;
+    text-align: center;
+
+    .active {
+      color: inherit;
+    }
+
+    // The link is its item's only child, so GCWeb's :first-child and
+    // :last-child rules round both sides of the current page.
+    .paginate_button.current {
+      border-radius: 4px;
+      margin-left: 0;
+    }
   }
 
   // GCWeb separates the info line from the page-size menu with a bar;

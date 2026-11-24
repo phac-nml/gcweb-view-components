@@ -234,6 +234,11 @@
   --gcweb-color-data-table-icon-active-border: #111;
   --gcweb-color-data-table-icon-active-text: #000;
 
+  // Pagination (Bootstrap 3 .pagination; links otherwise use the default button's colours)
+  --gcweb-color-pagination-hover-bg: #d4d6da;
+  --gcweb-color-pagination-active-text: #fff;
+  --gcweb-color-pagination-active-bg: #2572b4;
+
   // Page shell (sites/header, sites/breadcrumbs, templates/application)
   --gcweb-color-header-rule: #38414d; // #wb-bnr + hr, .application-bar
   --gcweb-color-header-button-bg: #26374a; // search button, skip links

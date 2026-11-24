@@ -29,10 +29,20 @@ module Gcweb
   # Only the `sort` values of sortable columns count: anything else shows
   # as unsorted, so check them in the controller too.
   #
+  # With `pagy:` (Pagy 43 or later, which your app adds) it shows one page:
+  # the info line counts all the rows, and the page links go under the table.
+  # If Pagy lets the client choose the page size (client_limit:), a page-size
+  # menu is shown too.
+  #
+  #   @pagy, @samples = pagy(@samples, limit: 10, client_limit: 100)
+  #
+  #   <%= render Gcweb::DataTableComponent.new(rows: @samples, pagy: @pagy, …) do |table| %>
+  #
   # Everything TableComponent takes (striped:, bordered:, row_attributes:, …)
   # works here too.
   class DataTableComponent < TableComponent
     DIRECTIONS = %w[asc desc].freeze
+    PAGE_SIZES = [ 10, 25, 50, 100 ].freeze
 
     # A column that may sort the table.
     class Column < TableComponent::Column
@@ -54,19 +64,26 @@ module Gcweb
     # @param info [Boolean] show the "Showing 1 to 10 of 57 entries" line
     # @param unfiltered_count [Integer, nil] the number of rows before filtering, for
     #   "(filtered from 1,234 total entries)" while a filter is applied
+    # @param pagy [Pagy, nil] the Pagy object rows is a page of (one that counts its records)
+    # @param page_sizes [Array<Integer>] the page-size menu's choices, up to Pagy's client_limit
     # @param url [String, nil] where the links and the form go; defaults to the current path
     # @param params [Hash, nil] the query parameters links keep; defaults to the current ones
     # @param sort_param [String, Symbol] the query parameter for the sort value
     # @param direction_param [String, Symbol] the query parameter for the direction
     # @param filter_param [String, Symbol] the query parameter for the filter text
-    # @param page_param [String, Symbol] the page parameter, dropped when sorting or filtering
+    # @param page_param [String, Symbol] the page parameter, dropped when sorting or filtering; with pagy, its page_key
     # @param table_options [Hash] TableComponent's options and the <table>'s attributes
     def initialize(rows:, sort: nil, direction: nil, filter: nil, filterable: true, info: true,
-                   unfiltered_count: nil, url: nil, params: nil, sort_param: :sort,
+                   unfiltered_count: nil, pagy: nil, page_sizes: PAGE_SIZES, url: nil, params: nil, sort_param: :sort,
                    direction_param: :direction, filter_param: :q, page_param: :page, **table_options)
       raise ArgumentError, "rows: is required" if rows.nil?
 
+      raise ArgumentError, "pagy: needs a Pagy object that counts its records (pagy(:offset, …))" if pagy && !PaginationComponent.counted?(pagy)
+
       super(rows:, **table_options)
+      @pagy = pagy
+      @page_sizes = page_sizes
+      page_param = pagy.options[:page_key] if pagy
       @sort = sort.presence&.to_s
       @direction = DIRECTIONS.include?(direction.to_s) ? direction.to_s : "asc"
       @filter = filter.to_s
@@ -96,7 +113,7 @@ module Gcweb
 
     def call
       tag.div(class: "dataTables_wrapper no-footer", id: "#{id}_wrapper") do
-        safe_join([ top, super ].compact)
+        safe_join([ top, super, bottom ].compact)
       end
     end
 
@@ -113,7 +130,7 @@ module Gcweb
     end
 
     def top
-      parts = [ (filter_box if @filterable), (info_line if @info) ].compact
+      parts = [ (filter_box if @filterable), (info_line if @info), (page_size if page_size?) ].compact
       tag.div(safe_join(parts), class: "top") if parts.any?
     end
 
@@ -131,6 +148,41 @@ module Gcweb
       end
     end
 
+    def bottom
+      return unless @pagy && @pagy.last > 1
+
+      url = ->(page) { url_with(query_params.merge(@param_names[:page] => page)) }
+      tag.div(class: "bottom") do
+        render PaginationComponent.new(pagy: @pagy, url: (url if @url || @params), controls: id, id: "#{id}_paginate",
+                                       label: (t("gcweb.data_table.pagination", caption: strip_tags(caption.to_s)) if caption),
+                                       class: "dataTables_paginate paging_simple_numbers",
+                                       list_attributes: { class: "mrgn-tp-0 mrgn-bttm-0" })
+      end
+    end
+
+    def page_size? = @pagy && @pagy.options[:client_limit]
+
+    def page_size
+      name = @pagy.options[:limit_key]
+      select = tag.select(page_size_options, name:, "aria-controls": id)
+
+      tag.div(class: "dataTables_length", id: "#{id}_length") do
+        tag.form(action: base_url, method: "get", "accept-charset": "UTF-8") do
+          safe_join([
+            tag.label(t("gcweb.data_table.length_html", menu: select)),
+            tag.button(t("gcweb.data_table.length_apply"), type: "submit", class: "btn btn-default btn-xs"),
+            *hidden_fields(query_params.except(name, @param_names[:page]))
+          ])
+        end
+      end
+    end
+
+    # The choices Pagy accepts, and the current size if it isn't one of them.
+    def page_size_options
+      sizes = [ *@page_sizes.select { |size| size <= @pagy.options[:client_limit] }, @pagy.limit ].uniq.sort
+      safe_join(sizes.map { |size| tag.option(size, value: size, selected: size == @pagy.limit) })
+    end
+
     # Hidden inputs that carry the other query parameters through the form.
     def hidden_fields(query)
       Rack::Utils.build_nested_query(query).split("&").filter_map do |pair|
@@ -144,8 +196,8 @@ module Gcweb
     end
 
     def info_text
-      count = row_count
-      text = count.zero? ? t("gcweb.data_table.info_empty") : t("gcweb.data_table.info", first: number(1), last: number(count), total: number(count))
+      first, last, count = @pagy ? [ @pagy.from, @pagy.to, @pagy.count ] : [ 1, row_count, row_count ]
+      text = count.zero? ? t("gcweb.data_table.info_empty") : t("gcweb.data_table.info", first: number(first), last: number(last), total: number(count))
       return text unless @filter.present? && @unfiltered_count && @unfiltered_count != count
 
       "#{text} #{t('gcweb.data_table.info_filtered', max: number(@unfiltered_count))}"
@@ -177,8 +229,10 @@ module Gcweb
     def sort_url(column, direction)
       query = query_params.except(@param_names[:page])
                           .merge(@param_names[:sort] => column.sort_key, @param_names[:direction] => direction)
-      "#{base_url}?#{Rack::Utils.build_nested_query(query)}"
+      url_with(query)
     end
+
+    def url_with(query) = "#{base_url}?#{Rack::Utils.build_nested_query(query)}"
 
     def body
       return super if row_count.positive?

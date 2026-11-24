@@ -1,4 +1,5 @@
 require "test_helper"
+require "pagy"
 
 module Gcweb
   class DataTableComponentTest < ComponentTestCase
@@ -145,6 +146,47 @@ module Gcweb
       render_table(striped: true, hover: true, class: "mrgn-bttm-0", data: { turbo_frame: "samples" })
 
       assert_selector "table.wb-tables.table.table-striped.table-hover.dataTable.mrgn-bttm-0[data-turbo-frame=samples]"
+    end
+
+    def pagy(query: {}, **options)
+      request = Pagy::Request.new(request: { base_url: "http://test.host", path: "/samples", params: query.stringify_keys, cookie: nil })
+      Pagy::Offset.new(count: 1234, page: 2, limit: 10, request:, **options)
+    end
+
+    test "pagy: the info line counts every row and the page links follow the table" do
+      render_table(pagy: pagy(query: { page: "2", q: "al" }), caption: "Samples", filter: "al", unfiltered_count: 5000)
+
+      assert_selector ".dataTables_info", text: "Showing 11 to 20 of 1,234 entries (filtered from 5,000 total entries)"
+      assert_selector "table + div.bottom > nav.dataTables_paginate#samples_paginate[aria-label='Pagination: Samples'] > ol.pagination"
+      assert_selector ".pagination a[rel=next][aria-controls=samples][href='/samples?page=3&q=al']"
+      assert_no_selector ".dataTables_length"
+    end
+
+    test "pagy's client_limit: shows the page-size menu" do
+      render_table(pagy: pagy(client_limit: 50, limit: 20), query: { sort: "name", page: 2, limit: 20 })
+
+      assert_selector "div.dataTables_info + div.dataTables_length > form[action='/samples'][method=get] > label", text: /Show.*entries/
+      assert_equal %w[10 20 25 50], page.all("select[name=limit] option").map(&:text)
+      assert_selector "option[selected]", text: "20"
+      assert_selector ".dataTables_length button[type=submit]", text: "Apply"
+      assert_selector ".dataTables_length input[type=hidden][name=sort][value=name]", visible: :hidden
+      assert_no_selector ".dataTables_length input[type=hidden][name=page]", visible: :hidden
+      assert_no_selector ".dataTables_length input[type=hidden][name=limit]", visible: :hidden
+      assert_selector ".dataTables_filter input[type=hidden][name=limit][value='20']", visible: :hidden
+    end
+
+    test "pagy: its page key is dropped from sort links; url: and params: apply to pages" do
+      render_table(pagy: pagy(page_key: "p"), url: "/lab", params: { p: 2, tab: "all" })
+
+      assert_equal "/lab?tab=all&sort=name&direction=asc", sort_link(1)[:href]
+      assert_selector "a[rel=next][href='/lab?p=3&tab=all']"
+    end
+
+    test "pagy: one page has no page links; a countless Pagy is refused" do
+      render_table(pagy: pagy(count: 2, page: 1))
+      assert_no_selector ".bottom"
+
+      assert_raises(ArgumentError) { render_table(pagy: Pagy::Offset::Countless.new(page: 1, limit: 10)) }
     end
 
     test "an id is generated when none is given" do

@@ -20,6 +20,8 @@ Rails components that render [GCWeb](https://github.com/wet-boew/GCWeb) / [WET-B
 | `Gcweb::HeaderComponent` | [Header](https://wet-boew.github.io/GCWeb/sites/header/header-docs-en.html), [Application template](https://wet-boew.github.io/GCWeb/templates/application/application-docs-en.html) | – |
 | `Gcweb::BreadcrumbsComponent` | [Breadcrumbs](https://wet-boew.github.io/GCWeb/sites/breadcrumbs/breadcrumbs-en.html) | – |
 | `Gcweb::TableComponent` | [Tables](https://wet-boew.github.io/GCWeb/common/tables/table-en.html) | – |
+| `Gcweb::DataTableComponent` (server-side sorting, filtering and paging; paging needs [Pagy](https://ddnexus.github.io/pagy/)) | [Data tables](https://wet-boew.github.io/gcweb-compiled-demos/wetboew-demos/tables/tables-en.html) | – |
+| `Gcweb::PaginationComponent` | [Search results pagination](https://wet-boew.github.io/GCWeb/templates/search/test-pagination.html) | – |
 | `Gcweb::WellComponent` | [Panels](https://wet-boew.github.io/GCWeb/components/panels/panels-en.html) (wells) | – |
 | `Gcweb::TableOfContentsComponent` | [In-page table of contents](https://wet-boew.github.io/GCWeb/components/gc-toc/toc-en.html) | – |
 | `Gcweb::ServicesAndInformationComponent` | [Services and information](https://wet-boew.github.io/GCWeb/components/gc-srvinfo/gc-srvinfo-en.html) | – |

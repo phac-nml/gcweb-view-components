@@ -23,6 +23,15 @@ fr:
       info_filtered: "(filtré de %{max} entrées totales)"
       thousands_delimiter: "\u00A0"
       empty: "Aucune donnée n'est disponible dans le tableau"
+      length_html: "Afficher %{menu} entrées"
+      length_apply: "Appliquer"
+      pagination: "Pagination\u00A0: %{caption}"
+    # Pagination (chaînes i18n prv, nxt et page de wet-boew).
+    pagination:
+      label: "Pagination"
+      previous: "Précédent"
+      next: "Suivant"
+      page: "Aller à: Page"
     featured_link:
       heading: "Pleins feux sur"
     # The services and information heading (GCWeb components/gc-srvinfo).
