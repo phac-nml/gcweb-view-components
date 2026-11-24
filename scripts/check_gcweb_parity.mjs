@@ -563,7 +563,9 @@ const pagedPairs = [
   `${DT} > .bottom`, `${DT} .dataTables_paginate`, `${DT} .pagination`,
   ...[1, 2, 3, 8].flatMap((n) => [`${DT} .pagination > li:nth-child(${n})`, `${DT} .pagination > li:nth-child(${n}) > a`]),
   `${DT} .pagination > li:first-child > a::before`, `${DT} .pagination > li:last-child > a::after`
-].map((part) => [part, part]);
+].map((part) =>
+  // GCWeb leaves the menu's background to the browser: white on macOS, grey on Linux.
+  part.endsWith(" select") ? [part, part, DATA_TABLE_PROPS.filter((prop) => prop !== "background-color")] : [part, part]);
 const gcwebPageTwo = async (page) => {
   await page.waitForSelector(".dataTables_wrapper");
   await page.click(`${DT} .paginate_button.next`);
