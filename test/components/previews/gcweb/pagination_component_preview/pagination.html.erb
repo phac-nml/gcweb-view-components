@@ -1,0 +1,6 @@
+<%# The links change the page in the URL, which wins over the scenario's. %>
+<% current = (params[:page] || page).to_i %>
+<div class="text-center">
+  <%= render Gcweb::PaginationComponent.new(page: current, pages: pages,
+        url: ->(number) { "#{request.path}?#{request.query_parameters.merge(page: number).to_query}" }) %>
+</div>

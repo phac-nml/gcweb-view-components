@@ -23,6 +23,15 @@ en:
       info_filtered: "(filtered from %{max} total entries)"
       thousands_delimiter: ","
       empty: "No data is available in the table"
+      length_html: "Show %{menu} entries"
+      length_apply: "Apply"
+      pagination: "Pagination: %{caption}"
+    # Pagination (wet-boew's i18n prv, nxt and page).
+    pagination:
+      label: "Pagination"
+      previous: "Previous"
+      next: "Next"
+      page: "Jump to: Page"
     featured_link:
       heading: "Spotlight on"
     # The services and information heading (GCWeb components/gc-srvinfo).

@@ -180,6 +180,9 @@
   --gcweb-color-data-table-icon-active-bg: #ccc;
   --gcweb-color-data-table-icon-active-border: #111;
   --gcweb-color-data-table-icon-active-text: #000;
+  --gcweb-color-pagination-hover-bg: #d4d6da;
+  --gcweb-color-pagination-active-text: #fff;
+  --gcweb-color-pagination-active-bg: #2572b4;
   --gcweb-color-header-rule: #38414d;
   --gcweb-color-header-button-bg: #26374a;
   --gcweb-color-header-button-hover-bg: #444;
@@ -415,6 +418,10 @@ ul.lst-spcd-2 ul {
 
 .pull-right {
   float: right !important;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .text-right {
@@ -2453,6 +2460,78 @@ a.badge:hover {
     border: 1px solid var(--gcweb-color-table-border) !important;
   }
 }
+.pagination {
+  border-radius: 4px;
+  display: inline-block;
+  margin: 23px 0;
+  padding-left: 0;
+}
+.pagination.mrgn-tp-0 {
+  margin-top: 0;
+}
+.pagination.mrgn-bttm-0 {
+  margin-bottom: 0;
+}
+.pagination > li {
+  display: inline;
+}
+.pagination > li > a {
+  background-color: var(--gcweb-btn-default-bg);
+  border: 1px solid var(--gcweb-btn-default-border);
+  color: var(--gcweb-btn-default-text);
+  cursor: pointer;
+  display: inline-block;
+  float: left;
+  line-height: 1.4375;
+  margin-bottom: 0.5em;
+  margin-left: -1px;
+  padding: 10px 16px;
+  position: relative;
+  text-decoration: none;
+}
+.pagination > li > a:hover, .pagination > li > a:focus {
+  background-color: var(--gcweb-color-pagination-hover-bg);
+  border-color: var(--gcweb-btn-default-hover-border);
+  color: var(--gcweb-btn-default-text);
+  z-index: 2;
+}
+.pagination > li:first-child > a {
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+  margin-left: 0;
+}
+.pagination > li:last-child > a {
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
+}
+.pagination > li:first-child > [rel=prev]::before, .pagination > li:last-child > [rel=next]::after {
+  font-family: "Glyphicons Halflings";
+  font-weight: 400;
+  line-height: 1em;
+  position: relative;
+  top: 0.1em;
+}
+.pagination > li:first-child > [rel=prev]::before {
+  content: "\e091";
+  margin-right: 0.5em;
+}
+.pagination > li:last-child > [rel=next]::after {
+  content: "\e092";
+  margin-left: 0.5em;
+}
+.pagination > .active {
+  color: var(--gcweb-color-pagination-active-text);
+}
+.pagination > .active > a,
+.pagination > .active > a:hover,
+.pagination > .active > a:focus {
+  background-color: var(--gcweb-color-pagination-active-bg);
+  border-color: var(--gcweb-color-pagination-active-bg);
+  color: var(--gcweb-color-pagination-active-text);
+  cursor: default;
+  z-index: 3;
+}
+
 .dataTables_wrapper {
   clear: both;
   position: relative;
@@ -2497,6 +2576,26 @@ a.badge:hover {
 .dataTables_wrapper .dataTables_length {
   display: inline-block;
   margin-top: 5px;
+}
+.dataTables_wrapper .dataTables_length select {
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  margin: 0;
+}
+.dataTables_wrapper .dataTables_length .btn {
+  margin-left: 0.5em;
+}
+.dataTables_wrapper .dataTables_paginate {
+  padding-top: 1.25em;
+  text-align: center;
+}
+.dataTables_wrapper .dataTables_paginate .active {
+  color: inherit;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  border-radius: 4px;
+  margin-left: 0;
 }
 @media screen and (min-width: 480px) {
   .dataTables_wrapper .dataTables_info:not(:last-child)::after {

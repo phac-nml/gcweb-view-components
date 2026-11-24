@@ -519,8 +519,8 @@ const PANEL_TABLE_PARTS = ["", " > caption", " > thead > tr > th:first-child", "
 // the first column, ascending, like the default preview. DataTables'
 // controls are buttons and ours are links (the server sorts), so each pair
 // compares a button with a link. GCWeb's info line ends in a "|" before its
-// page-size menu, which the previews don't have yet: its ::after isn't
-// compared.
+// page-size menu, which only the paged preview has: its ::after is compared
+// there.
 const GCWEB_DATA_TABLES = "https://wet-boew.github.io/gcweb-compiled-demos/wetboew-demos/tables/tables-en.html";
 const DATA_TABLES_PREVIEW = "/rails/view_components/gcweb/data_table_component";
 const DATA_TABLE_PROPS = [...TABLE_PROPS, "float", "cursor", "border-bottom-width", "border-bottom-color"];
@@ -554,6 +554,39 @@ const dataTableCheck = (name, preview, extra = {}) => ({
   pairs: dataTablePairs("a"),
   ...extra
 });
+
+// The paged preview has GCWeb's page size and page links. GCWeb hides a
+// disabled Previous; ours isn't rendered, so page 2 is compared. The menu's
+// Apply button is ours.
+const pagedPairs = [
+  `${DT} .dataTables_info`, `${DT} .dataTables_info::after`, `${DT} .dataTables_length`, `${DT} .dataTables_length label`, `${DT} .dataTables_length select`,
+  `${DT} > .bottom`, `${DT} .dataTables_paginate`, `${DT} .pagination`,
+  ...[1, 2, 3, 8].flatMap((n) => [`${DT} .pagination > li:nth-child(${n})`, `${DT} .pagination > li:nth-child(${n}) > a`]),
+  `${DT} .pagination > li:first-child > a::before`, `${DT} .pagination > li:last-child > a::after`
+].map((part) => [part, part]);
+const gcwebPageTwo = async (page) => {
+  await page.waitForSelector(".dataTables_wrapper");
+  await page.click(`${DT} .paginate_button.next`);
+  await page.mouse.move(0, 0);
+  await page.evaluate(() => document.activeElement.blur());
+};
+const pagedCheck = (name, extra = {}) =>
+  dataTableCheck(name, "paged?page=2", { gcwebSetup: gcwebPageTwo, pairs: pagedPairs, ...extra });
+
+// Pagination on its own, as in GCWeb's search template (second page).
+const PAGES = "main #s2 + .text-center .pagination";
+const OUR_PAGES = "main .text-center .pagination";
+const PAGE_PARTS = ["", ...["nth-child(1)", "nth-child(2)", "nth-child(3)", "nth-child(4)", "last-child"].flatMap((n) => [` > li:${n}`, ` > li:${n} > a`]), " > li:first-child > a::before", " > li:last-child > a::after"];
+const paginationCheck = (name, extra = {}) => ({
+  name: `pagination / ${name}`,
+  gcweb: "/templates/search/test-pagination.html",
+  preview: "/rails/view_components/gcweb/pagination_component/second_page",
+  // GCWeb's list is a <ul>, ours an <ol> as in its data tables (no markers show).
+  props: [...DATA_TABLE_PROPS, "z-index"].filter((prop) => prop !== "list-style-type"),
+  pairs: PAGE_PARTS.map((part) => [PAGES + part, OUR_PAGES + part]),
+  ...extra
+});
+const hoverPage = (list, n) => hover(`${list} > li:nth-child(${n}) > a`);
 
 // Page header (sites/header) and the Application template. The previews
 // use GCWeb's ids, so selectors are the same on both sides. The banner's
@@ -1190,6 +1223,11 @@ const CHECKS = [
     }
   }),
   dataTableCheck("small screens", "default", { viewport: { width: 800, height: 900 } }),
+  pagedCheck("paged"),
+  pagedCheck("paged, phones", { viewport: { width: 375, height: 812 } }),
+  paginationCheck("second page"),
+  paginationCheck("hovered page", { gcwebSetup: hoverPage(PAGES, 4), previewSetup: hoverPage(OUR_PAGES, 4) }),
+  paginationCheck("hovered current page", { gcwebSetup: hoverPage(PAGES, 3), previewSetup: hoverPage(OUR_PAGES, 3) }),
   // The table is wider than a phone, so its auto margin-right resolves to
   // minus the overflow, which depends on the OS's text widths.
   dataTableCheck("phones", "default", {

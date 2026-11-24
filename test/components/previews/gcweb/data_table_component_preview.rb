@@ -1,4 +1,14 @@
 require "yaml"
+require "pagy"
+
+module Gcweb
+  # `include Pagy::Method`, as a controller would.
+  module PagyPreviewHelper
+    extend Pagy::Method
+
+    def self.paginate(rows, **options) = pagy(:offset, rows, **options)
+  end
+end
 
 module Gcweb
   # @label Data table
@@ -9,8 +19,6 @@ module Gcweb
   # is a GET form, and here the preview plays the controller, sorting and
   # filtering GCWeb's demo rows from the URL's `sort`, `direction` and `q`.
   # Click a heading or type in the filter box and press Enter.
-  #
-  # Not shown yet: paging and the page-size menu (#55).
   #
   # - wet-boew data tables: https://wet-boew.github.io/gcweb-compiled-demos/wetboew-demos/tables/tables-en.html
   # - WET style guide: https://wet-boew.github.io/wet-boew-styleguide/design/tables-en
@@ -65,6 +73,14 @@ module Gcweb
     # Sorted by browser, descending: the heading's link sorts ascending again.
     def descending
       render_with_template(template: TEMPLATE, locals: { defaults: { sort: "browser", direction: "desc" } })
+    end
+
+    # @label Paged
+    #
+    # Ten rows a page, with Pagy (`pagy:`). `client_limit:` lets people choose
+    # the page size.
+    def paged
+      render_with_template(template: TEMPLATE, locals: { defaults: { sort: "engine", direction: "asc" }, paged: true })
     end
 
     # @label Filtered

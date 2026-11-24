@@ -8,6 +8,8 @@ gem "rails", "~> 8.1.4", ">= 8.1.4.1"
 gem "puma", ">= 5.0"
 gem "bootsnap", require: false
 gem "vite_rails", ">= 3.11"
+# Optional for apps: paged data tables take a Pagy object.
+gem "pagy", "~> 43.6"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 group :development, :test do
