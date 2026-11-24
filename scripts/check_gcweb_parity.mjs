@@ -1190,7 +1190,13 @@ const CHECKS = [
     }
   }),
   dataTableCheck("small screens", "default", { viewport: { width: 800, height: 900 } }),
-  dataTableCheck("phones", "default", { viewport: { width: 375, height: 812 } }),
+  // The table is wider than a phone, so its auto margin-right resolves to
+  // minus the overflow, which depends on the OS's text widths.
+  dataTableCheck("phones", "default", {
+    viewport: { width: 375, height: 812 },
+    pairs: dataTablePairs("a").map(([ref, mine]) =>
+      (ref === `${DT} > table.dataTable` ? [ref, mine, DATA_TABLE_PROPS.filter((prop) => prop !== "margin-right")] : [ref, mine]))
+  }),
   {
     name: "wells / sizes and bold",
     gcweb: GCWEB_PANELS,
