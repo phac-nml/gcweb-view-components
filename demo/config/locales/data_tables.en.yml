@@ -1,0 +1,9 @@
+# Headings from GCWeb v20.0.1's data tables demo (wet-boew tables, tables-en.html).
+en:
+  previews:
+    data_tables:
+      engine: "Rendering engine"
+      browser: "Browser"
+      platforms: "Platform(s)"
+      version: "Engine version"
+      grade: "CSS grade"

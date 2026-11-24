@@ -1,0 +1,234 @@
+// Data tables (wet-boew tables / wb-tables), Gcweb::DataTableComponent:
+// GCWeb's DataTables theme for sortable headings, the filter box and the
+// "Showing 1 to 10 of 57 entries" line. The table itself is a .table
+// (_table.scss); these rules sit on top, as GCWeb's do.
+//
+// The component sorts and filters on the server, so its sort controls are
+// links where DataTables renders buttons: `table.dataTable thead button`
+// is applied to `thead a` as well.
+//
+// Not included: DataTables' display/stripe/hover/order-column/cell-border
+// classes, selected rows, scrolling, the processing banner and the
+// provisional filterEmphasis and gc-table variants.
+
+.dataTables_wrapper {
+  clear: both;
+  position: relative;
+
+  &::after {
+    clear: both;
+    content: "";
+    display: block;
+    height: 0;
+    visibility: hidden;
+  }
+
+  .top {
+    font-size: 17px;
+
+    [type="search"] {
+      max-width: 205px;
+    }
+  }
+
+  .dataTables_filter,
+  .dataTables_info,
+  .dataTables_length {
+    color: var(--gcweb-color-text);
+  }
+
+  .dataTables_filter,
+  .dataTables_length {
+    font-weight: var(--gcweb-font-weight-normal);
+  }
+
+  .dataTables_filter {
+    float: left;
+    margin-right: 15px;
+
+    // GCWeb's form normalisation (font and colour inherited) and, as
+    // DataTables gives the box an empty placeholder, GCWeb's
+    // `[placeholder]` text colour.
+    input {
+      appearance: none;
+      box-sizing: border-box;
+      color: var(--gcweb-color-input-placeholder);
+      font: inherit;
+      line-height: inherit;
+      margin: 0 0 0 0.5em;
+    }
+  }
+
+  .dataTables_info {
+    display: inline-block;
+  }
+
+  .dataTables_length {
+    display: inline-block;
+    margin-top: 5px;
+  }
+
+  // GCWeb separates the info line from the page-size menu with a bar;
+  // without the menu there's nothing to separate.
+  @media screen and (min-width: 480px) {
+    .dataTables_info:not(:last-child)::after {
+      content: "|";
+      font-size: 1.2em;
+      line-height: 1em;
+      padding: 0 0.25em;
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    .dataTables_info {
+      padding-bottom: 5px;
+    }
+
+    .dataTables_filter {
+      float: left;
+      text-align: left;
+      width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 479px) {
+    .dataTables_length {
+      width: 100%;
+    }
+  }
+}
+
+table.dataTable {
+  border-collapse: separate;
+  border-spacing: 0;
+  clear: both;
+  margin: 0 auto;
+  width: 100% !important;
+
+  &,
+  td,
+  th {
+    box-sizing: content-box;
+  }
+
+  &.no-footer {
+    border-bottom: 1px solid var(--gcweb-color-data-table-rule);
+  }
+
+  thead,
+  tfoot {
+    th,
+    td {
+      border-bottom: 1px solid var(--gcweb-color-data-table-rule);
+    }
+
+    th {
+      font-weight: var(--gcweb-font-weight-bold);
+    }
+  }
+
+  thead {
+    th:active,
+    td:active {
+      outline: 0;
+    }
+
+    .sorting,
+    .sorting_asc,
+    .sorting_desc {
+      cursor: pointer;
+    }
+
+    .sorting_asc,
+    .sorting_desc {
+      background-color: var(--gcweb-color-data-table-sorted-bg);
+    }
+
+    // The sort control fills the heading's text: a button in GCWeb, a
+    // link here.
+    button,
+    a {
+      appearance: none;
+      display: inline-block;
+      background: 0 0;
+      border: 0;
+      color: inherit;
+      font: inherit;
+      padding: 0;
+      text-align: left;
+      text-decoration: none;
+    }
+
+    a:hover,
+    a:focus {
+      text-decoration: underline;
+    }
+
+    .sorting-cnt {
+      white-space: nowrap;
+
+      &::before {
+        content: " ";
+      }
+    }
+
+    // Two glyphs, up (\e093) and down (\e094); the current direction's is
+    // the dark one.
+    .sorting-icons {
+      display: none;
+      margin-top: 2px;
+
+      &::before,
+      &::after {
+        background: var(--gcweb-color-data-table-icon-bg);
+        border: 1px solid var(--gcweb-color-data-table-icon-border);
+        color: var(--gcweb-color-data-table-icon-text);
+        font-family: "Glyphicons Halflings";
+        font-weight: 400;
+        line-height: 1em;
+        position: relative;
+        top: 0.1em;
+      }
+
+      &::before {
+        content: "\e093";
+        padding: 0 0.1em 0 0;
+      }
+
+      &::after {
+        content: "\e094";
+        padding: 0 0.04em 0 0.06em;
+      }
+    }
+
+    .sorting,
+    .sorting_asc,
+    .sorting_desc {
+      .sorting-icons {
+        display: inline-block;
+      }
+    }
+
+    .sorting_asc .sorting-icons::before,
+    .sorting_desc .sorting-icons::after {
+      background: var(--gcweb-color-data-table-icon-active-bg);
+      border-color: var(--gcweb-color-data-table-icon-active-border);
+      color: var(--gcweb-color-data-table-icon-active-text);
+    }
+  }
+
+  tbody tr {
+    background-color: var(--gcweb-color-body-bg);
+  }
+
+  td.right,
+  th.right {
+    text-align: right;
+  }
+
+  td.center,
+  th.center,
+  td.dataTables_empty {
+    text-align: center;
+  }
+}

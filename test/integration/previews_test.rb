@@ -14,6 +14,7 @@ class PreviewsTest < ActionDispatch::IntegrationTest
     "gcweb/well_component" => %w[playground default],
     "gcweb/header_component" => %w[playground canada_ca application application_search],
     "gcweb/table_component" => %w[playground basic striped bordered hover condensed contextual responsive gridify in_panels],
+    "gcweb/data_table_component" => %w[playground default descending filtered no_matches],
     "gcweb/table_of_contents_component" => %w[playground default],
     "gcweb/services_and_information_component" => %w[playground three_columns two_columns single_column sequential grouped with_labels more_information],
     "gcweb/overlay_component" => %w[playground panels bars popups full_screen custom_footer open_on_load],
@@ -46,6 +47,16 @@ class PreviewsTest < ActionDispatch::IntegrationTest
         end
       end
     end
+  end
+
+  test "the data table preview sorts and filters from the URL" do
+    get "/rails/view_components/gcweb/data_table_component/default", params: { sort: "browser", direction: "desc", q: "Opera" }
+
+    assert_select "thead th.sorting_desc[aria-sort=descending]", "Browser"
+    assert_select "tbody tr", 8
+    assert_select "tbody tr:first-child td.sorting_1", "Opera for Wii"
+    assert_select ".dataTables_info", "Showing 1 to 8 of 8 entries (filtered from 57 total entries)"
+    assert_select "thead th:nth-child(1) a[href*='q=Opera']"
   end
 
   test "alert previews use GCWeb's demo text per locale" do

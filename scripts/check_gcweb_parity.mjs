@@ -514,6 +514,47 @@ const addGcwebPanelTable = (page) =>
   });
 const PANEL_TABLE_PARTS = ["", " > caption", " > thead > tr > th:first-child", " > tbody > tr:first-child > td:first-child", " > tbody > tr:last-child > td:last-child"];
 
+// Data tables (wet-boew tables / wb-tables). GCWeb's demo builds its
+// controls with DataTables in the browser; its first table starts sorted by
+// the first column, ascending, like the default preview. DataTables'
+// controls are buttons and ours are links (the server sorts), so each pair
+// compares a button with a link. GCWeb's info line ends in a "|" before its
+// page-size menu, which the previews don't have yet: its ::after isn't
+// compared.
+const GCWEB_DATA_TABLES = "https://wet-boew.github.io/gcweb-compiled-demos/wetboew-demos/tables/tables-en.html";
+const DATA_TABLES_PREVIEW = "/rails/view_components/gcweb/data_table_component";
+const DATA_TABLE_PROPS = [...TABLE_PROPS, "float", "cursor", "border-bottom-width", "border-bottom-color"];
+const DT = "main .dataTables_wrapper";
+const dataTablePairs = (control) => [
+  [DT, DT], [`${DT} > .top`, `${DT} > .top`],
+  [`${DT} .dataTables_filter`, `${DT} .dataTables_filter`],
+  [`${DT} .dataTables_filter label`, `${DT} .dataTables_filter label`],
+  [`${DT} .dataTables_filter input[type=search]`, `${DT} .dataTables_filter input[type=search]`],
+  [`${DT} .dataTables_info`, `${DT} .dataTables_info`],
+  [`${DT} > table.dataTable`, `${DT} > table.dataTable`],
+  ...[1, 2, 5].map((n) => [`${DT} > table > thead th:nth-child(${n})`, `${DT} > table > thead th:nth-child(${n})`]),
+  ...[1, 2].flatMap((n) => [
+    [`${DT} > table > thead th:nth-child(${n}) > button`, `${DT} > table > thead th:nth-child(${n}) > ${control}`],
+    [`${DT} > table > thead th:nth-child(${n}) .sorting-cnt`, `${DT} > table > thead th:nth-child(${n}) .sorting-cnt`],
+    [`${DT} > table > thead th:nth-child(${n}) .sorting-icons`, `${DT} > table > thead th:nth-child(${n}) .sorting-icons`],
+    [`${DT} > table > thead th:nth-child(${n}) .sorting-icons::before`, `${DT} > table > thead th:nth-child(${n}) .sorting-icons::before`],
+    [`${DT} > table > thead th:nth-child(${n}) .sorting-icons::after`, `${DT} > table > thead th:nth-child(${n}) .sorting-icons::after`]
+  ]),
+  [`${DT} > table > tbody > tr:first-child`, `${DT} > table > tbody > tr:first-child`],
+  [`${DT} > table > tbody > tr:first-child > td:first-child`, `${DT} > table > tbody > tr:first-child > td:first-child`],
+  [`${DT} > table > tbody > tr:first-child > td:nth-child(2)`, `${DT} > table > tbody > tr:first-child > td:nth-child(2)`],
+  [`${DT} > table > tbody > tr:nth-child(2) > td:last-child`, `${DT} > table > tbody > tr:nth-child(2) > td:last-child`]
+];
+const dataTableCheck = (name, preview, extra = {}) => ({
+  name: `data tables / ${name}`,
+  gcweb: GCWEB_DATA_TABLES,
+  gcwebSetup: (page) => page.waitForSelector(".dataTables_wrapper"),
+  preview: `${DATA_TABLES_PREVIEW}/${preview}`,
+  props: DATA_TABLE_PROPS,
+  pairs: dataTablePairs("a"),
+  ...extra
+});
+
 // Page header (sites/header) and the Application template. The previews
 // use GCWeb's ids, so selectors are the same on both sides. The banner's
 // columns are percentages of the same container, so their widths are
@@ -1138,6 +1179,23 @@ const CHECKS = [
   tableCheck("full width in a panel", ".parity-panel-table > table.table", "in_panels", {
     gcwebSetup: addGcwebPanelTable,
     pairs: tablePairs(".parity-panel-table > table.table", "main > .panel:last-of-type > table.table", PANEL_TABLE_PARTS)
+  }),
+  dataTableCheck("sorted ascending", "default"),
+  dataTableCheck("sorted descending", "default?sort=engine&direction=desc", {
+    gcwebSetup: async (page) => {
+      await page.waitForSelector(".dataTables_wrapper");
+      await page.click(`${DT} > table > thead th:nth-child(1) > button`);
+      await page.mouse.move(0, 0);
+      await page.evaluate(() => document.activeElement.blur());
+    }
+  }),
+  dataTableCheck("small screens", "default", { viewport: { width: 800, height: 900 } }),
+  // The table is wider than a phone, so its auto margin-right resolves to
+  // minus the overflow, which depends on the OS's text widths.
+  dataTableCheck("phones", "default", {
+    viewport: { width: 375, height: 812 },
+    pairs: dataTablePairs("a").map(([ref, mine]) =>
+      (ref === `${DT} > table.dataTable` ? [ref, mine, DATA_TABLE_PROPS.filter((prop) => prop !== "margin-right")] : [ref, mine]))
   }),
   {
     name: "wells / sizes and bold",

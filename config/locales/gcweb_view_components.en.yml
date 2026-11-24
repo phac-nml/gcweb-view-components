@@ -11,6 +11,18 @@ en:
     # The breadcrumb trail's hidden heading (sites/breadcrumbs).
     breadcrumbs:
       title: "You are here:"
+    # Data tables (wet-boew tables / wb-tables): wet-boew's i18n strings on
+    # GCWeb v20.0.1 (sortAsc, sortDesc, filter, infoEntr, infoEmpty,
+    # infoFilt, info1000 and emptyTbl).
+    data_table:
+      sort_asc: "%{column}: activate for ascending sort"
+      sort_desc: "%{column}: activate for descending sort"
+      filter: "Filter items"
+      info: "Showing %{first} to %{last} of %{total} entries"
+      info_empty: "Showing 0 to 0 of 0 entries"
+      info_filtered: "(filtered from %{max} total entries)"
+      thousands_delimiter: ","
+      empty: "No data is available in the table"
     featured_link:
       heading: "Spotlight on"
     # The services and information heading (GCWeb components/gc-srvinfo).
