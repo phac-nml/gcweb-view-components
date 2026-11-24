@@ -224,6 +224,16 @@
   --gcweb-color-table-warning-hover-bg: rgb(97.8557874763%, 94.9968374447%, 79.9873497786%);
   --gcweb-color-table-danger-hover-bg: rgb(92.0758738278%, 79.8849104859%, 79.8849104859%);
 
+  // Data tables (wet-boew tables / wb-tables, DataTables' theme as GCWeb ships it)
+  --gcweb-color-data-table-rule: #111; // heading and table bottom borders
+  --gcweb-color-data-table-sorted-bg: #e7e7e7; // the sorted column's heading
+  --gcweb-color-data-table-icon-bg: #fff; // sort arrows
+  --gcweb-color-data-table-icon-border: #aaa;
+  --gcweb-color-data-table-icon-text: #757575;
+  --gcweb-color-data-table-icon-active-bg: #ccc; // the current direction's arrow
+  --gcweb-color-data-table-icon-active-border: #111;
+  --gcweb-color-data-table-icon-active-text: #000;
+
   // Page shell (sites/header, sites/breadcrumbs, templates/application)
   --gcweb-color-header-rule: #38414d; // #wb-bnr + hr, .application-bar
   --gcweb-color-header-button-bg: #26374a; // search button, skip links

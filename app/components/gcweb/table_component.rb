@@ -116,9 +116,14 @@ module Gcweb
       tag.tr(**(@row_attributes&.call(row) || {})) do
         safe_join(@columns.map do |column|
           value = column.value(row, @view_context)
-          column.row_header ? tag.th(value, scope: "row", **column.html_attributes) : tag.td(value, **column.html_attributes)
+          column.row_header ? tag.th(value, scope: "row", **cell_attributes(column)) : tag.td(value, **cell_attributes(column))
         end)
       end
+    end
+
+    # The attributes of a column's body cells.
+    def cell_attributes(column)
+      column.html_attributes
     end
   end
 end

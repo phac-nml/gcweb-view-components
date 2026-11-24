@@ -1,0 +1,13 @@
+<%# The preview plays the controller: the URL's sort, direction and q win over the scenario's. %>
+<% sort = params[:sort] || defaults[:sort] %>
+<% direction = params[:direction] || defaults[:direction] %>
+<% filter = params.key?(:q) ? params[:q] : defaults[:q] %>
+<% rows = Gcweb::DataTableComponentPreview.query(sort: sort, direction: direction, filter: filter) %>
+<%= render Gcweb::DataTableComponent.new(rows: rows, sort: sort, direction: direction, filter: filter,
+      unfiltered_count: Gcweb::DataTableComponentPreview::BROWSERS.size, id: "browsers", **(local_assigns[:options] || {})) do |table| %>
+  <% table.with_column(t("previews.data_tables.engine"), :engine, sortable: true) %>
+  <% table.with_column(t("previews.data_tables.browser"), :browser, sortable: true) %>
+  <% table.with_column(t("previews.data_tables.platforms"), :platforms, sortable: true) %>
+  <% table.with_column(t("previews.data_tables.version"), :version, sortable: true, class: "center") %>
+  <% table.with_column(t("previews.data_tables.grade"), :grade, class: "center") %>
+<% end %>

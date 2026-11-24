@@ -11,6 +11,18 @@ fr:
     # The breadcrumb trail's hidden heading (sites/breadcrumbs).
     breadcrumbs:
       title: "Vous êtes ici :"
+    # Tableaux de données (wet-boew tables / wb-tables) : chaînes i18n de
+    # wet-boew sur GCWeb v20.0.1 (sortAsc, sortDesc, filter, infoEntr,
+    # infoEmpty, infoFilt, info1000 et emptyTbl).
+    data_table:
+      sort_asc: "%{column}\u00A0: activer pour tri ascendant"
+      sort_desc: "%{column}\u00A0: activer pour tri descendant"
+      filter: "Filtrer les articles"
+      info: "Affiche %{first} à %{last} de %{total} entrées"
+      info_empty: "Affiche 0 à 0 de 0 entrées"
+      info_filtered: "(filtré de %{max} entrées totales)"
+      thousands_delimiter: "\u00A0"
+      empty: "Aucune donnée n'est disponible dans le tableau"
     featured_link:
       heading: "Pleins feux sur"
     # The services and information heading (GCWeb components/gc-srvinfo).

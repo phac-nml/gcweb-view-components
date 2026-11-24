@@ -172,6 +172,14 @@
   --gcweb-color-table-info-hover-bg: rgb(76.8371696505%, 89.0281329923%, 95.1236146633%);
   --gcweb-color-table-warning-hover-bg: rgb(97.8557874763%, 94.9968374447%, 79.9873497786%);
   --gcweb-color-table-danger-hover-bg: rgb(92.0758738278%, 79.8849104859%, 79.8849104859%);
+  --gcweb-color-data-table-rule: #111;
+  --gcweb-color-data-table-sorted-bg: #e7e7e7;
+  --gcweb-color-data-table-icon-bg: #fff;
+  --gcweb-color-data-table-icon-border: #aaa;
+  --gcweb-color-data-table-icon-text: #757575;
+  --gcweb-color-data-table-icon-active-bg: #ccc;
+  --gcweb-color-data-table-icon-active-border: #111;
+  --gcweb-color-data-table-icon-active-text: #000;
   --gcweb-color-header-rule: #38414d;
   --gcweb-color-header-button-bg: #26374a;
   --gcweb-color-header-button-hover-bg: #444;
@@ -2445,6 +2453,181 @@ a.badge:hover {
     border: 1px solid var(--gcweb-color-table-border) !important;
   }
 }
+.dataTables_wrapper {
+  clear: both;
+  position: relative;
+}
+.dataTables_wrapper::after {
+  clear: both;
+  content: "";
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+.dataTables_wrapper .top {
+  font-size: 17px;
+}
+.dataTables_wrapper .top [type=search] {
+  max-width: 205px;
+}
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_length {
+  color: var(--gcweb-color-text);
+}
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_length {
+  font-weight: var(--gcweb-font-weight-normal);
+}
+.dataTables_wrapper .dataTables_filter {
+  float: left;
+  margin-right: 15px;
+}
+.dataTables_wrapper .dataTables_filter input {
+  appearance: none;
+  box-sizing: border-box;
+  color: var(--gcweb-color-input-placeholder);
+  font: inherit;
+  line-height: inherit;
+  margin: 0 0 0 0.5em;
+}
+.dataTables_wrapper .dataTables_info {
+  display: inline-block;
+}
+.dataTables_wrapper .dataTables_length {
+  display: inline-block;
+  margin-top: 5px;
+}
+@media screen and (min-width: 480px) {
+  .dataTables_wrapper .dataTables_info:not(:last-child)::after {
+    content: "|";
+    font-size: 1.2em;
+    line-height: 1em;
+    padding: 0 0.25em;
+  }
+}
+@media screen and (max-width: 991px) {
+  .dataTables_wrapper .dataTables_info {
+    padding-bottom: 5px;
+  }
+  .dataTables_wrapper .dataTables_filter {
+    float: left;
+    text-align: left;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 479px) {
+  .dataTables_wrapper .dataTables_length {
+    width: 100%;
+  }
+}
+
+table.dataTable {
+  border-collapse: separate;
+  border-spacing: 0;
+  clear: both;
+  margin: 0 auto;
+  width: 100% !important;
+}
+table.dataTable,
+table.dataTable td,
+table.dataTable th {
+  box-sizing: content-box;
+}
+table.dataTable.no-footer {
+  border-bottom: 1px solid var(--gcweb-color-data-table-rule);
+}
+table.dataTable thead th,
+table.dataTable thead td,
+table.dataTable tfoot th,
+table.dataTable tfoot td {
+  border-bottom: 1px solid var(--gcweb-color-data-table-rule);
+}
+table.dataTable thead th,
+table.dataTable tfoot th {
+  font-weight: var(--gcweb-font-weight-bold);
+}
+table.dataTable thead th:active,
+table.dataTable thead td:active {
+  outline: 0;
+}
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc {
+  cursor: pointer;
+}
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc {
+  background-color: var(--gcweb-color-data-table-sorted-bg);
+}
+table.dataTable thead button,
+table.dataTable thead a {
+  appearance: none;
+  display: inline-block;
+  background: 0 0;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  padding: 0;
+  text-align: left;
+  text-decoration: none;
+}
+table.dataTable thead a:hover,
+table.dataTable thead a:focus {
+  text-decoration: underline;
+}
+table.dataTable thead .sorting-cnt {
+  white-space: nowrap;
+}
+table.dataTable thead .sorting-cnt::before {
+  content: " ";
+}
+table.dataTable thead .sorting-icons {
+  display: none;
+  margin-top: 2px;
+}
+table.dataTable thead .sorting-icons::before, table.dataTable thead .sorting-icons::after {
+  background: var(--gcweb-color-data-table-icon-bg);
+  border: 1px solid var(--gcweb-color-data-table-icon-border);
+  color: var(--gcweb-color-data-table-icon-text);
+  font-family: "Glyphicons Halflings";
+  font-weight: 400;
+  line-height: 1em;
+  position: relative;
+  top: 0.1em;
+}
+table.dataTable thead .sorting-icons::before {
+  content: "\e093";
+  padding: 0 0.1em 0 0;
+}
+table.dataTable thead .sorting-icons::after {
+  content: "\e094";
+  padding: 0 0.04em 0 0.06em;
+}
+table.dataTable thead .sorting .sorting-icons,
+table.dataTable thead .sorting_asc .sorting-icons,
+table.dataTable thead .sorting_desc .sorting-icons {
+  display: inline-block;
+}
+table.dataTable thead .sorting_asc .sorting-icons::before,
+table.dataTable thead .sorting_desc .sorting-icons::after {
+  background: var(--gcweb-color-data-table-icon-active-bg);
+  border-color: var(--gcweb-color-data-table-icon-active-border);
+  color: var(--gcweb-color-data-table-icon-active-text);
+}
+table.dataTable tbody tr {
+  background-color: var(--gcweb-color-body-bg);
+}
+table.dataTable td.right,
+table.dataTable th.right {
+  text-align: right;
+}
+table.dataTable td.center,
+table.dataTable th.center,
+table.dataTable td.dataTables_empty {
+  text-align: center;
+}
+
 .form-group {
   margin-bottom: 15px;
 }
