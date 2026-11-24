@@ -14,6 +14,9 @@ importers:
       '@hotwired/stimulus':
         specifier: ^3.2.2
         version: 3.2.2
+      '@hotwired/turbo':
+        specifier: ^8.0.23
+        version: 8.0.23
       jsdom:
         specifier: ^31.0.1
         version: 31.0.1
@@ -70,6 +73,10 @@ packages:
 
   '@hotwired/stimulus@3.2.2':
     resolution: {integrity: sha512-eGeIqNOQpXoPAIP7tC1+1Yc1yl1xnwYqg+3mzqxyrbE5pg5YFBZcA6YoTiByJB6DKAEsiWtl6tjTJS4IYtbB7A==}
+
+  '@hotwired/turbo@8.0.23':
+    resolution: {integrity: sha512-GZ7cijxEZ6Ig71u7rD6LHaRv/wcE/hNsc+nEfiWOkLNqUgLOwo5MNGWOy5ZV9ZUDSiQx1no7YxjTNnT4O6//cQ==}
+    engines: {node: '>= 18'}
 
   '@jridgewell/resolve-uri@3.1.3':
     resolution: {integrity: sha512-lhTtjtoEArWBjismtfS761S9Hlyn+nIZqOZVYoZ1Xn82PMNMVnk+jj/NhC4fAXGTs7ydONcJiR5vyQBTMDu27g==}
@@ -882,6 +889,8 @@ snapshots:
   '@exodus/bytes@1.16.0': {}
 
   '@hotwired/stimulus@3.2.2': {}
+
+  '@hotwired/turbo@8.0.23': {}
 
   '@jridgewell/resolve-uri@3.1.3': {}
 

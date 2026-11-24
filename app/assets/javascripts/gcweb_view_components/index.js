@@ -10,6 +10,7 @@
 // a folder namespace), matching the data-controller values the components
 // render.
 
+import DataTableController from "./controllers/data_table_controller.js"
 import FeaturedLinkController from "./controllers/featured_link_controller.js"
 import FormValidationController from "./controllers/form_validation_controller.js"
 import OverlayController from "./controllers/overlay_controller.js"
@@ -17,6 +18,7 @@ import TabsController from "./controllers/tabs_controller.js"
 import ToggleController from "./controllers/toggle_controller.js"
 
 export const controllers = {
+  "gcweb--data-table": DataTableController,
   "gcweb--featured-link": FeaturedLinkController,
   "gcweb--form-validation": FormValidationController,
   "gcweb--overlay": OverlayController,
@@ -30,4 +32,4 @@ export function registerGcwebControllers(application) {
   }
 }
 
-export { FeaturedLinkController, FormValidationController, OverlayController, TabsController, ToggleController }
+export { DataTableController, FeaturedLinkController, FormValidationController, OverlayController, TabsController, ToggleController }

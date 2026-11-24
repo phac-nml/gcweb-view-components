@@ -189,6 +189,26 @@ module Gcweb
       assert_raises(ArgumentError) { render_table(pagy: Pagy::Offset::Countless.new(page: 1, limit: 10)) }
     end
 
+    test "turbo_frame: puts the table in a frame that its own links and forms name" do
+      render_table(turbo_frame: "frame", pagy: pagy(client_limit: 50, page_key: "p"))
+
+      assert_selector "[data-controller='gcweb--data-table'][data-gcweb--data-table-page-param-value=p] > turbo-frame#frame[target=_top][data-turbo-action=advance] > .dataTables_wrapper"
+      assert_selector "turbo-frame + [role=status].wb-inv", exact_text: ""
+      assert_no_selector "turbo-frame [role=status]"
+      assert_selector ".dataTables_filter form[data-turbo-frame=frame][data-turbo-action=replace]"
+      assert_selector ".dataTables_length form[data-turbo-frame=frame]"
+      assert_selector "a[rel=next][data-turbo-frame=frame]"
+      assert_equal "frame", sort_link(1)["data-turbo-frame"]
+      assert_no_selector "tbody a[data-turbo-frame]"
+    end
+
+    test "without turbo_frame: there's no frame; its id can't be the table's" do
+      render_table
+
+      assert_no_selector "turbo-frame, [data-controller], [data-turbo-frame]"
+      assert_raises(ArgumentError) { render_table(turbo_frame: "samples") }
+    end
+
     test "an id is generated when none is given" do
       render_inline(DataTableComponent.new(rows: ROWS)) { |table| table.with_column("Name", :name) }
 
