@@ -8,7 +8,7 @@ module Gcweb
   # The headings are links and the filter is a GET form, so sorting and
   # filtering are plain requests with `sort`, `direction` and `q` in the URL:
   # your controller reads them, queries the database and passes the rows in.
-  # Inside a Turbo Frame only the frame is replaced.
+  # With `turbo_frame:` only the table is replaced (see below).
   #
   #   # samples_controller.rb
   #   sort = %w[name collected_on].include?(params[:sort]) ? params[:sort] : "name"
@@ -38,6 +38,15 @@ module Gcweb
   #
   #   <%= render Gcweb::DataTableComponent.new(rows: @samples, pagy: @pagy, …) do |table| %>
   #
+  # With `turbo_frame:` (a page-unique id) the table is in a Turbo Frame:
+  # sorting, filtering and paging replace only the table and update the URL,
+  # and the `gcweb--data-table` Stimulus controller filters as people type,
+  # applies the page size on selection, keeps focus and announces the new
+  # info line. Links in the rows still load the whole page. It's the same
+  # plain requests without Turbo, which your app adds.
+  #
+  #   <%= render Gcweb::DataTableComponent.new(rows: @samples, turbo_frame: "samples_frame", …) do |table| %>
+  #
   # Everything TableComponent takes (striped:, bordered:, row_attributes:, …)
   # works here too.
   class DataTableComponent < TableComponent
@@ -66,6 +75,7 @@ module Gcweb
     #   "(filtered from 1,234 total entries)" while a filter is applied
     # @param pagy [Pagy, nil] the Pagy object rows is a page of (one that counts its records)
     # @param page_sizes [Array<Integer>] the page-size menu's choices, up to Pagy's client_limit
+    # @param turbo_frame [String, nil] the id of a Turbo Frame to put the table in
     # @param url [String, nil] where the links and the form go; defaults to the current path
     # @param params [Hash, nil] the query parameters links keep; defaults to the current ones
     # @param sort_param [String, Symbol] the query parameter for the sort value
@@ -74,13 +84,16 @@ module Gcweb
     # @param page_param [String, Symbol] the page parameter, dropped when sorting or filtering; with pagy, its page_key
     # @param table_options [Hash] TableComponent's options and the <table>'s attributes
     def initialize(rows:, sort: nil, direction: nil, filter: nil, filterable: true, info: true,
-                   unfiltered_count: nil, pagy: nil, page_sizes: PAGE_SIZES, url: nil, params: nil, sort_param: :sort,
+                   unfiltered_count: nil, pagy: nil, page_sizes: PAGE_SIZES, turbo_frame: nil, url: nil, params: nil, sort_param: :sort,
                    direction_param: :direction, filter_param: :q, page_param: :page, **table_options)
       raise ArgumentError, "rows: is required" if rows.nil?
 
       raise ArgumentError, "pagy: needs a Pagy object that counts its records (pagy(:offset, …))" if pagy && !PaginationComponent.counted?(pagy)
 
+      raise ArgumentError, "turbo_frame: needs an id of its own, not the table's" if turbo_frame && turbo_frame.to_s == table_options[:id].to_s
+
       super(rows:, **table_options)
+      @turbo_frame = turbo_frame.presence&.to_s
       @pagy = pagy
       @page_sizes = page_sizes
       page_param = pagy.options[:page_key] if pagy
@@ -112,9 +125,11 @@ module Gcweb
     end
 
     def call
-      tag.div(class: "dataTables_wrapper no-footer", id: "#{id}_wrapper") do
+      wrapper = tag.div(class: "dataTables_wrapper no-footer", id: "#{id}_wrapper") do
         safe_join([ top, super, bottom ].compact)
       end
+
+      @turbo_frame ? framed(wrapper) : wrapper
     end
 
     # The <table>'s id; the filter box and info line point at it.
@@ -124,6 +139,22 @@ module Gcweb
     attr_reader :sorted_column
 
     private
+
+    # The frame, and a status for announcements: both stay when the frame's
+    # content is replaced. Row links leave the frame (target); the table's
+    # own links and forms name it.
+    def framed(wrapper)
+      frame = content_tag("turbo-frame", wrapper, id: @turbo_frame, target: "_top", class: "gcweb-data-table-frame",
+                          data: { turbo_action: "advance", "gcweb--data-table-target": "frame" })
+      status = tag.div(role: "status", class: "wb-inv", data: { "gcweb--data-table-target": "status" })
+
+      tag.div(safe_join([ frame, status ]), data: {
+        controller: "gcweb--data-table", "gcweb--data-table-live-class": "gcweb-data-table-live",
+        "gcweb--data-table-page-param-value": @param_names[:page]
+      })
+    end
+
+    def frame_data(**data) = @turbo_frame ? { turbo_frame: @turbo_frame, **data } : {}
 
     def classes
       class_names("wb-tables", super, "dataTable", "no-footer")
@@ -136,7 +167,8 @@ module Gcweb
 
     def filter_box
       tag.div(class: "dataTables_filter", id: "#{id}_filter") do
-        tag.form(action: base_url, method: "get", "accept-charset": "UTF-8") do
+        # Not a history entry for each pause in typing.
+        tag.form(action: base_url, method: "get", "accept-charset": "UTF-8", data: frame_data(turbo_action: "replace")) do
           safe_join([
             tag.label do
               safe_join([ t("gcweb.data_table.filter"),
@@ -156,7 +188,8 @@ module Gcweb
         render PaginationComponent.new(pagy: @pagy, url: (url if @url || @params), controls: id, id: "#{id}_paginate",
                                        label: (t("gcweb.data_table.pagination", caption: strip_tags(caption.to_s)) if caption),
                                        class: "dataTables_paginate paging_simple_numbers",
-                                       list_attributes: { class: "mrgn-tp-0 mrgn-bttm-0" })
+                                       list_attributes: { class: "mrgn-tp-0 mrgn-bttm-0" },
+                                       link_attributes: { data: frame_data })
       end
     end
 
@@ -167,7 +200,7 @@ module Gcweb
       select = tag.select(page_size_options, name:, "aria-controls": id)
 
       tag.div(class: "dataTables_length", id: "#{id}_length") do
-        tag.form(action: base_url, method: "get", "accept-charset": "UTF-8") do
+        tag.form(action: base_url, method: "get", "accept-charset": "UTF-8", data: frame_data) do
           safe_join([
             tag.label(t("gcweb.data_table.length_html", menu: select)),
             tag.button(t("gcweb.data_table.length_apply"), type: "submit", class: "btn btn-default btn-xs"),
@@ -192,7 +225,8 @@ module Gcweb
     end
 
     def info_line
-      tag.div(info_text, class: "dataTables_info", id: "#{id}_info", role: "status", "aria-live": "polite")
+      live = { role: "status", "aria-live": "polite" } unless @turbo_frame # which has its own status
+      tag.div(info_text, class: "dataTables_info", id: "#{id}_info", **live.to_h)
     end
 
     def info_text
@@ -220,7 +254,7 @@ module Gcweb
       title = t("gcweb.data_table.sort_#{next_direction}", column: strip_tags(column.header.to_s))
 
       tag.th(scope: "col", class: classes, "aria-sort": aria_sort) do
-        link_to(sort_url(column, next_direction), title:) do
+        link_to(sort_url(column, next_direction), title:, data: frame_data) do
           safe_join([ column.header, tag.span(tag.span(class: "sorting-icons", "aria-hidden": "true"), class: "sorting-cnt") ])
         end
       end

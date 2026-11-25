@@ -26,8 +26,9 @@ module Gcweb
     # @param label [String, nil] the navigation's name; defaults to "Pagination"
     # @param controls [String, nil] the id of the element the pages are of
     # @param list_attributes [Hash] extra attributes for the <ol>
+    # @param link_attributes [Hash] extra attributes for the links
     # @param html_attributes [Hash] extra attributes for the <nav>
-    def initialize(pagy: nil, page: nil, pages: nil, url: nil, label: nil, controls: nil, list_attributes: {}, **html_attributes)
+    def initialize(pagy: nil, page: nil, pages: nil, url: nil, label: nil, controls: nil, list_attributes: {}, link_attributes: {}, **html_attributes)
       raise ArgumentError, "pagy: needs a Pagy object that counts its records (pagy(:offset, …))" if pagy && !self.class.counted?(pagy)
       raise ArgumentError, "give pagy:, or page:, pages: and url:" unless pagy || (page && pages && url)
 
@@ -37,6 +38,7 @@ module Gcweb
       @label = label
       @controls = controls
       @list_attributes = list_attributes
+      @link_attributes = link_attributes
       @html_attributes = html_attributes
     end
 
@@ -79,8 +81,8 @@ module Gcweb
     end
 
     def item(number, text, active: false, **attributes)
-      link = tag.a(text, href: @url.call(number), "aria-controls": @controls, **attributes,
-                   class: class_names("paginate_button", attributes[:class]))
+      link = tag.a(text, **@link_attributes, href: @url.call(number), "aria-controls": @controls, **attributes,
+                   class: class_names("paginate_button", @link_attributes[:class], attributes[:class]))
       tag.li(link, class: ("active" if active))
     end
   end

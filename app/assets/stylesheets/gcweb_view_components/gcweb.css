@@ -2908,6 +2908,14 @@ a.badge:hover {
   }
 }
 
+.gcweb-data-table-frame {
+  display: block;
+}
+
+.gcweb-data-table-live .dataTables_length .btn {
+  display: none;
+}
+
 table.dataTable {
   border-collapse: separate;
   border-spacing: 0;

@@ -14,7 +14,7 @@ class PreviewsTest < ActionDispatch::IntegrationTest
     "gcweb/well_component" => %w[playground default],
     "gcweb/header_component" => %w[playground canada_ca application application_search],
     "gcweb/table_component" => %w[playground basic striped bordered hover condensed contextual responsive gridify in_panels],
-    "gcweb/data_table_component" => %w[playground default descending paged filtered no_matches],
+    "gcweb/data_table_component" => %w[playground default descending paged turbo_frame filtered no_matches],
     "gcweb/pagination_component" => %w[playground first_page second_page middle_page last_page],
     "gcweb/table_of_contents_component" => %w[playground default],
     "gcweb/services_and_information_component" => %w[playground three_columns two_columns single_column sequential grouped with_labels more_information],

@@ -83,6 +83,16 @@ module Gcweb
       render_with_template(template: TEMPLATE, locals: { defaults: { sort: "engine", direction: "asc" }, paged: true })
     end
 
+    # @label In a Turbo Frame
+    #
+    # `turbo_frame:` replaces only the table. The filter applies as you type
+    # and the page size on selection; focus stays where it was.
+    def turbo_frame
+      render_with_template(template: TEMPLATE, locals: {
+        defaults: { sort: "engine", direction: "asc" }, paged: true, options: { turbo_frame: "browsers_frame" }
+      })
+    end
+
     # @label Filtered
     #
     # The filter "Opera" matches 8 of the 57 rows. Pass the count before

@@ -127,6 +127,16 @@
   }
 }
 
+// In a Turbo Frame (turbo_frame:).
+.gcweb-data-table-frame {
+  display: block;
+}
+
+// The page size is applied on selection (gcweb--data-table).
+.gcweb-data-table-live .dataTables_length .btn {
+  display: none;
+}
+
 table.dataTable {
   border-collapse: separate;
   border-spacing: 0;

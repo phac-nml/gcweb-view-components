@@ -14,7 +14,7 @@ const SCENARIOS = {
   "gcweb/well_component": ["default"],
   "gcweb/header_component": ["canada_ca", "application", "application_search"],
   "gcweb/table_component": ["basic", "striped", "bordered", "hover", "condensed", "contextual", "responsive", "gridify", "in_panels"],
-  "gcweb/data_table_component": ["default", "descending", "paged", "filtered", "no_matches"],
+  "gcweb/data_table_component": ["default", "descending", "paged", "turbo_frame", "filtered", "no_matches"],
   "gcweb/pagination_component": ["first_page", "second_page", "middle_page", "last_page"],
   "gcweb/table_of_contents_component": ["default"],
   "gcweb/services_and_information_component": ["three_columns", "two_columns", "single_column", "sequential", "grouped", "with_labels", "more_information"],
